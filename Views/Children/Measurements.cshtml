@@ -1,0 +1,158 @@
+﻿@model VaccinationManager.ViewModels.MeasurementViewModel
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@using (Html.BeginForm("Measurements", "Children", FormMethod.Post))
+{
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Weight")
+                </th>
+                <th>
+                    @Html.DisplayName("Height")
+                </th>
+                <th>
+                    @Html.DisplayName("Head Circumference")
+                </th>
+                <th>
+                    @Html.DisplayName("Child ID")
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Measurements)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Weight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Height)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HeadCircumference)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChildID)
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <div class="row">
+            <div class="col-md-10">
+                <canvas id="heightChart" style="width: 100%; height: auto;"></canvas>
+            </div>
+            <div class="col-md-2">
+                <div id="js-legend" class="chart-legend"></div>
+            </div>
+            <img id="image" />
+        </div>
+
+        <script type="text/javascript">
+            //$(function() {
+            var heightData = @Html.Raw(Json.Encode(Model.HeightData));
+            var chartLabel = @Html.Raw(Json.Encode(Model.LabelData));
+            var headData = @Html.Raw(Json.Encode(Model.HeadData));
+            var weightData =  @Html.Raw(Json.Encode(Model.WeightData));
+
+            var data = {
+                labels: chartLabel,
+                datasets: [
+                    {
+                        label: "Head Circumference",
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: headData,
+                    },
+                    {
+                        label: "Height",
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(151,187,205,1)",
+                        data: heightData,
+                    },
+                    {
+                        label: "Weight",
+                        fillColor: "rgba(153,232,214,0.2)",
+                        strokeColor: "rgba(153,232,214,1)",
+                        pointColor: "rgba(153,232,214,1)",
+                        pointStrokeColor: "",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(153,232,214,1)",
+                        data: weightData,
+                    }
+                ]
+            };
+
+            var options = {
+                segmentShowStroke: false,
+                animateRotate: true,
+                animateScale: false,
+                percentageInnerCutout: 50,
+                tooltipTemplate: "<%= value %>%",
+                onAnimationComplete: done 
+            }
+
+            // Get the context of the canvas element we want to select
+            var ctx = document.getElementById("heightChart").getContext("2d");
+            var lineChart = new Chart(ctx).Line(data, options);
+            //then you just need to generate the legend
+            var legend = lineChart.generateLegend();
+ 
+            document.getElementById('js-legend').innerHTML = lineChart.generateLegend();
+            //});
+            function done() {
+                console.log('done');
+                var url=document.getElementById("heightChart").toDataURL();
+                //document.getElementById("image").src=url;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("MeasurementChart", "Children")',
+                    contentType: "image/png; base64",
+                    data: url ,
+                    dataType: "json",
+                });
+            }
+        </script>
+        <br/>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10" style="text-align:right">
+                <input type="submit" value="Create Report" class="btn btn-default" formtarget="_blank" style="width:200px" align="right" />
+            </div>
+        </div>
+    </div>
+}
+@Html.ActionLink("Back to List", "Index")
+
+@*//legendTemplate takes a template as a string, you can populate the template with values from your dataset
+var options = {
+  legendTemplate : '<ul>
+    '
+    +'<% for (var i=0; i
+    <datasets.length; i++) { %>
+        '
+        +'<li>
+            '
+            +'<span style=\"background-color:<%=datasets[i].lineColor%>\"></span>'
+            +'<% if (datasets[i].label) { %><%= datasets[i].label %><% } %>'
+            +'
+        </li>'
+        +'<% } %>'
+        +'
+</ul>'
+  }*@

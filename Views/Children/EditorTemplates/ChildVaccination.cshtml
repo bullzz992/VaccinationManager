@@ -1,0 +1,8 @@
+﻿@model VaccinationManager.Models.ChildVaccination
+<div>
+        @Html.DisplayFor(modelItem => modelItem.Age.Description)
+        @Html.DisplayFor(modelItem => modelItem.Code)
+        @Html.DisplayFor(modelItem => modelItem.Name)
+        @Html.CheckBox("Done", modelItem => modelItem.Vaccinated)
+        @Html.DisplayFor(modelItem => modelItem.DateVaccinated)
+</div>

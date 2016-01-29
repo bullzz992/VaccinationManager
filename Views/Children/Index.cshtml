@@ -1,0 +1,118 @@
+﻿@model IEnumerable<VaccinationManager.Models.Child>
+
+@{
+    ViewBag.Title = "Children";
+}
+
+<h2>Children</h2>
+
+<div class="container-fluid">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    @using (Html.BeginForm("Index", "Children", FormMethod.Get))
+    {
+        <p>
+            Filter: @Html.DropDownList("filter")
+            Value: @Html.TextBox("SearchString")
+            <input type="submit" value="Search" />
+        </p>
+    }
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                ID Number
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BloodType)
+            </th>
+            <th>
+                Mother ID No
+            </th>
+            <th>
+                Father ID No
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BloodType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MotherId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FatherId)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Add Vaccination", "ChildVaccinations", item) |
+                        @Html.ActionLink("Add Measurements", "CreateMeasurement", new { id = item.IdNumber }) |
+                        @Html.ActionLink("Edit", "Edit", new { id=item.IdNumber }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.IdNumber }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.IdNumber }) |
+                        @Html.ActionLink("Measurements", "Measurements", new { id = item.IdNumber })*@
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Add Vaccination", "ChildVaccinations", item)</li>
+                            <li>@Html.ActionLink("Add Measurements", "CreateMeasurement", new { id = item.IdNumber })</li>
+                            <li>@Html.ActionLink("Edit", "Edit", new { id = item.IdNumber })</li>
+                            <li>@Html.ActionLink("Details", "Details", new { id = item.IdNumber })</li>
+                            <li>@Html.ActionLink("Delete", "Delete", new { id = item.IdNumber })</li>
+                            @*<li>@Html.ActionLink("Measurements", "Measurements", new { id = item.IdNumber })</li>*@
+                        </ul>
+                    </div>
+                    @*<div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Actions
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li>@Html.ActionLink("Add Vaccination", "ChildVaccinations", item)</li>
+                            <li>@Html.ActionLink("Add Measurements", "CreateMeasurement", new { id = item.IdNumber })</li>
+                            <li>@Html.ActionLink("Edit", "Edit", new { id = item.IdNumber })</li>
+                            <li>@Html.ActionLink("Details", "Details", new { id = item.IdNumber })</li>
+                            <li>@Html.ActionLink("Delete", "Delete", new { id = item.IdNumber })</li>
+                            <li>@Html.ActionLink("Measurements", "Measurements", new { id = item.IdNumber })</li>
+                        </ul>
+                    </div>*@
+                </td>
+            </tr>
+        }
+
+    </table>
+    <script type="text/javascript">
+        $(function () {
+            $(".dropdown").hover(
+                    function () {
+                        $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+                        $(this).toggleClass('open');
+                        $('b', this).toggleClass("caret caret-up");
+                    },
+                    function () {
+                        $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+                        $(this).toggleClass('open');
+                        $('b', this).toggleClass("caret caret-up");
+                    });
+        });
+    </script>
+</div>

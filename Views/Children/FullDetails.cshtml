@@ -1,0 +1,141 @@
+﻿@model VaccinationManager.Models.Child
+
+@{
+    ViewBag.Title = "Create Details";
+}
+
+<h2>Create Details</h2>
+
+<div>
+    <h4>Child</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BloodType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BloodType)
+        </dd>
+
+        <dt>
+            @Html.Label("Mother ID No")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MotherId)
+        </dd>
+
+        <dt>
+            @Html.Label("Father ID No")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FatherId)
+        </dd>
+    </dl>
+
+    <hr />
+    <h4>Mother</h4>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Mother.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mother.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mother.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mother.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mother.Telephone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mother.Telephone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mother.Cellphone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mother.Cellphone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mother.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mother.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mother.BloodType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mother.BloodType)
+        </dd>
+
+    </dl>
+
+    <hr />
+    <h4>Father</h4>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Father.Surname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Father.Surname)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Father.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Father.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Father.Telephone)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Father.Telephone)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Father.Cellphone)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Father.Cellphone)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Father.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Father.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Father.BloodType)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Father.BloodType)
+            </dd>
+
+        </dl>
+    </div>
+
+
+</div>

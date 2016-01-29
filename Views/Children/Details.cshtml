@@ -1,0 +1,215 @@
+﻿@model VaccinationManager.Models.Child
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@using (Html.BeginForm("Details", "Children", FormMethod.Post))
+{
+    <div>
+        <div class="form-horizontal" style="float: left; width: 50%">
+            <br />
+            <h4>Child</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Surname)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Surname)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.Label("ID Number")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IdNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BloodType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BloodType)
+                </dd>
+                @*<dt>
+                        @Html.DisplayNameFor(model => model.HeadCircumference)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.HeadCircumference)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Height)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Height)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Weight)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Weight)
+                    </dd>*@
+            </dl>
+        </div>
+        <div class="form-horizontal" style="float: left; width: 50%">
+            <br />
+            <h4>Parents</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.Label("Father's Name")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Father.Name)
+                </dd>
+                <dt>
+                    @Html.Label("Father's Surname")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Father.Surname)
+                </dd>
+                <dt>
+                    @Html.Label("Father's ID No")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FatherId)
+                </dd>
+                <dd></dd>
+
+                <dt>
+                    @Html.Label("Mother's Name")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Mother.Name)
+                </dd>
+                <dt>
+                    @Html.Label("Mother's Surname")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Mother.Surname)
+                </dd>
+                <dt>
+                    @Html.Label("Mother's ID No")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MotherId)
+                </dd>
+            </dl>
+        </div>
+        <br />
+        @*<h4>Measurements</h4>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Height
+                </th>
+                <th>
+                    Weight
+                </th>
+                <th>
+                    Head Circumference
+                </th>
+                <th>
+                    Date
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Measurements)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Height)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Weight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HeadCircumference)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.ActionLink("View", "Measurements", new { id = item.ChildID })
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />*@
+        <h4>Vaccinations</h4>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Child Age
+                </th>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Vaccinated
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Serial Number
+                </th>
+                <th>
+                    Signature
+                </th>
+            </tr>
+
+            @foreach (var item in Model.VaccinationDetails)
+            {
+                if (item.Vaccinated)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Age.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vaccinated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateVaccinated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SerialNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Signature)
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10" style="text-align:right">
+                <input type="submit" value="Create Report" class="btn btn-default" formtarget="_blank" style="width:200px" align="right" />
+            </div>
+        </div>
+    </div>
+}
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdNumber }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

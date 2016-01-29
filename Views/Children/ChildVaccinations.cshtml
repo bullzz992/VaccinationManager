@@ -1,0 +1,101 @@
+﻿@model List<VaccinationManager.Models.ChildVaccination>
+
+@{
+    ViewBag.Title = "Child Vaccinations";
+}
+
+@using (Html.BeginForm("ChildVaccinations", "Children", FormMethod.Post))
+{
+    <h2>Vaccinations</h2>
+    <table class="table">
+        <tr>
+            <th>
+                Child Age
+            </th>
+            <th>
+                Code
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Vaxinated
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Serial Number
+            </th>
+            <th>
+                Signature
+            </th>
+        </tr>
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(v => v[i].Age.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(v => v[i].Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(v => v[i].Name)
+                </td>
+                <td>
+
+                    @if (!Model[i].Existing)
+                    {
+                        @Html.CheckBoxFor(v => v[i].Vaccinated)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(v => v[i].Vaccinated)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(v => v[i].DateVaccinated)
+                </td>
+                <td>
+
+                    @if (!Model[i].Existing)
+                    {
+                        @Html.EditorFor(v => v[i].SerialNumber)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(v => v[i].SerialNumber)
+                    }
+                </td>
+                <td>
+
+                    @if (!Model[i].Existing)
+                    {
+                        @Html.EditorFor(v => v[i].Signature)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(v => v[i].Signature)
+                    }
+                </td>
+            </tr>
+            @Html.HiddenFor(v => v[i].Id)
+            @Html.HiddenFor(v => v[i].Name)
+            @Html.HiddenFor(v => v[i].Age.Code)
+            @Html.HiddenFor(v => v[i].IdNumber)
+            @Html.HiddenFor(v => v[i].Existing)
+        }
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10" style="text-align:right">
+            <input type="submit" value="Add Vaccinations" class="btn btn-default" style="width:200px" align="right" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

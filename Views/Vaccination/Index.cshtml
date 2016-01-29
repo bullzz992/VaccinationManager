@@ -1,0 +1,56 @@
+﻿@model IEnumerable<VaccinationManager.Models.VaccinationDefinition>
+
+@{
+    ViewBag.Title = "Vaccinations";
+}
+
+<h2>Vaccinations</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@*@using (Html.BeginForm())
+{
+    <p>
+        Select Vaccination: @Html.DropDownList("SelectedVaccination", "All")
+        <input type="submit" value="Filter" />
+    </p>
+}*@
+
+<table class="table">
+    <tr>
+        <th>
+            Child Age
+        </th>
+        <th>
+            Code
+        </th>
+        <th>
+            Name
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+
+    }
+
+</table>

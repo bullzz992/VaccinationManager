@@ -1,0 +1,59 @@
+﻿@model VaccinationManager.Models.VaccinationDefinition
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@using (Html.BeginForm("Details", "Vaccination", FormMethod.Post))
+{
+    <div>
+        <h4>Vaccination</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            @*<dt>
+                    Department
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Department.Name)
+                </dd>*@
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Code)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Code)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                Detailed description of the Vaccination goes here
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

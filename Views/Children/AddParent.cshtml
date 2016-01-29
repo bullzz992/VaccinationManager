@@ -1,0 +1,272 @@
+﻿@model VaccinationManager.Models.Child
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Add Parent</h4>
+        <hr />
+        @Html.HiddenFor(c => c.BloodType)
+        @Html.HiddenFor(c => c.IdNumber)
+        @Html.HiddenFor(c => c.Name)
+        @Html.HiddenFor(c => c.Surname)
+        @Html.HiddenFor(c => c.Allergies)
+        @Html.HiddenFor(c => c.Vaccinations)
+@if (!string.IsNullOrEmpty(Model.MotherId))
+{
+        <div class="form-horizontal" style="clear:both; float: left; width: 50%">
+            <h3>Mother Details :</h3>
+           
+            @if (!Model.MotherFound())
+            {
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("ID Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MotherId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MotherId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mother.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Mother.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mother.Surname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mother.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Mother.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mother.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mother.Telephone, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Mother.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mother.Telephone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mother.Cellphone, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Mother.Cellphone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mother.Cellphone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mother.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Mother.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mother.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mother.BloodType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.Mother.BloodType, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Mother.BloodType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                var value = Model.Mother;
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.Label("ID Number")
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.IdNumber)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.Surname)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.Surname)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.Telephone)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.Telephone)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.Cellphone)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.Cellphone)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.Email)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.BloodType)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.BloodType)
+                    </dd>
+                </dl>
+
+            }
+            
+            <div class="form-group">
+                @Html.Label("Notify Mother     ")
+                @Html.CheckBox("Notify Mother")
+            </div>
+        </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.FatherId))
+{
+        <div class="form-horizontal" style="float: left; width: 50%">
+            <h3>Father Details :</h3>
+            @if (!Model.FatherFound())
+            {
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("ID Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FatherId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FatherId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Father.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Father.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Father.Surname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Father.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Father.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Father.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Father.Telephone, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Father.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Father.Telephone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Father.Cellphone, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Father.Cellphone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Father.Cellphone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Father.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Father.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Father.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Father.BloodType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.Father.BloodType, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Father.BloodType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.Label("ID Number")
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Father.IdNumber)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Father.Surname)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Father.Surname)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Father.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Father.Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Father.Telephone)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Father.Telephone)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Father.Cellphone)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Father.Cellphone)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Father.Email)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Father.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Father.BloodType)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Father.BloodType)
+                    </dd>
+                </dl>
+            }
+            <div class="form-group">
+                @Html.Label("Notify Father     ")
+                @Html.CheckBox("Notify Father")
+            </div>
+        </div>
+        }
+        <br />
+        @{
+            string titleValue = "Continue";
+            if (!Model.FatherFound() || !Model.MotherFound())
+            {
+                titleValue = "Add Parent";
+            }
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" style="text-align:right">
+                    <input type="submit" value=@titleValue class="btn btn-default" style="width:200px" align="right" />
+                </div>
+            </div>
+        }
+    </div>
+
+}
+@*<div>
+        <a href="javascript:void(0);" onclick="history.go(-1);">Back to Create</a>
+    </div>*@
