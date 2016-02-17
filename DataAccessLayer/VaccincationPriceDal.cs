@@ -18,13 +18,23 @@ namespace DataAccessLayer
                 
                 using (var db = new VaccinationManagerEntities())
                 {
-                    var obj = new VaccincationPrice
-                    {
-                        VaccinationDefId = inputVaccinationDefId,
-                        PriceAmount = inputAmount
-                    };
+                    var obj = db.VaccincationPrices.FirstOrDefault(p => p.VaccinationDefId == inputVaccinationDefId);
 
-                    db.VaccincationPrices.Add(obj);
+                    if (obj == null)
+                    {
+                        obj = new VaccincationPrice
+                        {
+                            VaccinationDefId = inputVaccinationDefId,
+                            PriceAmount = inputAmount
+                        };
+
+                        db.VaccincationPrices.Add(obj);
+                        
+                    }
+                    else
+                    {
+                        obj.PriceAmount = inputAmount;
+                    }
                     db.SaveChanges();
                     return true;
                 }
