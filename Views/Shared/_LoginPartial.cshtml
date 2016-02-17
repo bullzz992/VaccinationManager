@@ -1,22 +1,44 @@
-﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-    @Html.AntiForgeryToken()
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Vaccination Manager</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
-    }
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+</head>
+<body>
+
+    <div >
+        <div class="logo"></div>
+    </div>
+
+    <div class="navbar">
+        <div class="navbarToggle left  "></div>
+        <div class="navbaritems left  "> <a>Welcome</a></div>
+        <div class="navbarspace right"></div>
+        <div class="navbaritems right">
+            @Html.ActionLink("Login", "Index", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        </div>
+    </div>
+
+    <div class="Menu">
+        <div class="MenuItem" id="login">@Html.ActionLink("Register", "About", "Account")</div>
+        <div class="MenuItem" id="logout">@Html.ActionLink("Register", "About", "Account")</div>
+        <div class="MenuItem" id="register">@Html.ActionLink("Register", "About", "Account")</div>
+        <div class="MenuItem" id="about">@Html.ActionLink("About", "About", "Home" )</div>
+        <div class="MenuItem" id="contact">@Html.ActionLink("Contact Us'", " About", "Home")</div>
+    </div>
+
+    <div class="mainContent">
+
+
+
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
