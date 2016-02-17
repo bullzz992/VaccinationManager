@@ -24,7 +24,7 @@
 <body>
 
     <div class="banner">
-           <div class="logo"> </div>
+        <div class="logo"> </div>
     </div>
 
     <div class="navbar">
@@ -36,12 +36,16 @@
     </div>
 
     <div class="Menu">
+        <div class="MenuItem" id="login">@Html.ActionLink("Login", "Login", "Account")</div>
+        <div class="MenuItem" id="logout">@Html.ActionLink("Logout", "Login", "Account")</div>
         <div class="MenuItem" id="register">@Html.ActionLink("Register", "Register", "Account")</div>
         <div class="MenuItem" id="about">@Html.ActionLink("About", "About", "Home")</div>
         <div class="MenuItem" id="contact">@Html.ActionLink("Contact Us", "Contact", "Home")</div>
     </div>
 
     <div class="mainContent">
+
+
 
         @RenderBody()
         <hr />

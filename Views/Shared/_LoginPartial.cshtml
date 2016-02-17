@@ -10,8 +10,8 @@
 </head>
 <body>
 
-    <div >
-        <div class="logo"></div>
+    <div class="banner">
+        <div class="logo"> </div>
     </div>
 
     <div class="navbar">
@@ -19,19 +19,16 @@
         <div class="navbaritems left  "> <a>Welcome</a></div>
         <div class="navbarspace right"></div>
         <div class="navbaritems right">
-            @Html.ActionLink("Login", "Index", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
         </div>
     </div>
 
     <div class="Menu">
-        <div class="MenuItem" id="login">@Html.ActionLink("Register", "About", "Account")</div>
-        <div class="MenuItem" id="logout">@Html.ActionLink("Register", "About", "Account")</div>
-        <div class="MenuItem" id="register">@Html.ActionLink("Register", "About", "Account")</div>
-        <div class="MenuItem" id="about">@Html.ActionLink("About", "About", "Home" )</div>
-        <div class="MenuItem" id="contact">@Html.ActionLink("Contact Us'", " About", "Home")</div>
+        
+        <div class="MenuItem" id="contact">@Html.ActionLink("Contact Us", "Contact", "Home")</div>
     </div>
 
     <div class="mainContent">
+
 
 
 

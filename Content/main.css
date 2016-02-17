@@ -309,12 +309,12 @@ h6 {
     border-style: none;
     margin-top :10px;
     color: white !important;
-    width:80%;
-    padding-left: 15px;
-    padding-right: 15px;
+    width:100px;
+    padding-left: 1px;
+    padding-right: 1px;
     height: 35px;
     border-radius: 2px;
-    margin-left: 5px;
+    margin-left: 1px;
     margin-right: 5px;
 }
 .linkButton {
@@ -329,4 +329,17 @@ h6 {
     margin-left: 5px;
     margin-right: 5px;
     font-size:13px;
+}
+.mainContent {
+    margin-left: 235px;
+    width: calc(100% - 200px);
+    padding: 25px;
+    display:block;
+    overflow-y:auto;
+    height:calc(100% - 135px);
+}
+  @media only screen and (max-width: 505px) {
+.mainContent {
+    margin-left: 0px;
+    width: calc(100% - 0px);
 }

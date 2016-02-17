@@ -10,7 +10,6 @@
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.AntiForgeryToken()
                 <h4>Please key your login detail.</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -37,8 +36,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2"></div>
-                    <div class="col-md-4">
-                        <button type="submit" class="Loginbutton btn-default right">Login</button>
+                    <div class="col-md-6">
+                        <button type="submit" class="Loginbutton btn-default ">Login</button>
+                        <button type="submit" class="Loginbutton btn-default ">Register</button>
+
                     </div>
                 </div>
             }
