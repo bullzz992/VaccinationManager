@@ -338,6 +338,7 @@
     <Content Include="Views\Children\AddMeasurements.cshtml" />
     <Content Include="Views\Children\Measurements.cshtml" />
     <Content Include="Views\Children\CreateMeasurement.cshtml" />
+    <Content Include="Views\Shared\_MainLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -309,12 +309,12 @@ h6 {
     border-style: none;
     margin-top :10px;
     color: white !important;
-    width:80%;
-    padding-left: 15px;
-    padding-right: 15px;
+    width:100px;
+    padding-left: 1px;
+    padding-right: 1px;
     height: 35px;
     border-radius: 2px;
-    margin-left: 5px;
+    margin-left: 1px;
     margin-right: 5px;
 }
 .linkButton {
