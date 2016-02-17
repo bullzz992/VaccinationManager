@@ -1,0 +1,735 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VaccinationManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar(max)" />
+          <Property Name="AddressLine2" Type="nvarchar(max)" />
+          <Property Name="Suburb" Type="nvarchar(max)" />
+          <Property Name="Town" Type="nvarchar(max)" />
+          <Property Name="PostalCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ages">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Allergies">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Child_IdNumber" Type="nvarchar" MaxLength="13" />
+          <Property Name="Parent_IdNumber" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="ChildMeasurements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="Height" Type="float" Nullable="false" />
+          <Property Name="HeadCircumference" Type="float" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="ChildID" Type="nvarchar" MaxLength="13" />
+        </EntityType>
+        <EntityType Name="Children">
+          <Key>
+            <PropertyRef Name="IdNumber" />
+          </Key>
+          <Property Name="IdNumber" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Weight" Type="real" Nullable="false" />
+          <Property Name="Height" Type="real" Nullable="false" />
+          <Property Name="HeadCircumference" Type="real" Nullable="false" />
+          <Property Name="BloodType" Type="int" Nullable="false" />
+          <Property Name="MotherId" Type="nvarchar(max)" />
+          <Property Name="FatherId" Type="nvarchar(max)" />
+          <Property Name="ParentViewModel_IdNumber" Type="nvarchar" MaxLength="128" />
+          <Property Name="Father_IdNumber" Type="nvarchar" MaxLength="128" />
+          <Property Name="Mother_IdNumber" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Parents">
+          <Key>
+            <PropertyRef Name="IdNumber" />
+          </Key>
+          <Property Name="IdNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Telephone" Type="nvarchar(max)" />
+          <Property Name="Cellphone" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="BloodType" Type="int" Nullable="false" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Address_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="UserBranches">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Branch" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="VaccinationDefinitions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Age_Code" Type="int" />
+        </EntityType>
+        <EntityType Name="Vaccinations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="VaccinationDefinitionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdNumber" Type="nvarchar" MaxLength="13" />
+          <Property Name="Administrator" Type="nvarchar(max)" />
+          <Property Name="SerialNumber" Type="nvarchar(max)" />
+          <Property Name="Signature" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VaccincationPrice">
+          <Key>
+            <PropertyRef Name="VaccinationPriceId" />
+          </Key>
+          <Property Name="VaccinationPriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VaccinationDefId" Type="varchar(max)" Nullable="false" />
+          <Property Name="PriceAmount" Type="money" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Allergies_dbo_Children_Child_IdNumber">
+          <End Role="Children" Type="Self.Children" Multiplicity="0..1" />
+          <End Role="Allergies" Type="Self.Allergies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Children">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Allergies">
+              <PropertyRef Name="Child_IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Allergies_dbo_Parents_Parent_IdNumber">
+          <End Role="Parents" Type="Self.Parents" Multiplicity="0..1" />
+          <End Role="Allergies" Type="Self.Allergies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Allergies">
+              <PropertyRef Name="Parent_IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ChildMeasurements_dbo_Children_ChildID">
+          <End Role="Children" Type="Self.Children" Multiplicity="0..1" />
+          <End Role="ChildMeasurements" Type="Self.ChildMeasurements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Children">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="ChildMeasurements">
+              <PropertyRef Name="ChildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Children_dbo_Parents_Father_IdNumber">
+          <End Role="Parents" Type="Self.Parents" Multiplicity="0..1" />
+          <End Role="Children" Type="Self.Children" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Children">
+              <PropertyRef Name="Father_IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Children_dbo_Parents_Mother_IdNumber">
+          <End Role="Parents" Type="Self.Parents" Multiplicity="0..1" />
+          <End Role="Children" Type="Self.Children" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Children">
+              <PropertyRef Name="Mother_IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber">
+          <End Role="Parents" Type="Self.Parents" Multiplicity="0..1" />
+          <End Role="Children" Type="Self.Children" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Children">
+              <PropertyRef Name="ParentViewModel_IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Parents_dbo_Addresses_Address_Id">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="Parents" Type="Self.Parents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Parents">
+              <PropertyRef Name="Address_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code">
+          <End Role="Ages" Type="Self.Ages" Multiplicity="0..1" />
+          <End Role="VaccinationDefinitions" Type="Self.VaccinationDefinitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ages">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="VaccinationDefinitions">
+              <PropertyRef Name="Age_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Vaccinations_dbo_Children_IdNumber">
+          <End Role="Children" Type="Self.Children" Multiplicity="0..1" />
+          <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Children">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Vaccinations">
+              <PropertyRef Name="IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VaccinationManagerModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ages" EntityType="Self.Ages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Allergies" EntityType="Self.Allergies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChildMeasurements" EntityType="Self.ChildMeasurements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Children" EntityType="Self.Children" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parents" EntityType="Self.Parents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserBranches" EntityType="Self.UserBranches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VaccinationDefinitions" EntityType="Self.VaccinationDefinitions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vaccinations" EntityType="Self.Vaccinations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VaccincationPrice" EntityType="Self.VaccincationPrice" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Allergies_dbo_Children_Child_IdNumber" Association="Self.FK_dbo_Allergies_dbo_Children_Child_IdNumber">
+            <End Role="Children" EntitySet="Children" />
+            <End Role="Allergies" EntitySet="Allergies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Allergies_dbo_Parents_Parent_IdNumber" Association="Self.FK_dbo_Allergies_dbo_Parents_Parent_IdNumber">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Allergies" EntitySet="Allergies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ChildMeasurements_dbo_Children_ChildID" Association="Self.FK_dbo_ChildMeasurements_dbo_Children_ChildID">
+            <End Role="Children" EntitySet="Children" />
+            <End Role="ChildMeasurements" EntitySet="ChildMeasurements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Children_dbo_Parents_Father_IdNumber" Association="Self.FK_dbo_Children_dbo_Parents_Father_IdNumber">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Children" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Children_dbo_Parents_Mother_IdNumber" Association="Self.FK_dbo_Children_dbo_Parents_Mother_IdNumber">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Children" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" Association="Self.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Children" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Parents_dbo_Addresses_Address_Id" Association="Self.FK_dbo_Parents_dbo_Addresses_Address_Id">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Parents" EntitySet="Parents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code" Association="Self.FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code">
+            <End Role="Ages" EntitySet="Ages" />
+            <End Role="VaccinationDefinitions" EntitySet="VaccinationDefinitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Vaccinations_dbo_Children_IdNumber" Association="Self.FK_dbo_Vaccinations_dbo_Children_IdNumber">
+            <End Role="Children" EntitySet="Children" />
+            <End Role="Vaccinations" EntitySet="Vaccinations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VaccinationManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AddressLine1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Suburb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Town" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Parents" Relationship="Self.FK_dbo_Parents_dbo_Addresses_Address_Id" FromRole="Addresses" ToRole="Parents" />
+        </EntityType>
+        <EntityType Name="Age">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="VaccinationDefinitions" Relationship="Self.FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code" FromRole="Ages" ToRole="VaccinationDefinitions" />
+        </EntityType>
+        <EntityType Name="Allergy">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Child_IdNumber" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="Parent_IdNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Child" Relationship="Self.FK_dbo_Allergies_dbo_Children_Child_IdNumber" FromRole="Allergies" ToRole="Children" />
+          <NavigationProperty Name="Parent" Relationship="Self.FK_dbo_Allergies_dbo_Parents_Parent_IdNumber" FromRole="Allergies" ToRole="Parents" />
+        </EntityType>
+        <EntityType Name="ChildMeasurement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
+          <Property Name="HeadCircumference" Type="Double" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ChildID" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Child" Relationship="Self.FK_dbo_ChildMeasurements_dbo_Children_ChildID" FromRole="ChildMeasurements" ToRole="Children" />
+        </EntityType>
+        <EntityType Name="Child">
+          <Key>
+            <PropertyRef Name="IdNumber" />
+          </Key>
+          <Property Name="IdNumber" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Weight" Type="Single" Nullable="false" />
+          <Property Name="Height" Type="Single" Nullable="false" />
+          <Property Name="HeadCircumference" Type="Single" Nullable="false" />
+          <Property Name="BloodType" Type="Int32" Nullable="false" />
+          <Property Name="MotherId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FatherId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParentViewModel_IdNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Father_IdNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Mother_IdNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Allergies" Relationship="Self.FK_dbo_Allergies_dbo_Children_Child_IdNumber" FromRole="Children" ToRole="Allergies" />
+          <NavigationProperty Name="ChildMeasurements" Relationship="Self.FK_dbo_ChildMeasurements_dbo_Children_ChildID" FromRole="Children" ToRole="ChildMeasurements" />
+          <NavigationProperty Name="Parent" Relationship="Self.FK_dbo_Children_dbo_Parents_Father_IdNumber" FromRole="Children" ToRole="Parents" />
+          <NavigationProperty Name="Parent1" Relationship="Self.FK_dbo_Children_dbo_Parents_Mother_IdNumber" FromRole="Children" ToRole="Parents" />
+          <NavigationProperty Name="Parent2" Relationship="Self.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" FromRole="Children" ToRole="Parents" />
+          <NavigationProperty Name="Vaccinations" Relationship="Self.FK_dbo_Vaccinations_dbo_Children_IdNumber" FromRole="Children" ToRole="Vaccinations" />
+        </EntityType>
+        <EntityType Name="Parent">
+          <Key>
+            <PropertyRef Name="IdNumber" />
+          </Key>
+          <Property Name="IdNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cellphone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BloodType" Type="Int32" Nullable="false" />
+          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address_Id" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_dbo_Parents_dbo_Addresses_Address_Id" FromRole="Parents" ToRole="Addresses" />
+          <NavigationProperty Name="Allergies" Relationship="Self.FK_dbo_Allergies_dbo_Parents_Parent_IdNumber" FromRole="Parents" ToRole="Allergies" />
+          <NavigationProperty Name="Children" Relationship="Self.FK_dbo_Children_dbo_Parents_Father_IdNumber" FromRole="Parents" ToRole="Children" />
+          <NavigationProperty Name="Children1" Relationship="Self.FK_dbo_Children_dbo_Parents_Mother_IdNumber" FromRole="Parents" ToRole="Children" />
+          <NavigationProperty Name="Children2" Relationship="Self.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" FromRole="Parents" ToRole="Children" />
+        </EntityType>
+        <EntityType Name="UserBranch">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Branch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VaccinationDefinition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age_Code" Type="Int32" />
+          <NavigationProperty Name="Age" Relationship="Self.FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code" FromRole="VaccinationDefinitions" ToRole="Ages" />
+        </EntityType>
+        <EntityType Name="Vaccination">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="VaccinationDefinitionId" Type="Guid" Nullable="false" />
+          <Property Name="IdNumber" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="Administrator" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Child" Relationship="Self.FK_dbo_Vaccinations_dbo_Children_IdNumber" FromRole="Vaccinations" ToRole="Children" />
+        </EntityType>
+        <EntityType Name="VaccincationPrice">
+          <Key>
+            <PropertyRef Name="VaccinationPriceId" />
+          </Key>
+          <Property Name="VaccinationPriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VaccinationDefId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PriceAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Parents_dbo_Addresses_Address_Id">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Parents" Type="Self.Parent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Parents">
+              <PropertyRef Name="Address_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code">
+          <End Role="Ages" Type="Self.Age" Multiplicity="0..1" />
+          <End Role="VaccinationDefinitions" Type="Self.VaccinationDefinition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ages">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="VaccinationDefinitions">
+              <PropertyRef Name="Age_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Allergies_dbo_Children_Child_IdNumber">
+          <End Role="Children" Type="Self.Child" Multiplicity="0..1" />
+          <End Role="Allergies" Type="Self.Allergy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Children">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Allergies">
+              <PropertyRef Name="Child_IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Allergies_dbo_Parents_Parent_IdNumber">
+          <End Role="Parents" Type="Self.Parent" Multiplicity="0..1" />
+          <End Role="Allergies" Type="Self.Allergy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Allergies">
+              <PropertyRef Name="Parent_IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ChildMeasurements_dbo_Children_ChildID">
+          <End Role="Children" Type="Self.Child" Multiplicity="0..1" />
+          <End Role="ChildMeasurements" Type="Self.ChildMeasurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Children">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="ChildMeasurements">
+              <PropertyRef Name="ChildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Children_dbo_Parents_Father_IdNumber">
+          <End Role="Parents" Type="Self.Parent" Multiplicity="0..1" />
+          <End Role="Children" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Children">
+              <PropertyRef Name="Father_IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Children_dbo_Parents_Mother_IdNumber">
+          <End Role="Parents" Type="Self.Parent" Multiplicity="0..1" />
+          <End Role="Children" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Children">
+              <PropertyRef Name="Mother_IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber">
+          <End Role="Parents" Type="Self.Parent" Multiplicity="0..1" />
+          <End Role="Children" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Children">
+              <PropertyRef Name="ParentViewModel_IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Vaccinations_dbo_Children_IdNumber">
+          <End Role="Children" Type="Self.Child" Multiplicity="0..1" />
+          <End Role="Vaccinations" Type="Self.Vaccination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Children">
+              <PropertyRef Name="IdNumber" />
+            </Principal>
+            <Dependent Role="Vaccinations">
+              <PropertyRef Name="IdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VaccinationManagerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Ages" EntityType="Self.Age" />
+          <EntitySet Name="Allergies" EntityType="Self.Allergy" />
+          <EntitySet Name="ChildMeasurements" EntityType="Self.ChildMeasurement" />
+          <EntitySet Name="Children" EntityType="Self.Child" />
+          <EntitySet Name="Parents" EntityType="Self.Parent" />
+          <EntitySet Name="UserBranches" EntityType="Self.UserBranch" />
+          <EntitySet Name="VaccinationDefinitions" EntityType="Self.VaccinationDefinition" />
+          <EntitySet Name="Vaccinations" EntityType="Self.Vaccination" />
+          <EntitySet Name="VaccincationPrices" EntityType="Self.VaccincationPrice" />
+          <AssociationSet Name="FK_dbo_Parents_dbo_Addresses_Address_Id" Association="Self.FK_dbo_Parents_dbo_Addresses_Address_Id">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Parents" EntitySet="Parents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code" Association="Self.FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code">
+            <End Role="Ages" EntitySet="Ages" />
+            <End Role="VaccinationDefinitions" EntitySet="VaccinationDefinitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Allergies_dbo_Children_Child_IdNumber" Association="Self.FK_dbo_Allergies_dbo_Children_Child_IdNumber">
+            <End Role="Children" EntitySet="Children" />
+            <End Role="Allergies" EntitySet="Allergies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Allergies_dbo_Parents_Parent_IdNumber" Association="Self.FK_dbo_Allergies_dbo_Parents_Parent_IdNumber">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Allergies" EntitySet="Allergies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ChildMeasurements_dbo_Children_ChildID" Association="Self.FK_dbo_ChildMeasurements_dbo_Children_ChildID">
+            <End Role="Children" EntitySet="Children" />
+            <End Role="ChildMeasurements" EntitySet="ChildMeasurements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Children_dbo_Parents_Father_IdNumber" Association="Self.FK_dbo_Children_dbo_Parents_Father_IdNumber">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Children" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Children_dbo_Parents_Mother_IdNumber" Association="Self.FK_dbo_Children_dbo_Parents_Mother_IdNumber">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Children" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" Association="Self.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Children" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Vaccinations_dbo_Children_IdNumber" Association="Self.FK_dbo_Vaccinations_dbo_Children_IdNumber">
+            <End Role="Children" EntitySet="Children" />
+            <End Role="Vaccinations" EntitySet="Vaccinations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VaccinationManagerModelStoreContainer" CdmEntityContainer="VaccinationManagerEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="Suburb" ColumnName="Suburb" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ages">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.Age">
+              <MappingFragment StoreEntitySet="Ages">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Allergies">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.Allergy">
+              <MappingFragment StoreEntitySet="Allergies">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Child_IdNumber" ColumnName="Child_IdNumber" />
+                <ScalarProperty Name="Parent_IdNumber" ColumnName="Parent_IdNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChildMeasurements">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.ChildMeasurement">
+              <MappingFragment StoreEntitySet="ChildMeasurements">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="HeadCircumference" ColumnName="HeadCircumference" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ChildID" ColumnName="ChildID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Children">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.Child">
+              <MappingFragment StoreEntitySet="Children">
+                <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="HeadCircumference" ColumnName="HeadCircumference" />
+                <ScalarProperty Name="BloodType" ColumnName="BloodType" />
+                <ScalarProperty Name="MotherId" ColumnName="MotherId" />
+                <ScalarProperty Name="FatherId" ColumnName="FatherId" />
+                <ScalarProperty Name="ParentViewModel_IdNumber" ColumnName="ParentViewModel_IdNumber" />
+                <ScalarProperty Name="Father_IdNumber" ColumnName="Father_IdNumber" />
+                <ScalarProperty Name="Mother_IdNumber" ColumnName="Mother_IdNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parents">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.Parent">
+              <MappingFragment StoreEntitySet="Parents">
+                <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Cellphone" ColumnName="Cellphone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="BloodType" ColumnName="BloodType" />
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+                <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBranches">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.UserBranch">
+              <MappingFragment StoreEntitySet="UserBranches">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VaccinationDefinitions">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.VaccinationDefinition">
+              <MappingFragment StoreEntitySet="VaccinationDefinitions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+                <ScalarProperty Name="Age_Code" ColumnName="Age_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vaccinations">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.Vaccination">
+              <MappingFragment StoreEntitySet="Vaccinations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VaccinationDefinitionId" ColumnName="VaccinationDefinitionId" />
+                <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
+                <ScalarProperty Name="Administrator" ColumnName="Administrator" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="Signature" ColumnName="Signature" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VaccincationPrices">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.VaccincationPrice">
+              <MappingFragment StoreEntitySet="VaccincationPrice">
+                <ScalarProperty Name="VaccinationPriceId" ColumnName="VaccinationPriceId" />
+                <ScalarProperty Name="VaccinationDefId" ColumnName="VaccinationDefId" />
+                <ScalarProperty Name="PriceAmount" ColumnName="PriceAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
