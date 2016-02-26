@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d255de0602e74af8a7f27e65614c3e29" Name="Diagram1">
+        <EntityTypeShape EntityType="VaccinationManagerModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.Address" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.Age" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.Allergy" Width="1.5" PointX="10.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.ChildMeasurement" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.Child" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.Parent" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.UserBranch" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.VaccinationDefinition" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.Vaccination" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.VaccincationPrice" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Parents_dbo_Addresses_Address_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="VaccinationManagerModel.FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code" ManuallyRouted="false" />
+        <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Allergies_dbo_Children_Child_IdNumber" ManuallyRouted="false" />
+        <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Allergies_dbo_Parents_Parent_IdNumber" ManuallyRouted="false" />
+        <AssociationConnector Association="VaccinationManagerModel.FK_dbo_ChildMeasurements_dbo_Children_ChildID" ManuallyRouted="false" />
+        <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Children_dbo_Parents_Father_IdNumber" ManuallyRouted="false" />
+        <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Children_dbo_Parents_Mother_IdNumber" ManuallyRouted="false" />
+        <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" ManuallyRouted="false" />
+        <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Vaccinations_dbo_Children_IdNumber" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

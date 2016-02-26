@@ -173,7 +173,16 @@ body, html {
     color: black;
 }
 #contact a {
-    background-image: url('../Images/contactIcon.ico')!important;
+    background-image: url('../Images/Ho.ico')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+#home a {
+    background-image: url('../Images/Home.svg')!important;
     background-repeat: no-repeat;
    background-size: 26px;
     background-position: 12px 10px !important;
