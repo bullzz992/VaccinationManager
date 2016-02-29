@@ -2,6 +2,7 @@
 @{
     var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
     string cLayout = "";
+    //controller = "Account";
     if (controller != "Account")
     {
         cLayout = "~/Views/Shared/_MainLayout.cshtml";
