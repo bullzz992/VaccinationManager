@@ -1,5 +1,6 @@
 ﻿@model VaccinationManager.Models.Child
 
+
 @{
     ViewBag.Title = "Details";
 }
@@ -170,7 +171,7 @@
                     Signature
                 </th>
             </tr>
-
+          
             @foreach (var item in Model.VaccinationDetails)
             {
                 if (item.Vaccinated)
@@ -202,7 +203,53 @@
             }
         </table>
 
-        <div class="form-group">
+    <br/>
+
+        <h4>Measurements</h4>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Weight
+                </th>
+                <th>
+                    Height
+                </th>
+                <th>
+                    Head Circumference
+                </th>
+                <th>
+                    Created
+                </th>
+                <th>
+                    Child ID
+                </th>
+            </tr>
+
+            @foreach (var item in @ViewBag.measurementsList)
+            {
+                <tr>
+                        <td>
+                            @item.Weight
+                        </td>
+                        <td>
+                            @item.Height
+                        </td>
+                        <td>
+                            @item.HeadCircumference
+                        </td>
+                        <td>
+                            @item.Created
+                        </td>
+                        <td>
+                            @item.ChildID
+                        </td>
+                    </tr>
+                
+            }
+        </table>
+
+    <div class="form-group">
             <div class="col-md-offset-2 col-md-10" style="text-align:right">
                 <input type="submit" value="Create Report" class="btn btn-default" formtarget="_blank" style="width:200px" align="right" />
             </div>

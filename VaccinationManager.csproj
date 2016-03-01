@@ -245,6 +245,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\aboutIcon.ico" />
+    <Content Include="Images\contactIcon.ico" />
+    <Content Include="Images\Final Logo.png" />
+    <Content Include="Images\loginIcon.ico" />
+    <Content Include="Images\logout.ico" />
+    <Content Include="Images\registerIcon.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -131,7 +131,10 @@ namespace VaccinationManager.Controllers
                 }
             }
             child.VaccinationDetails = Vaccinations;
-
+            var measurements = from cust in db.ChildMeasurements
+                               where cust.ChildID == child.IdNumber
+                               select cust;
+            ViewBag.measurementsList = measurements.ToList();
             return View(child);
         }
 
@@ -516,7 +519,7 @@ namespace VaccinationManager.Controllers
                 {
                     cv.DateVaccinated = null;
                 }
-
+                
                 Vaccinations.Add(cv);
             }
 
@@ -525,6 +528,8 @@ namespace VaccinationManager.Controllers
             //    IdNumber = child.IdNumber,
             //    Vaccinations = Vaccinations
             //};
+
+            
 
             return View(Vaccinations);
         }
