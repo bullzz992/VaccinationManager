@@ -7,8 +7,8 @@ body, html {
     height:100%;
     overflow-y:hidden;
 }
-.btnTest
-{
+
+.btnCreateNew {
      background-image: none;
   outline: 0;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
@@ -37,8 +37,6 @@ body, html {
   color: #333;
   background-color: #fff;
   border-color: #ccc;
-}
-.btnCreateNew {
     Cursor: pointer;
     background-image: url('../Images/Edit_add_orange.svg') !Important;
     background-repeat: no-repeat !Important;
