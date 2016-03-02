@@ -153,7 +153,14 @@ namespace VaccinationManager.Controllers
                 var usr = User;
                 string branch = db.Branches.Find(User.Identity.Name).Branch;
 
-                Document document = report.CreateDocument(Vaccinations, child, branch);
+                var measurements = from cust in db.ChildMeasurements
+                                   where cust.ChildID == child.IdNumber
+                                   select cust;
+                ViewBag.measurementsList = measurements.ToList();
+
+                List<ChildMeasurement> measurementListLocal = measurements.ToList();
+
+                Document document = report.CreateDocument(Vaccinations, measurementListLocal, child, branch);
                 //string ddl = MigraDoc.DocumentObjectModel.IO.DdlWriter.WriteToString(document);
                 PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always);
                 renderer.Document = document;

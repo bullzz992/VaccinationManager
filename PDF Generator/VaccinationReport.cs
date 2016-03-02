@@ -16,12 +16,12 @@ namespace VaccinationManager.PDF_Generator
 {
     public class VaccinationReport
     {
-        public Document CreateDocument(List<ChildVaccination> vaccinations, Child child, string branch)
+        public Document CreateDocument(List<ChildVaccination> vaccinations, List<ChildMeasurement> measurements , Child child, string branch)
         {
             // Create a new MigraDoc document
             this.document = new Document();
             document.DefaultPageSetup.Orientation = Orientation.Landscape;
-            this.document.Info.Title = "A sample invoice";
+            this.document.Info.Title = "Report Requested";
             this.document.Info.Subject = "Demonstrates how to create an invoice.";
             this.document.Info.Author = "Stefan Lange";
 
@@ -30,6 +30,9 @@ namespace VaccinationManager.PDF_Generator
             CreatePage();
 
             FillContent(vaccinations, child, branch);
+
+            CreateMeasurementsPage();
+            FillMeasurementsContent(measurements);
 
             return this.document;
         }
@@ -124,7 +127,7 @@ namespace VaccinationManager.PDF_Generator
 
             // Create footer
             Paragraph paragraph = section.Footers.Primary.AddParagraph();
-            paragraph.AddText("Hileya Trading PTY LTD");
+            paragraph.AddText("Vaccincation Manager");
             paragraph.Format.Font.Size = 9;
             paragraph.Format.Alignment = ParagraphAlignment.Center;
 
@@ -230,7 +233,7 @@ namespace VaccinationManager.PDF_Generator
 
             //this.table.SetEdge(0, 0, 6, 2, Edge.Box, BorderStyle.Single, 0.75, Color.Empty);
         }
-        void FillContent(List<ChildVaccination> vaccinations, Child child, string branch)
+        void FillContent(List<ChildVaccination> vaccinations , Child child, string branch)
         {
             Details.AddFormattedText("Name", TextFormat.Bold);
             Details.AddTab();
@@ -357,7 +360,170 @@ namespace VaccinationManager.PDF_Generator
             // Add an invisible row as a space line to the table
             Row row = this.table.AddRow();
             row.Borders.Visible = false;
+
+            
         }
+
+        void CreateMeasurementsPage()
+        {
+            // Each MigraDoc document needs at least one section.
+            Section section = this.document.AddSection();
+
+            //// Put a logo in the header
+            //Image image = section.Headers.Primary.AddImage("../../PowerBooks.png");
+            //image.Height = "2.5cm";
+            //image.LockAspectRatio = true;
+            //image.RelativeVertical = RelativeVertical.Line;
+            //image.RelativeHorizontal = RelativeHorizontal.Margin;
+            //image.Top = ShapePosition.Top;
+            //image.Left = ShapePosition.Right;
+            //image.WrapFormat.Style = WrapStyle.Through;
+
+            //TextFrame header = section.Headers.Primary.AddTextFrame();
+            //Paragraph headerParagraph = header.AddParagraph();
+            //headerParagraph.AddText("Child Vaccinations");
+
+            // Create footer
+            Paragraph paragraph = section.Footers.Primary.AddParagraph();
+            paragraph.AddText("Vaccincation Manager");
+            paragraph.Format.Font.Size = 9;
+            paragraph.Format.Alignment = ParagraphAlignment.Center;
+
+            //// Create the text frame for the address
+            //this.addressFrame = section.AddTextFrame();
+            //this.addressFrame.Height = "3.0cm";
+            //this.addressFrame.Width = "7.0cm";
+            //this.addressFrame.Left = ShapePosition.Left;
+            //this.addressFrame.RelativeHorizontal = RelativeHorizontal.Margin;
+            //this.addressFrame.Top = "5.0cm";
+            //this.addressFrame.RelativeVertical = RelativeVertical.Page;
+
+            //// Put sender in address frame
+            //paragraph = this.addressFrame.AddParagraph("Hileya Trading PTY LTD");
+            //paragraph.Format.Font.Name = "Times New Roman";
+            //paragraph.Format.Font.Size = 7;
+            //paragraph.Format.SpaceAfter = 3;
+
+            // Add the print date field
+            Details = section.AddParagraph();
+            //paragraph.AddDateField("dd.MM.yyyy");
+
+            var par = section.AddParagraph();
+            par.AddFormattedText("Child Measurements");
+            // Create the item table
+            this.table = section.AddTable();
+            this.table.Style = "Table";
+            this.table.Borders.Color = Colors.Black;
+            this.table.Borders.Width = 0.25;
+            this.table.Borders.Left.Width = 0.5;
+            this.table.Borders.Right.Width = 0.5;
+            this.table.Rows.LeftIndent = 0;
+
+            // Before you can add a row, you must define the columns
+            Column column = this.table.AddColumn("2cm");
+            column.Format.Alignment = ParagraphAlignment.Left;
+
+            column = this.table.AddColumn("3cm");
+            column.Format.Alignment = ParagraphAlignment.Left;
+
+            column = this.table.AddColumn("2cm");
+            column.Format.Alignment = ParagraphAlignment.Left;
+
+            column = this.table.AddColumn("2.5cm");
+            column.Format.Alignment = ParagraphAlignment.Left;
+
+            column = this.table.AddColumn("2.5cm");
+            column.Format.Alignment = ParagraphAlignment.Left;
+
+            column = this.table.AddColumn("2.5cm");
+            column.Format.Alignment = ParagraphAlignment.Right;
+
+            column = this.table.AddColumn("2.5cm");
+            column.Format.Alignment = ParagraphAlignment.Right;
+
+            // Create the header of the table
+            Row row = table.AddRow();
+            row.HeadingFormat = true;
+            row.Format.Alignment = ParagraphAlignment.Center;
+            row.Format.Font.Bold = true;
+            row.Shading.Color = Colors.LightBlue;
+            row.Cells[0].AddParagraph("Weight");
+            row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[0].VerticalAlignment = VerticalAlignment.Bottom;
+
+            row.Cells[1].AddParagraph("Height");
+            row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[1].VerticalAlignment = VerticalAlignment.Bottom;
+
+            row.Cells[2].AddParagraph("Head Circumference");
+            row.Cells[2].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[2].VerticalAlignment = VerticalAlignment.Bottom;
+
+            row.Cells[3].AddParagraph("Created");
+            row.Cells[3].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[3].VerticalAlignment = VerticalAlignment.Bottom;
+
+            row.Cells[4].AddParagraph("Child ID");
+            row.Cells[4].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[4].VerticalAlignment = VerticalAlignment.Bottom;
+
+            
+
+            //row = table.AddRow();
+            //row.HeadingFormat = true;
+            //row.Format.Alignment = ParagraphAlignment.Center;
+            //row.Format.Font.Bold = true;
+            //row.Shading.Color = Colors.Blue;
+            //row.Cells[1].AddParagraph("Quantity");
+            //row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+            //row.Cells[2].AddParagraph("Unit Price");
+            //row.Cells[2].Format.Alignment = ParagraphAlignment.Left;
+            //row.Cells[3].AddParagraph("Discount (%)");
+            //row.Cells[3].Format.Alignment = ParagraphAlignment.Left;
+            //row.Cells[4].AddParagraph("Taxable");
+            //row.Cells[4].Format.Alignment = ParagraphAlignment.Left;
+
+            //this.table.SetEdge(0, 0, 6, 2, Edge.Box, BorderStyle.Single, 0.75, Color.Empty);
+        }
+
+        void FillMeasurementsContent(List<ChildMeasurement> measurements)
+        {
+            
+            // Iterate the invoice items
+            foreach (var measurement in measurements)
+            {
+                //if (vacc.Existing)
+                //{
+                // Each item fills two rows
+                Row row1 = this.table.AddRow();
+                //Row row2 = this.table.AddRow();
+                //row1.TopPadding = 1.5;
+                //row1.Cells[0].Shading.Color = Colors.Gray;
+                //row1.Cells[0].VerticalAlignment = VerticalAlignment.Center;
+                //row1.Cells[0].MergeDown = 1;
+                //row1.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+                //row1.Cells[1].MergeRight = 3;
+                //row1.Cells[5].Shading.Color = Colors.Gray;
+                //row1.Cells[5].MergeDown = 1;
+                
+                row1.Cells[0].AddParagraph(measurement.Weight.ToString());
+                row1.Cells[1].AddParagraph(measurement.Height.ToString());
+                row1.Cells[2].AddParagraph(measurement.HeadCircumference.ToString());
+                row1.Cells[3].AddParagraph(measurement.Created.ToShortDateString());
+                row1.Cells[4].AddParagraph(measurement.ChildID);
+
+
+                this.table.SetEdge(0, this.table.Rows.Count - 2, 6, 2, Edge.Box, BorderStyle.Single, 0.75);
+                //}
+            }
+
+            // Add an invisible row as a space line to the table
+            Row row = this.table.AddRow();
+            row.Borders.Visible = false;
+
+
+        }
+
         public Paragraph Details { get; set; }
 
         public Document document { get; set; }
