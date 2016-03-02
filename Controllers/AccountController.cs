@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DataAccessLayer;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -107,6 +109,9 @@ namespace VaccinationManager.Controllers
                 case SignInStatus.Success:
                     ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
                     identity.AddClaim(new Claim(ClaimTypes.Name, model.Username));
+
+                    InitiateVaccinationPrices();
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -454,6 +459,18 @@ namespace VaccinationManager.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        private void InitiateVaccinationPrices()
+        {
+            List<VaccinationDefinition> vaccinationDefs = (from cust in db.VaccinationDefinitions
+                                                           select cust).ToList();
+
+            VaccincationPriceDal provider = new VaccincationPriceDal();
+            foreach (VaccinationDefinition def in vaccinationDefs)
+            {
+                provider.AddVaccinationPrice(def.Id.ToString(), (Decimal)0.0, true);
+            }
         }
 
         #region Helpers
