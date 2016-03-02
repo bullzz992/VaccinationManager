@@ -7,7 +7,63 @@ body, html {
     height:100%;
     overflow-y:hidden;
 }
-   
+.btnTest
+{
+     background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+
+    display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+.btnCreateNew {
+    Cursor: pointer;
+    background-image: url('../Images/Edit_add_orange.svg') !Important;
+    background-repeat: no-repeat !Important;
+    background-size: 28px !Important;
+    background-position: left !Important;
+    padding-left: 40px;
+    font-size: 13px !Important;
+    padding: 5px;
+    padding-right: 15px;
+    padding-left: 36px;
+}
+.btnCreateNew:hover {
+    Cursor: pointer;
+    background:#e57c58;
+    background-image: url('../Images/Edit_add_orange.svg') !Important;
+    background-repeat: no-repeat !Important;
+    background-size: 28px !Important;
+    background-position: left !Important;
+    padding-left: 40px;
+    font-size: 13px !Important;
+    padding: 5px;
+    padding-right: 15px;
+    padding-left: 36px;
+    color: white !important;
+}
 .Menu,.Menu .MenuItem a ,MenuItem a {
            margin:0px;
            padding:0px;
