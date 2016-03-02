@@ -11,7 +11,7 @@ namespace DataAccessLayer
 {
     public class VaccincationPriceDal
     {
-        public bool AddVaccinationPrice(string inputVaccinationDefId, decimal inputAmount)
+        public bool AddVaccinationPrice(string inputVaccinationDefId, decimal inputAmount, bool isInitialize = false)
         {
             try
             {
@@ -33,14 +33,18 @@ namespace DataAccessLayer
                     }
                     else
                     {
-                        obj.PriceAmount = inputAmount;
+                        if (!isInitialize)
+                        {
+                            obj.PriceAmount = inputAmount;
+                        }
                     }
                     db.SaveChanges();
                     return true;
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+
                 return false;
             }
         }

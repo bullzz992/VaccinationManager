@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using VaccinationManager.DAL;
 using VaccinationManager.Models;
 using System.Data.Entity.Infrastructure;
+using DataAccessLayer;
 
 namespace VaccinationManager.Controllers
 {
@@ -27,7 +28,7 @@ namespace VaccinationManager.Controllers
             //int departmentID = SelectedVaccination.GetValueOrDefault();
 
             //var Vaccinations = db.Vaccinations.ToList();
-
+            
             return View(Vaccinations);
         }
 
@@ -185,5 +186,7 @@ namespace VaccinationManager.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
     }
 }
