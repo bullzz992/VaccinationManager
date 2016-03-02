@@ -36,6 +36,7 @@ namespace VaccinationManager.Controllers
         [Authorize]
         public ActionResult Index(string filter, string searchString)
         {
+            ViewBag.CurrentPage = "Children";
             var filters = new List<string>() { "ID Number", "Surname", "Name" };
 
             ViewBag.filter = new SelectList(filters);
@@ -67,6 +68,7 @@ namespace VaccinationManager.Controllers
         [HttpGet]
         public ActionResult Details(string id)
         {
+            ViewBag.CurrentPage = "Children";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -141,6 +143,7 @@ namespace VaccinationManager.Controllers
         [HttpPost]
         public ActionResult Details(Child child)
         {
+            ViewBag.CurrentPage = "Children";
             try
             {
                 if (child == null || string.IsNullOrEmpty(child.IdNumber))
@@ -173,6 +176,7 @@ namespace VaccinationManager.Controllers
 
         public ActionResult FullDetails(Child child)
         {
+            ViewBag.CurrentPage = "Children";
             return View(child);
         }
 
@@ -192,6 +196,7 @@ namespace VaccinationManager.Controllers
         //public ActionResult Create([Bind(Include = "IdNumber,Surname,Name,BloodType,FatherId,MotherId")] Child child)
         public ActionResult Create(Child child)
         {
+            ViewBag.CurrentPage = "Children";
             if (ModelState.IsValid)
             {
                 db.Children.Add(child);
@@ -227,6 +232,7 @@ namespace VaccinationManager.Controllers
         [HttpPost]
         public ActionResult AddMeasurements(ChildMeasurement measure)
         {
+            ViewBag.CurrentPage = "Children";
             try
             {
                 Child child = _childService.GetChildForSession(User.Identity.Name);
@@ -250,6 +256,7 @@ namespace VaccinationManager.Controllers
         [HttpGet]
         public ActionResult CreateMeasurement(string id)
         {
+            ViewBag.CurrentPage = "Children";
             try
             {
                 //string sessionId = (string)HttpContext.Items["AspSession"];
@@ -288,6 +295,7 @@ namespace VaccinationManager.Controllers
         [HttpPost]
         public ActionResult CreateMeasurement(MeasurementViewModel measure)
         {
+            ViewBag.CurrentPage = "Children";
             try
             {
                 //string sessionId = (string)HttpContext.Items["AspSession"];
@@ -309,6 +317,7 @@ namespace VaccinationManager.Controllers
 
         private Parent FindParent(string idNumber)
         {
+            ViewBag.CurrentPage = "Children";
             if (!IdUtils.IsValidIdNumber(idNumber))
             {
                 return null;
@@ -323,6 +332,7 @@ namespace VaccinationManager.Controllers
         [HttpGet]
         public ActionResult Measurements(string childId)
         {
+            ViewBag.CurrentPage = "Children";
             try
             {
                 if (string.IsNullOrEmpty(childId))
@@ -344,6 +354,7 @@ namespace VaccinationManager.Controllers
         [HttpPost]
         public ActionResult Measurements()
         {
+            ViewBag.CurrentPage = "Children";
             string chart = _childService.GetMeasurementChartForSession(User.Identity.Name);
 
             VaccinationReport report = new VaccinationReport();
@@ -369,6 +380,7 @@ namespace VaccinationManager.Controllers
         [ActionName("MeasurementChart")]
         public JsonResult MeasurementChartAjax(string data)
         {
+            ViewBag.CurrentPage = "Children";
             string input;
             using (var reader = new StreamReader(Request.InputStream))
             {
@@ -384,6 +396,7 @@ namespace VaccinationManager.Controllers
         // GET: Children/Edit/5
         public ActionResult Edit(string id)
         {
+            ViewBag.CurrentPage = "Children";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -403,6 +416,7 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Child child)
         {
+            ViewBag.CurrentPage = "Children";
             if (ModelState.IsValid)
             {
                 db.Entry(child).State = EntityState.Modified;
@@ -415,6 +429,7 @@ namespace VaccinationManager.Controllers
         // GET: Children/Delete/5
         public ActionResult Delete(string id)
         {
+            ViewBag.CurrentPage = "Children";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -432,6 +447,7 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            ViewBag.CurrentPage = "Children";
             Child child = db.Children.Find(id);
 
             var vaccines = db.Vaccinations.Where(v => v.IdNumber == child.IdNumber);
@@ -448,6 +464,7 @@ namespace VaccinationManager.Controllers
         [HttpGet]
         public ActionResult AddParent()
         {
+            ViewBag.CurrentPage = "Children";
             try
             {
                 //string sessionId = (string)HttpContext.Items["AspSession"];
@@ -467,6 +484,7 @@ namespace VaccinationManager.Controllers
         [HttpPost]
         public ActionResult AddParent(Child child)
         {
+            ViewBag.CurrentPage = "Children";
             if (child.Mother != null && !child.Mother.Found)
             {
                 child.Mother.IdNumber = child.MotherId;
@@ -487,6 +505,7 @@ namespace VaccinationManager.Controllers
         [HttpGet]
         public ActionResult ChildVaccinations(Child child)
         {
+            ViewBag.CurrentPage = "Children";
             List<VaccinationDefinition> VaccinationDefs = db.VaccinationDefinitions.
                                                         OrderBy(v => v.Age.Code).
                                                         ToList();
@@ -537,6 +556,7 @@ namespace VaccinationManager.Controllers
         [HttpPost]
         public ActionResult ChildVaccinations(List<ChildVaccination> Vaccinations)
         {
+            ViewBag.CurrentPage = "Children";
             var vaccinations = ViewBag.Model;
             List<Vaccination> childVaccinations = new List<Vaccination>();
             foreach (ChildVaccination cVaccine in Vaccinations)

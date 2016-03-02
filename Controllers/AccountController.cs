@@ -276,7 +276,7 @@ namespace VaccinationManager.Controllers
             return View();
         }
 
-        //
+        // 
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)

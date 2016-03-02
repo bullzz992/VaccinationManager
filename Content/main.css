@@ -50,16 +50,17 @@ body, html {
 }
 
 .banner {
+  margin-top:15px;
   background: white;
   height: 85px;
 }
 .logo {
-  background: url(../Images/Logo.png);
-  background-repeat: no-repeat;
-  height: 85px;
-  width: 445px;
-  float: right;
-  background-size: 445px;
+    background-image: url('../Images/Final Logo.png');
+    background-repeat: no-repeat;
+    height: 85px;
+    width: 445px;
+    float: right;
+    background-size: 445px;
 }
 
 /*Navbar*/
@@ -316,15 +317,21 @@ h6 {
 .Loginbutton {
     background: #7f7f7f !important;
     border-style: none;
-    margin-top :10px;
     color: white !important;
-    width:100px;
-    padding-left: 1px;
-    padding-right: 1px;
-    height: 35px;
-    border-radius: 2px;
-    margin-left: 1px;
-    margin-right: 5px;
+    width:110px;
+    height: 45px;
+    margin-left:10px;
+    
+    
+}
+.registerbutton {
+    position:relative;
+    background: #7f7f7f !important;
+    border-style: none;
+    color: white !important;
+    margin-top:10px;
+    width:140px;
+    height: 45px;
 }
 .linkButton {
     background: #7f7f7f !important;

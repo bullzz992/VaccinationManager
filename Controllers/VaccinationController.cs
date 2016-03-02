@@ -20,6 +20,7 @@ namespace VaccinationManager.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            ViewBag.CurrentPage = "Vaccination";
             var Vaccinations = db.VaccinationDefinitions.//Include("Age").//Join(db.Ages, d => d.Id, a => a.VaccinationDefinition_Id, (d, a) => { }).
                 OrderBy(q => q.Name).ToList();
             //ViewBag.SelectedVaccination = new SelectList(Vaccinations, "Id", "Code", SelectedVaccination);
@@ -33,6 +34,7 @@ namespace VaccinationManager.Controllers
         // GET: Vaccination/Details/5
         public ActionResult Details(Guid? id)
         {
+            ViewBag.CurrentPage = "Vaccination";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -48,6 +50,7 @@ namespace VaccinationManager.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.CurrentPage = "Vaccination";
             PopulateVaccinationDefinitionDropDownList();
             return View();
         }
@@ -56,6 +59,7 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id, Code, Name")]Vaccination Vaccination)
         {
+            ViewBag.CurrentPage = "Vaccination";
             try
             {
                 if (ModelState.IsValid)
@@ -76,6 +80,7 @@ namespace VaccinationManager.Controllers
 
         public ActionResult Edit(Guid id)
         {
+            ViewBag.CurrentPage = "Vaccination";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -93,6 +98,7 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(Guid id)
         {
+            ViewBag.CurrentPage = "Vaccination";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -130,6 +136,7 @@ namespace VaccinationManager.Controllers
         // GET: Vaccination/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.CurrentPage = "Vaccination";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -155,12 +162,14 @@ namespace VaccinationManager.Controllers
 
         public ActionResult UpdateVaccinationCredits()
         {
+            ViewBag.CurrentPage = "Vaccination";
             return View();
         }
 
         [HttpPost]
         public ActionResult UpdateVaccinationCredits(int? multiplier)
         {
+            ViewBag.CurrentPage = "Vaccination";
             if (multiplier != null)
             {
                 ViewBag.RowsAffected = db.Database.ExecuteSqlCommand("UPDATE Vaccination SET Credits = Credits * {0}", multiplier);

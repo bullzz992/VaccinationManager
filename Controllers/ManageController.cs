@@ -39,6 +39,7 @@ namespace VaccinationManager.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+            ViewBag.CurrentPage = "Manage";
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
@@ -212,6 +213,8 @@ namespace VaccinationManager.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
+            ViewBag.CurrentPage = "Change Password";
+
             return View();
         }
 
@@ -221,6 +224,8 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
+            ViewBag.CurrentPage = "Change Password";
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -243,6 +248,8 @@ namespace VaccinationManager.Controllers
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
         {
+            ViewBag.CurrentPage = "Set Password";
+
             return View();
         }
 
@@ -252,6 +259,7 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
+            ViewBag.CurrentPage = "Set Password";
             if (ModelState.IsValid)
             {
                 var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);

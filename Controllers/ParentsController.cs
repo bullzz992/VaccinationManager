@@ -20,6 +20,7 @@ namespace VaccinationManager.Controllers
         [Authorize]
         public ActionResult Index(string filter, string searchString)
         {
+            ViewBag.CurrentPage = "Parent";
             var filters = new List<string>() { "ID Number", "Surname", "Name" };
 
             ViewBag.filter = new SelectList(filters);
@@ -48,6 +49,7 @@ namespace VaccinationManager.Controllers
         // GET: Parents/Details/5
         public ActionResult Details(string id)
         {
+            ViewBag.CurrentPage = "Parent";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -79,6 +81,7 @@ namespace VaccinationManager.Controllers
         // GET: Parents/Create
         public ActionResult Create()
         {
+            ViewBag.CurrentPage = "Parent";
             return View();
         }
 
@@ -89,6 +92,7 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdNumber,Surname,Name,Telephone,Cellphone,Email,BloodType")] Parent parent)
         {
+            ViewBag.CurrentPage = "Parent";
             if (ModelState.IsValid)
             {
                 db.Parents.Add(parent);
@@ -102,6 +106,7 @@ namespace VaccinationManager.Controllers
         // GET: Parents/Edit/5
         public ActionResult Edit(string id)
         {
+            ViewBag.CurrentPage = "Parent";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -121,6 +126,7 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdNumber,Surname,Name,Telephone,Cellphone,Email,BloodType")] Parent parent)
         {
+            ViewBag.CurrentPage = "Parent";
             if (ModelState.IsValid)
             {
                 db.Entry(parent).State = EntityState.Modified;
@@ -133,6 +139,7 @@ namespace VaccinationManager.Controllers
         // GET: Parents/Delete/5
         public ActionResult Delete(string id)
         {
+            ViewBag.CurrentPage = "Parent";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -150,6 +157,7 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            ViewBag.CurrentPage = "Parent";
             Parent parent = db.Parents.Find(id);
             List<Child> children = db.Children.Where(c => c.MotherId == id || c.FatherId == id).ToList();
             foreach(Child child in children)

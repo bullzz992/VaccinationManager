@@ -16,11 +16,13 @@ namespace VaccinationManager.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            ViewBag.CurrentPage = "Home";
             return View();
         }
 
         public ActionResult About()
         {
+            ViewBag.CurrentPage = "About";
             // Commenting out LINQ to show how to do the same thing in SQL.
             //IQueryable<EnrollmentDateGroup> = from Child in db.Children
             //           group Child by Child.EnrollmentDate into dateGroup
@@ -31,7 +33,7 @@ namespace VaccinationManager.Controllers
             //           };
 
             // SQL version of the above LINQ code.
-         
+
             return View();
         }
 
