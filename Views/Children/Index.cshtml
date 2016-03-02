@@ -8,7 +8,7 @@
 
 <div class="container-fluid">
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btnCreateNew" })
     </p>
     @using (Html.BeginForm("Index", "Children", FormMethod.Get))
     {
