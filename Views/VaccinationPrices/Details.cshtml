@@ -1,0 +1,42 @@
+﻿@model VaccinationManager.Models.VaccinationPrice
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>VaccinationPrice</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.VaccinationDefId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.VaccinationDefId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PriceAmount)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PriceAmount)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.VaccinationPriceId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

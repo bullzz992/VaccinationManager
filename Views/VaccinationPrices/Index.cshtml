@@ -1,0 +1,36 @@
+﻿@model IEnumerable<VaccinationManager.Models.VaccinationPrice>
+
+
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VaccinationDefId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceAmount)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VaccinationDefId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceAmount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.VaccinationPriceId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.VaccinationPriceId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.VaccinationPriceId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+

@@ -49,12 +49,12 @@
       <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>packages\Microsoft.AspNet.Identity.Core.2.2.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -200,6 +200,7 @@
     <Compile Include="Controllers\ParentsController.cs" />
     <Compile Include="Controllers\VaccinationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\VaccinationPricesController.cs" />
     <Compile Include="DAL\VaccinationConfiguration.cs" />
     <Compile Include="DAL\VaccinationContext.cs" />
     <Compile Include="DAL\VaccinationInitializer.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Models\Vaccination.cs" />
     <Compile Include="Models\VaccinationContainer.cs" />
     <Compile Include="Models\VaccinationDefinition.cs" />
+    <Compile Include="Models\VaccinationPrice.cs" />
     <Compile Include="PDF Generator\VaccinationReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ChildService.cs" />
@@ -353,6 +355,11 @@
     <Content Include="Views\Children\Measurements.cshtml" />
     <Content Include="Views\Children\CreateMeasurement.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
+    <Content Include="Views\VaccinationPrices\Create.cshtml" />
+    <Content Include="Views\VaccinationPrices\Delete.cshtml" />
+    <Content Include="Views\VaccinationPrices\Details.cshtml" />
+    <Content Include="Views\VaccinationPrices\Edit.cshtml" />
+    <Content Include="Views\VaccinationPrices\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -52,21 +52,32 @@ namespace VaccinationManager.Controllers
         public ActionResult Create()
         {
             ViewBag.CurrentPage = "Vaccination";
+            List<SelectListItem> ls =  new List<SelectListItem>();
+
+            foreach (Age item in db.Ages)
+            {
+                ls.Add(new SelectListItem {Text = item.Description, Value = item.Code.ToString()});
+            }
+            ViewBag.AgeGroups = ls;
             PopulateVaccinationDefinitionDropDownList();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id, Code, Name")]Vaccination Vaccination)
+        public ActionResult Create(VaccinationDefinition Vaccination)
         {
             ViewBag.CurrentPage = "Vaccination";
+            Vaccination.Age = db.Ages.FirstOrDefault(p => p.Code == Vaccination.Age.Code);
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Vaccinations.Add(Vaccination);
+                    Vaccination.Id = Guid.NewGuid();
+                    VaccinationDefinition resultObj =  db.VaccinationDefinitions.Add(Vaccination);
                     db.SaveChanges();
+                    DataAccessLayer.VaccincationPriceDal provider = new VaccincationPriceDal();
+                    provider.AddVaccinationPrice(Vaccination.Id.ToString(), (Decimal) 0.0, true);
                     return RedirectToAction("Index");
                 }
             }
