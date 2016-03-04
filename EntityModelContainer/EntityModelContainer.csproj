@@ -53,80 +53,80 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Age.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Allergy.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Child.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ChildMeasurement.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Parent.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserBranch.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Vaccination.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="VaccinationDefinition.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="VaccincationPrice.cs">
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="VaccindationManagerEntities.Context.cs">
+    <Compile Include="VaccinationManagerEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VaccindationManagerEntities.Context.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="VaccindationManagerEntities.cs">
+    <Compile Include="VaccinationManagerEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VaccindationManagerEntities.tt</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="VaccindationManagerEntities.Designer.cs">
+    <Compile Include="VaccinationManagerEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VaccindationManagerEntities.edmx</DependentUpon>
+      <DependentUpon>VaccinationManagerEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="VaccinationPrice.cs">
+      <DependentUpon>VaccinationManagerEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="VaccindationManagerEntities.edmx">
+    <EntityDeploy Include="VaccinationManagerEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>VaccindationManagerEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>VaccinationManagerEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="VaccindationManagerEntities.edmx.diagram">
-      <DependentUpon>VaccindationManagerEntities.edmx</DependentUpon>
+    <None Include="VaccinationManagerEntities.edmx.diagram">
+      <DependentUpon>VaccinationManagerEntities.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VaccindationManagerEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VaccindationManagerEntities.edmx</DependentUpon>
-      <LastGenOutput>VaccindationManagerEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="VaccindationManagerEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VaccindationManagerEntities.edmx</DependentUpon>
-      <LastGenOutput>VaccindationManagerEntities.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="VaccinationManagerEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>VaccinationManagerEntities.edmx</DependentUpon>
+      <LastGenOutput>VaccinationManagerEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="VaccinationManagerEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>VaccinationManagerEntities.edmx</DependentUpon>
+      <LastGenOutput>VaccinationManagerEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

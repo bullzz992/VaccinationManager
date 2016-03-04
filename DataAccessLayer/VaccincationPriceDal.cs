@@ -18,17 +18,17 @@ namespace DataAccessLayer
                 
                 using (var db = new VaccinationManagerEntities())
                 {
-                    var obj = db.VaccincationPrices.FirstOrDefault(p => p.VaccinationDefId == inputVaccinationDefId);
+                    var obj = db.VaccinationPrices.FirstOrDefault(p => p.VaccinationDefId == inputVaccinationDefId);
 
                     if (obj == null)
                     {
-                        obj = new VaccincationPrice
+                        obj = new VaccinationPrice
                         {
                             VaccinationDefId = inputVaccinationDefId,
                             PriceAmount = inputAmount
                         };
 
-                        db.VaccincationPrices.Add(obj);
+                        db.VaccinationPrices.Add(obj);
                         
                     }
                     else
@@ -55,7 +55,7 @@ namespace DataAccessLayer
             {
                 using (var db = new VaccinationManagerEntities())
                 {
-                    var obj = db.VaccincationPrices.FirstOrDefault(p => p.VaccinationDefId == inputVaccinationDefId);
+                    var obj = db.VaccinationPrices.FirstOrDefault(p => p.VaccinationDefId == inputVaccinationDefId);
                     if (obj == null)
                     {
                         return -1;
@@ -70,6 +70,14 @@ namespace DataAccessLayer
             {
 
                 return -1;
+            }
+        }
+
+        public List<VaccinationPrice> GetList()
+        {
+            using (var db = new VaccinationManagerEntities())
+            {
+                return db.VaccinationPrices.ToList();
             }
         }
     }

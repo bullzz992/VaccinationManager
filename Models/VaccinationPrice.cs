@@ -11,9 +11,7 @@ namespace VaccinationManager.Models
     {
         [Key]
         public int VaccinationPriceId { get; set; }
-
         public string VaccinationDefId { get; set; }
-
         public decimal PriceAmount { get; set; }
     }
 }

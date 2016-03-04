@@ -102,6 +102,14 @@
           <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Age_Code" Type="int" />
         </EntityType>
+        <EntityType Name="VaccinationPrices">
+          <Key>
+            <PropertyRef Name="VaccinationPriceId" />
+          </Key>
+          <Property Name="VaccinationPriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VaccinationDefId" Type="nvarchar(max)" />
+          <Property Name="PriceAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Vaccinations">
           <Key>
             <PropertyRef Name="Id" />
@@ -113,14 +121,6 @@
           <Property Name="SerialNumber" Type="nvarchar(max)" />
           <Property Name="Signature" Type="nvarchar(max)" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="VaccincationPrice">
-          <Key>
-            <PropertyRef Name="VaccinationPriceId" />
-          </Key>
-          <Property Name="VaccinationPriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="VaccinationDefId" Type="varchar(max)" Nullable="false" />
-          <Property Name="PriceAmount" Type="money" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_Allergies_dbo_Children_Child_IdNumber">
           <End Role="Children" Type="Self.Children" Multiplicity="0..1" />
@@ -240,8 +240,8 @@
           <EntitySet Name="Parents" EntityType="Self.Parents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBranches" EntityType="Self.UserBranches" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VaccinationDefinitions" EntityType="Self.VaccinationDefinitions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VaccinationPrices" EntityType="Self.VaccinationPrices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vaccinations" EntityType="Self.Vaccinations" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VaccincationPrice" EntityType="Self.VaccincationPrice" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_Allergies_dbo_Children_Child_IdNumber" Association="Self.FK_dbo_Allergies_dbo_Children_Child_IdNumber">
             <End Role="Children" EntitySet="Children" />
             <End Role="Allergies" EntitySet="Allergies" />
@@ -398,6 +398,14 @@
           <Property Name="Age_Code" Type="Int32" />
           <NavigationProperty Name="Age" Relationship="Self.FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code" FromRole="VaccinationDefinitions" ToRole="Ages" />
         </EntityType>
+        <EntityType Name="VaccinationPrice">
+          <Key>
+            <PropertyRef Name="VaccinationPriceId" />
+          </Key>
+          <Property Name="VaccinationPriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VaccinationDefId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PriceAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Vaccination">
           <Key>
             <PropertyRef Name="Id" />
@@ -410,14 +418,6 @@
           <Property Name="Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Child" Relationship="Self.FK_dbo_Vaccinations_dbo_Children_IdNumber" FromRole="Vaccinations" ToRole="Children" />
-        </EntityType>
-        <EntityType Name="VaccincationPrice">
-          <Key>
-            <PropertyRef Name="VaccinationPriceId" />
-          </Key>
-          <Property Name="VaccinationPriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VaccinationDefId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PriceAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_Parents_dbo_Addresses_Address_Id">
           <End Role="Addresses" Type="Self.Address" Multiplicity="0..1" />
@@ -537,8 +537,8 @@
           <EntitySet Name="Parents" EntityType="Self.Parent" />
           <EntitySet Name="UserBranches" EntityType="Self.UserBranch" />
           <EntitySet Name="VaccinationDefinitions" EntityType="Self.VaccinationDefinition" />
+          <EntitySet Name="VaccinationPrices" EntityType="Self.VaccinationPrice" />
           <EntitySet Name="Vaccinations" EntityType="Self.Vaccination" />
-          <EntitySet Name="VaccincationPrices" EntityType="Self.VaccincationPrice" />
           <AssociationSet Name="FK_dbo_Parents_dbo_Addresses_Address_Id" Association="Self.FK_dbo_Parents_dbo_Addresses_Address_Id">
             <End Role="Addresses" EntitySet="Addresses" />
             <End Role="Parents" EntitySet="Parents" />
@@ -687,6 +687,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="VaccinationPrices">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.VaccinationPrice">
+              <MappingFragment StoreEntitySet="VaccinationPrices">
+                <ScalarProperty Name="VaccinationPriceId" ColumnName="VaccinationPriceId" />
+                <ScalarProperty Name="VaccinationDefId" ColumnName="VaccinationDefId" />
+                <ScalarProperty Name="PriceAmount" ColumnName="PriceAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Vaccinations">
             <EntityTypeMapping TypeName="VaccinationManagerModel.Vaccination">
               <MappingFragment StoreEntitySet="Vaccinations">
@@ -697,15 +706,6 @@
                 <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
                 <ScalarProperty Name="Signature" ColumnName="Signature" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VaccincationPrices">
-            <EntityTypeMapping TypeName="VaccinationManagerModel.VaccincationPrice">
-              <MappingFragment StoreEntitySet="VaccincationPrice">
-                <ScalarProperty Name="VaccinationPriceId" ColumnName="VaccinationPriceId" />
-                <ScalarProperty Name="VaccinationDefId" ColumnName="VaccinationDefId" />
-                <ScalarProperty Name="PriceAmount" ColumnName="PriceAmount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

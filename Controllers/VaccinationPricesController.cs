@@ -6,19 +6,23 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DataAccessLayer;
 using VaccinationManager.DAL;
 using VaccinationManager.Models;
-
 
 namespace VaccinationManager.Controllers
 {
     public class VaccinationPricesController : Controller
     {
         private VaccinationContext db = new VaccinationContext();
+        private DataAccessLayer.VaccincationPriceDal provider = new VaccincationPriceDal();
 
         // GET: VaccinationPrices
         public ActionResult Index()
         {
+            provider.AddVaccinationPrice("", (Decimal) 0.0);
+            provider.FindPriceByFaccinationId("");
+            
             return View(db.VaccinationPrices.ToList());
         }
 

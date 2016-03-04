@@ -34,7 +34,7 @@ namespace EntityModelContainer
         public virtual DbSet<Parent> Parents { get; set; }
         public virtual DbSet<UserBranch> UserBranches { get; set; }
         public virtual DbSet<VaccinationDefinition> VaccinationDefinitions { get; set; }
+        public virtual DbSet<VaccinationPrice> VaccinationPrices { get; set; }
         public virtual DbSet<Vaccination> Vaccinations { get; set; }
-        public virtual DbSet<VaccincationPrice> VaccincationPrices { get; set; }
     }
 }

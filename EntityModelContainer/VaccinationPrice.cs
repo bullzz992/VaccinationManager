@@ -12,7 +12,7 @@ namespace EntityModelContainer
     using System;
     using System.Collections.Generic;
     
-    public partial class VaccincationPrice
+    public partial class VaccinationPrice
     {
         public int VaccinationPriceId { get; set; }
         public string VaccinationDefId { get; set; }
