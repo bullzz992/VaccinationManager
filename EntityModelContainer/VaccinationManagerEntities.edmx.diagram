@@ -25,6 +25,7 @@
         <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Children_dbo_Parents_Mother_IdNumber" ManuallyRouted="false" />
         <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" ManuallyRouted="false" />
         <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Vaccinations_dbo_Children_IdNumber" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.ExtendedFee" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

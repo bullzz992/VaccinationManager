@@ -31,5 +31,7 @@ namespace VaccinationManager.DAL
         public System.Data.Entity.DbSet<VaccinationManager.Models.Parent> Parents { get; set; }
 
         public System.Data.Entity.DbSet<VaccinationManager.Models.VaccinationPrice> VaccinationPrices { get; set; }
+
+        public System.Data.Entity.DbSet<VaccinationManager.Models.ExtendedFee> ExtendedFees { get; set; }
     }
 }

@@ -36,5 +36,6 @@ namespace EntityModelContainer
         public virtual DbSet<VaccinationDefinition> VaccinationDefinitions { get; set; }
         public virtual DbSet<VaccinationPrice> VaccinationPrices { get; set; }
         public virtual DbSet<Vaccination> Vaccinations { get; set; }
+        public virtual DbSet<ExtendedFee> ExtendedFees { get; set; }
     }
 }

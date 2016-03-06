@@ -1,0 +1,38 @@
+﻿@model VaccinationManager.Models.ExtendedFee
+
+
+    <div>
+        <h4>ExtendedFee</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FeeName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FeeName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.FeeDescription)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FeeDescription)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.FeeId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+

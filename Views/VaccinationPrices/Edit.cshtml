@@ -1,17 +1,5 @@
 ﻿@model VaccinationManager.Models.VaccinationPrice
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -25,7 +13,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.VaccinationDefId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.VaccinationDefId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.VaccinationDefId, new { htmlAttributes = new { @class = "form-control", @readOnly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.VaccinationDefId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -49,5 +37,3 @@
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
-</body>
-</html>

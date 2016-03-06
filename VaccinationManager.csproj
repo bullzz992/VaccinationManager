@@ -196,6 +196,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChildrenController.cs" />
+    <Compile Include="Controllers\ExtendedFeesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParentsController.cs" />
     <Compile Include="Controllers\VaccinationController.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Models\Child.cs" />
     <Compile Include="Models\ChildMeasurement.cs" />
     <Compile Include="Models\ChildVaccination.cs" />
+    <Compile Include="Models\ExtendedFee.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Parent.cs" />
@@ -289,6 +291,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="SQL\AccessLevelTable.sql" />
     <Content Include="SQL\script.sql" />
+    <Content Include="SQL\TableCreationExtendedFees.sql" />
     <Content Include="SQL\UserStatusTable.sql" />
     <Content Include="SQL\VaccinationPriceCREATE_1.sql" />
     <Content Include="Web.config">
@@ -360,9 +363,15 @@
     <Content Include="Views\VaccinationPrices\Details.cshtml" />
     <Content Include="Views\VaccinationPrices\Edit.cshtml" />
     <Content Include="Views\VaccinationPrices\Index.cshtml" />
+    <Content Include="Views\ExtendedFees\Create.cshtml" />
+    <Content Include="Views\ExtendedFees\Delete.cshtml" />
+    <Content Include="Views\ExtendedFees\Details.cshtml" />
+    <Content Include="Views\ExtendedFees\Edit.cshtml" />
+    <Content Include="Views\ExtendedFees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ExtendedFee\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

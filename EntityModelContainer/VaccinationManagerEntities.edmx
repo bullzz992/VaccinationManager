@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VaccinationManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="VaccinationManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -69,6 +69,15 @@
           <Property Name="ParentViewModel_IdNumber" Type="nvarchar" MaxLength="128" />
           <Property Name="Father_IdNumber" Type="nvarchar" MaxLength="128" />
           <Property Name="Mother_IdNumber" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="ExtendedFees">
+          <Key>
+            <PropertyRef Name="FeeId" />
+          </Key>
+          <Property Name="FeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeeName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FeeDescription" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Parents">
           <Key>
@@ -237,6 +246,7 @@
           <EntitySet Name="Allergies" EntityType="Self.Allergies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChildMeasurements" EntityType="Self.ChildMeasurements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Children" EntityType="Self.Children" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExtendedFees" EntityType="Self.ExtendedFees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parents" EntityType="Self.Parents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBranches" EntityType="Self.UserBranches" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VaccinationDefinitions" EntityType="Self.VaccinationDefinitions" Schema="dbo" store:Type="Tables" />
@@ -279,8 +289,7 @@
             <End Role="Vaccinations" EntitySet="Vaccinations" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VaccinationManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -575,7 +584,17 @@
             <End Role="Children" EntitySet="Children" />
             <End Role="Vaccinations" EntitySet="Vaccinations" />
           </AssociationSet>
+          <EntitySet Name="ExtendedFees" EntityType="VaccinationManagerModel.ExtendedFee" />
         </EntityContainer>
+        <EntityType Name="ExtendedFee">
+          <Key>
+            <PropertyRef Name="FeeId" />
+          </Key>
+          <Property Name="FeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeeName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FeeDescription" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -706,6 +725,16 @@
                 <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
                 <ScalarProperty Name="Signature" ColumnName="Signature" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExtendedFees">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.ExtendedFee">
+              <MappingFragment StoreEntitySet="ExtendedFees">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="FeeDescription" ColumnName="FeeDescription" />
+                <ScalarProperty Name="FeeName" ColumnName="FeeName" />
+                <ScalarProperty Name="FeeId" ColumnName="FeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
