@@ -23,9 +23,21 @@
 </head>
 <body>
 
-    <div class="banner">
-        <div class="logo"><img src="~/Images/Final Logo.png" /></div>
+<div class="banner">
+    
+    @*<img class="topImages" src="~/Images/pic01.png"/>
+    <img class="topImages" src="~/Images/pic02.png" />
+    <img class="topImages" src="~/Images/pic03.png"/>*@
+
+    <img class="topImages" src="~/Images/headerLines.gif"/>
+    <img class="topImages" src="~/Images/baby.png" />
+
+    <div class="logo">
+
+        <img src="~/Images/Final Logo.png"/>
+
     </div>
+</div>
 
     <div class="navbar">
         <div class="navbarToggle left  "></div>
@@ -37,13 +49,13 @@
 
     <div class="Menu">
         <div class="MenuItem" id="home">@Html.ActionLink("Home", "Index", "Home")</div>
-        <div class="MenuItem" id="">@Html.ActionLink("Children", "Index", "Children")</div>
-        <div class="MenuItem" id="">@Html.ActionLink("Parents", "Index", "Parents")</div>
-        <div class="MenuItem" id="">@Html.ActionLink("Vaccinations", "Index", "Vaccination")</div>
-        <div class="MenuItem" id="">@Html.ActionLink("Vaccination Prices", "Index", "VaccinationPrices")</div>
-        <div class="MenuItem" id="">@Html.ActionLink("Extended Fees", "Index", "ExtendedFees")</div>
+        <div class="MenuItem" id="children">@Html.ActionLink("Children", "Index", "Children")</div>
+        <div class="MenuItem" id="parents">@Html.ActionLink("Parents", "Index", "Parents")</div>
+        <div class="MenuItem" id="vaccinations">@Html.ActionLink("Vaccinations", "Index", "Vaccination")</div>
+        <div class="MenuItem" id="price">@Html.ActionLink("Vaccination Prices", "Index", "VaccinationPrices")</div>
+        <div class="MenuItem" id="consultation">@Html.ActionLink("Extended Fees", "Index", "ExtendedFees")</div>
         <div class="MenuItem" id="about">@Html.ActionLink("About", "About", "Home")</div>
-        <div class="MenuItem" id="">@Html.ActionLink("Manage Account", "Index", "Manage")</div>
+        <div class="MenuItem" id="manage">@Html.ActionLink("Manage Account", "Index", "Manage")</div>
     </div>
     <div class="mainContent">
 

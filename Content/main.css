@@ -108,6 +108,12 @@ body, html {
   background: white;
   height: 85px;
 }
+
+.topImages {
+    height: 84px;
+    /*padding: 0 50px;*/
+}
+
 .logo {
     background-image: url('../Images/Final Logo.png');
     background-repeat: no-repeat;
@@ -237,7 +243,67 @@ body, html {
     color: black;
 }
 #home a {
-    background-image: url('../Images/Home.svg')!important;
+    background-image: url('../Images/home.png')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+
+#children a {
+    background-image: url('../Images/baby.png')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+
+#parents a {
+    background-image: url('../Images/parents.png')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+
+#vaccinations a {
+    background-image: url('../Images/vaccinations.png')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+
+#price a {
+    background-image: url('../Images/price.png')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+
+#consultation a {
+    background-image: url('../Images/consultation.png')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+
+#manage a {
+    background-image: url('../Images/manage.png')!important;
     background-repeat: no-repeat;
    background-size: 26px;
     background-position: 12px 10px !important;
@@ -402,9 +468,10 @@ h6 {
 }
 .mainContent {
     margin-left: 235px;
-    width: calc(100% - 200px);
+    /*width: calc(100% - 200px);*/
     padding: 25px;
     display:block;
+    overflow-x: hidden;
     overflow-y:auto;
     height:calc(100% - 135px);
 }

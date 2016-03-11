@@ -197,6 +197,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChildrenController.cs" />
     <Compile Include="Controllers\ExtendedFeesController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParentsController.cs" />
     <Compile Include="Controllers\VaccinationController.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Models\ChildVaccination.cs" />
     <Compile Include="Models\ExtendedFee.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Parent.cs" />
     <Compile Include="Models\UserBranch.cs" />
@@ -251,13 +253,32 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\aboutIcon.ico" />
+    <Content Include="Images\baby.png" />
+    <Content Include="Images\consultation.png" />
     <Content Include="Images\contactIcon.ico" />
+    <Content Include="Images\Dashboard.jpg" />
+    <Content Include="Images\Dashboard2.jpg" />
+    <Content Include="Images\Dashboard3.jpg" />
+    <Content Include="Images\Dashboard4.jpg" />
+    <Content Include="Images\Dashboard5.jpg" />
     <Content Include="Images\Edit_add_orange.svg" />
     <Content Include="Images\Final Logo.png" />
     <Content Include="Images\CreateNew.png" />
+    <Content Include="Images\headerLines.gif" />
+    <Content Include="Images\headerLines.png" />
+    <Content Include="Images\home.png" />
     <Content Include="Images\loginIcon.ico" />
     <Content Include="Images\logout.ico" />
+    <Content Include="Images\manage.png" />
+    <Content Include="Images\needle-drip.jpg" />
+    <Content Include="Images\parents.png" />
+    <Content Include="Images\pic01.png" />
+    <Content Include="Images\pic02.png" />
+    <Content Include="Images\pic03.png" />
+    <Content Include="Images\pic04.png" />
+    <Content Include="Images\price.png" />
     <Content Include="Images\registerIcon.ico" />
+    <Content Include="Images\vaccinations.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -368,6 +389,8 @@
     <Content Include="Views\ExtendedFees\Details.cshtml" />
     <Content Include="Views\ExtendedFees\Edit.cshtml" />
     <Content Include="Views\ExtendedFees\Index.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\Invoice\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
