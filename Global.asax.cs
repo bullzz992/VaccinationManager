@@ -21,7 +21,7 @@ namespace VaccinationManager
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             DbInterception.Add(new VaccinationInterceptorTransientErrors());
             DbInterception.Add(new VaccinationInterceptorLogging());
-            Database.SetInitializer(new VaccinationInitializer());
+            Database.SetInitializer<VaccinationContext>(null);
         }
     }
 }

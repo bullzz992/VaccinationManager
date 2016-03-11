@@ -151,7 +151,17 @@ namespace VaccinationManager.Controllers
 
                 VaccinationReport report = new VaccinationReport();
                 var usr = User;
-                string branch = db.Branches.Find(User.Identity.Name).Branch;
+                UserBranch result = db.Branches.Find(User.Identity.Name);
+                string branch;
+                if (result != null)
+                {
+                    branch = result.Branch;
+                }
+                else
+                {
+                    branch = "Not Specified";
+                }
+                
 
                 var measurements = from cust in db.ChildMeasurements
                                    where cust.ChildID == child.IdNumber
