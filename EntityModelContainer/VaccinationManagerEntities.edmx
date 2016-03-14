@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="VaccinationManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="VaccinationManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -42,6 +42,23 @@
           <Property Name="Child_IdNumber" Type="nvarchar" MaxLength="13" />
           <Property Name="Parent_IdNumber" Type="nvarchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Overseer_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Overseer_Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Practice_No" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tel_Number" Type="varchar" MaxLength="20" />
+          <Property Name="Fax_Number" Type="varchar" MaxLength="20" />
+          <Property Name="Email_Address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Bank_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Branch_Number" Type="varchar" MaxLength="20" />
+          <Property Name="Account_Number" Type="varchar" MaxLength="30" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="ChildMeasurements">
           <Key>
             <PropertyRef Name="Id" />
@@ -75,9 +92,9 @@
             <PropertyRef Name="FeeId" />
           </Key>
           <Property Name="FeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FeeName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="FeeDescription" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="FeeName" Type="nvarchar(max)" />
+          <Property Name="FeeDescription" Type="nvarchar(max)" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Parents">
           <Key>
@@ -99,6 +116,17 @@
           </Key>
           <Property Name="UserName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Branch" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="varchar(max)" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Branch_Practice_No" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="VaccinationDefinitions">
           <Key>
@@ -244,11 +272,13 @@
           <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ages" EntityType="Self.Ages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Allergies" EntityType="Self.Allergies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChildMeasurements" EntityType="Self.ChildMeasurements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Children" EntityType="Self.Children" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExtendedFees" EntityType="Self.ExtendedFees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parents" EntityType="Self.Parents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBranches" EntityType="Self.UserBranches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserStatus" EntityType="Self.UserStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VaccinationDefinitions" EntityType="Self.VaccinationDefinitions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VaccinationPrices" EntityType="Self.VaccinationPrices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vaccinations" EntityType="Self.Vaccinations" Schema="dbo" store:Type="Tables" />
@@ -289,7 +319,8 @@
             <End Role="Vaccinations" EntitySet="Vaccinations" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VaccinationManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -334,6 +365,23 @@
           <NavigationProperty Name="Child" Relationship="Self.FK_dbo_Allergies_dbo_Children_Child_IdNumber" FromRole="Allergies" ToRole="Children" />
           <NavigationProperty Name="Parent" Relationship="Self.FK_dbo_Allergies_dbo_Parents_Parent_IdNumber" FromRole="Allergies" ToRole="Parents" />
         </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Overseer_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Overseer_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Practice_No" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tel_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Fax_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Bank_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Branch_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Account_Number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="ChildMeasurement">
           <Key>
             <PropertyRef Name="Id" />
@@ -369,6 +417,15 @@
           <NavigationProperty Name="Parent2" Relationship="Self.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" FromRole="Children" ToRole="Parents" />
           <NavigationProperty Name="Vaccinations" Relationship="Self.FK_dbo_Vaccinations_dbo_Children_IdNumber" FromRole="Children" ToRole="Vaccinations" />
         </EntityType>
+        <EntityType Name="ExtendedFee">
+          <Key>
+            <PropertyRef Name="FeeId" />
+          </Key>
+          <Property Name="FeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FeeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Parent">
           <Key>
             <PropertyRef Name="IdNumber" />
@@ -394,6 +451,17 @@
           </Key>
           <Property Name="UserName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Branch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Branch_Practice_No" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="VaccinationDefinition">
           <Key>
@@ -541,10 +609,13 @@
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="Ages" EntityType="Self.Age" />
           <EntitySet Name="Allergies" EntityType="Self.Allergy" />
+          <EntitySet Name="Branches" EntityType="Self.Branch" />
           <EntitySet Name="ChildMeasurements" EntityType="Self.ChildMeasurement" />
           <EntitySet Name="Children" EntityType="Self.Child" />
+          <EntitySet Name="ExtendedFees" EntityType="Self.ExtendedFee" />
           <EntitySet Name="Parents" EntityType="Self.Parent" />
           <EntitySet Name="UserBranches" EntityType="Self.UserBranch" />
+          <EntitySet Name="UserStatus" EntityType="Self.UserStatu" />
           <EntitySet Name="VaccinationDefinitions" EntityType="Self.VaccinationDefinition" />
           <EntitySet Name="VaccinationPrices" EntityType="Self.VaccinationPrice" />
           <EntitySet Name="Vaccinations" EntityType="Self.Vaccination" />
@@ -584,17 +655,7 @@
             <End Role="Children" EntitySet="Children" />
             <End Role="Vaccinations" EntitySet="Vaccinations" />
           </AssociationSet>
-          <EntitySet Name="ExtendedFees" EntityType="VaccinationManagerModel.ExtendedFee" />
         </EntityContainer>
-        <EntityType Name="ExtendedFee">
-          <Key>
-            <PropertyRef Name="FeeId" />
-          </Key>
-          <Property Name="FeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FeeName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="FeeDescription" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -641,6 +702,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.Branch">
+              <MappingFragment StoreEntitySet="Branches">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Overseer_Name" ColumnName="Overseer_Name" />
+                <ScalarProperty Name="Overseer_Surname" ColumnName="Overseer_Surname" />
+                <ScalarProperty Name="Practice_No" ColumnName="Practice_No" />
+                <ScalarProperty Name="Tel_Number" ColumnName="Tel_Number" />
+                <ScalarProperty Name="Fax_Number" ColumnName="Fax_Number" />
+                <ScalarProperty Name="Email_Address" ColumnName="Email_Address" />
+                <ScalarProperty Name="Bank_Name" ColumnName="Bank_Name" />
+                <ScalarProperty Name="Branch_Number" ColumnName="Branch_Number" />
+                <ScalarProperty Name="Account_Number" ColumnName="Account_Number" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ChildMeasurements">
             <EntityTypeMapping TypeName="VaccinationManagerModel.ChildMeasurement">
               <MappingFragment StoreEntitySet="ChildMeasurements">
@@ -671,6 +750,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ExtendedFees">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.ExtendedFee">
+              <MappingFragment StoreEntitySet="ExtendedFees">
+                <ScalarProperty Name="FeeId" ColumnName="FeeId" />
+                <ScalarProperty Name="FeeName" ColumnName="FeeName" />
+                <ScalarProperty Name="FeeDescription" ColumnName="FeeDescription" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Parents">
             <EntityTypeMapping TypeName="VaccinationManagerModel.Parent">
               <MappingFragment StoreEntitySet="Parents">
@@ -691,6 +780,18 @@
               <MappingFragment StoreEntitySet="UserBranches">
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Branch" ColumnName="Branch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserStatus">
+            <EntityTypeMapping TypeName="VaccinationManagerModel.UserStatu">
+              <MappingFragment StoreEntitySet="UserStatus">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Branch_Practice_No" ColumnName="Branch_Practice_No" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -725,16 +826,6 @@
                 <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
                 <ScalarProperty Name="Signature" ColumnName="Signature" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ExtendedFees">
-            <EntityTypeMapping TypeName="VaccinationManagerModel.ExtendedFee">
-              <MappingFragment StoreEntitySet="ExtendedFees">
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="FeeDescription" ColumnName="FeeDescription" />
-                <ScalarProperty Name="FeeName" ColumnName="FeeName" />
-                <ScalarProperty Name="FeeId" ColumnName="FeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

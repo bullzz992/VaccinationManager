@@ -33,5 +33,9 @@ namespace VaccinationManager.DAL
         public System.Data.Entity.DbSet<VaccinationManager.Models.VaccinationPrice> VaccinationPrices { get; set; }
 
         public System.Data.Entity.DbSet<VaccinationManager.Models.ExtendedFee> ExtendedFees { get; set; }
+
+        public System.Data.Entity.DbSet<VaccinationManager.Models.Branch> Branches1 { get; set; }
+
+        public System.Data.Entity.DbSet<VaccinationManager.Models.UserStatus> UserStatus { get; set; }
     }
 }

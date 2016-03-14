@@ -11,6 +11,8 @@ namespace VaccinationManager.Models
         public Child PatientChild;
         public List<Vaccination> VaccinationList;
         public List<ExtendedFee> ExtenddFeeList;
+        public Branch BranchInformation;
+        public DateTime InvoiceDate;
 
     }
 }

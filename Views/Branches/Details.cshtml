@@ -1,0 +1,101 @@
+﻿@model VaccinationManager.Models.Branch
+
+    <div>
+        <h4>Branch</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Overseer_Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Overseer_Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Overseer_Surname)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Overseer_Surname)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Practice_No)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Practice_No)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Tel_Number)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Tel_Number)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Fax_Number)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Fax_Number)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Email_Address)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Email_Address)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Bank_Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Bank_Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Branch_Number)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Branch_Number)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Account_Number)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Account_Number)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+

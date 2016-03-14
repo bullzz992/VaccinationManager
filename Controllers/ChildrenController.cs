@@ -151,11 +151,23 @@ namespace VaccinationManager.Controllers
 
                 VaccinationReport report = new VaccinationReport();
                 var usr = User;
-                UserBranch result = db.Branches.Find(User.Identity.Name);
+
+                //User.Identity.Name
+                UserStatus result = db.UserStatus.FirstOrDefault(x => x.Username == User.Identity.Name);
                 string branch;
                 if (result != null)
                 {
-                    branch = result.Branch;
+                    branch = result.Branch_Practice_No;
+                    Branch resultBranch = db.Branches1.FirstOrDefault(x => x.Practice_No == branch);
+
+                    if (resultBranch != null)
+                    {
+                        branch = resultBranch.Name;
+                    }
+                    else
+                    {
+                        branch = "Not Specified";
+                    }
                 }
                 else
                 {

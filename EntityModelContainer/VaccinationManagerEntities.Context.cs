@@ -29,13 +29,15 @@ namespace EntityModelContainer
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Age> Ages { get; set; }
         public virtual DbSet<Allergy> Allergies { get; set; }
+        public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<ChildMeasurement> ChildMeasurements { get; set; }
         public virtual DbSet<Child> Children { get; set; }
+        public virtual DbSet<ExtendedFee> ExtendedFees { get; set; }
         public virtual DbSet<Parent> Parents { get; set; }
         public virtual DbSet<UserBranch> UserBranches { get; set; }
+        public virtual DbSet<UserStatu> UserStatus { get; set; }
         public virtual DbSet<VaccinationDefinition> VaccinationDefinitions { get; set; }
         public virtual DbSet<VaccinationPrice> VaccinationPrices { get; set; }
         public virtual DbSet<Vaccination> Vaccinations { get; set; }
-        public virtual DbSet<ExtendedFee> ExtendedFees { get; set; }
     }
 }

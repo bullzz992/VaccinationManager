@@ -104,19 +104,39 @@ namespace VaccinationManager.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
+
+            UserStatus resultStatusObj = db.UserStatus.FirstOrDefault(x => x.Username == model.Username);
+
+            if (resultStatusObj == null)
+            {
+                result = SignInStatus.RequiresVerification;
+            }
+            else
+            {
+                if (resultStatusObj.Status == "Active")
+                {
+                    result = SignInStatus.Success;
+                }
+                else
+                {
+                    result = SignInStatus.RequiresVerification;
+                }
+            }
+
             switch (result)
             {
                 case SignInStatus.Success:
                     ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
                     identity.AddClaim(new Claim(ClaimTypes.Name, model.Username));
-
+                    Session["AccessLevel"] = resultStatusObj.Branch_Practice_No;
                     InitiateVaccinationPrices();
 
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    ModelState.AddModelError("", "This user has no access to the system. You may have been disabled or your account has not been activated yet. Contact Admin.");
+                    return View(model);
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -191,29 +211,50 @@ namespace VaccinationManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                Branch resultBranch = db.Branches1.FirstOrDefault(x => x.Practice_No == model.Branch.Trim());
+
+                IdentityResult result;
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email }; ;
+                if (resultBranch == null)
+                {
+                    result = IdentityResult.Failed("The entered Branch Practice Number is not a registered branch. Please contact Admin for a valid Practice Number.");
+                    
+                }
+                else
+                {
+                    
+                    result = await UserManager.CreateAsync(user, model.Password);
+                }
+
+                
                 if (result.Succeeded)
                 {
                     //  Comment the following line to prevent log in until the user is confirmed.
                     //  await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+                    //string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
 
 
-                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                                    + "before you can log in.";
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var res = await UserManager.ConfirmEmailAsync(user.Id, code);
+
+                    //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                    //                + "before you can log in.";
 
                     // For local debug only
-                    ViewBag.Link = callbackUrl;
+                    //ViewBag.Link = callbackUrl;
 
-                    db.Branches.Add(new UserBranch()
+                    db.UserStatus.Add(new UserStatus
                         {
-                            Branch = model.Branch,
-                            UserName = model.Username
+                            UserId = user.Id,
+                            Username = user.UserName,
+                            Email = user.Email,
+                            Branch_Practice_No = model.Branch,
+                            Status = "New"
+                           
                         });
                     db.SaveChanges();
-                    return View("Info");
+                    return View("ConfirmEmail");
                     //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

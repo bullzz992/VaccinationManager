@@ -4,17 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d58bd258e2c4408c8e1831d45c1248c0" Name="Diagram1">
+      <Diagram DiagramId="4d797ec280834065b08447a0110c3db0" Name="Diagram1">
         <EntityTypeShape EntityType="VaccinationManagerModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VaccinationManagerModel.Address" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="VaccinationManagerModel.Age" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="VaccinationManagerModel.Allergy" Width="1.5" PointX="10.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.Branch" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VaccinationManagerModel.ChildMeasurement" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="VaccinationManagerModel.Child" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.ExtendedFee" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VaccinationManagerModel.Parent" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="VaccinationManagerModel.UserBranch" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.UserBranch" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.UserStatu" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VaccinationManagerModel.VaccinationDefinition" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="VaccinationManagerModel.VaccinationPrice" Width="1.875" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VaccinationManagerModel.VaccinationPrice" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VaccinationManagerModel.Vaccination" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
         <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Parents_dbo_Addresses_Address_Id" ManuallyRouted="false" />
         <AssociationConnector Association="VaccinationManagerModel.FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code" ManuallyRouted="false" />
@@ -25,7 +28,6 @@
         <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Children_dbo_Parents_Mother_IdNumber" ManuallyRouted="false" />
         <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" ManuallyRouted="false" />
         <AssociationConnector Association="VaccinationManagerModel.FK_dbo_Vaccinations_dbo_Children_IdNumber" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="VaccinationManagerModel.ExtendedFee" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -195,11 +195,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\ChildrenController.cs" />
     <Compile Include="Controllers\ExtendedFeesController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParentsController.cs" />
+    <Compile Include="Controllers\UserStatusController.cs" />
     <Compile Include="Controllers\VaccinationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\VaccinationPricesController.cs" />
@@ -220,6 +222,7 @@
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Age.cs" />
     <Compile Include="Models\Allergy.cs" />
+    <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Child.cs" />
     <Compile Include="Models\ChildMeasurement.cs" />
     <Compile Include="Models\ChildVaccination.cs" />
@@ -229,6 +232,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Parent.cs" />
     <Compile Include="Models\UserBranch.cs" />
+    <Compile Include="Models\UserStatus.cs" />
     <Compile Include="Models\Vaccination.cs" />
     <Compile Include="Models\VaccinationContainer.cs" />
     <Compile Include="Models\VaccinationDefinition.cs" />
@@ -312,7 +316,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="SQL\AccessLevelTable.sql" />
     <Content Include="SQL\script.sql" />
+    <Content Include="SQL\TableCreationBranches.sql" />
     <Content Include="SQL\TableCreationExtendedFees.sql" />
+    <Content Include="SQL\TableCreationUserStatus.sql" />
     <Content Include="SQL\UserStatusTable.sql" />
     <Content Include="SQL\VaccinationPriceCREATE_1.sql" />
     <Content Include="Web.config">
@@ -391,6 +397,16 @@
     <Content Include="Views\ExtendedFees\Index.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Invoice\Create.cshtml" />
+    <Content Include="Views\Branches\Create.cshtml" />
+    <Content Include="Views\Branches\Delete.cshtml" />
+    <Content Include="Views\Branches\Details.cshtml" />
+    <Content Include="Views\Branches\Edit.cshtml" />
+    <Content Include="Views\Branches\Index.cshtml" />
+    <Content Include="Views\UserStatus\Create.cshtml" />
+    <Content Include="Views\UserStatus\Delete.cshtml" />
+    <Content Include="Views\UserStatus\Details.cshtml" />
+    <Content Include="Views\UserStatus\Edit.cshtml" />
+    <Content Include="Views\UserStatus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

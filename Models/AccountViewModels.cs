@@ -78,8 +78,8 @@ namespace VaccinationManager.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(10, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
-        [Display(Name = "Branch")]
+        [StringLength(30, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
+        [Display(Name = "Pactice No.")]
         public string Branch { get; set; }
 
         [Required]
