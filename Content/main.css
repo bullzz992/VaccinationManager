@@ -312,6 +312,26 @@ body, html {
     color: black;
 }
 
+#branchMaintenance a {
+    background-image: url('../Images/branch.png')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+
+#userApproval {
+    background-image: url('../Images/userApproval.png')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+
 #InstitutionDetails  a{
      background-image: url(/Images/IconInstittuion.svg) !important;
      background-repeat:no-repeat;

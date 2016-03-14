@@ -258,6 +258,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\aboutIcon.ico" />
     <Content Include="Images\baby.png" />
+    <Content Include="Images\branch.png" />
     <Content Include="Images\consultation.png" />
     <Content Include="Images\contactIcon.ico" />
     <Content Include="Images\Dashboard.jpg" />
@@ -282,6 +283,7 @@
     <Content Include="Images\pic04.png" />
     <Content Include="Images\price.png" />
     <Content Include="Images\registerIcon.ico" />
+    <Content Include="Images\userApproval.png" />
     <Content Include="Images\vaccinations.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
