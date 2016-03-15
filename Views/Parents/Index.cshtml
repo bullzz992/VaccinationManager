@@ -2,74 +2,82 @@
 
 @{
     ViewBag.Title = "Parents";
+    ViewBag.CurrentPage = "Parents";
 }
 
-<h2>Parents</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btnCreateNew" })
+<h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">@ViewBag.Title</h2>
+<div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
+<br/>
+<div class="container-fluid">
+    <p>
+        @Html.ActionLink("Create New", "Create", null, htmlAttributes: new {@class = "btnCreateNew"})
+    </p>
 
     @using (Html.BeginForm("Index", "Parents", FormMethod.Get))
     {
-    <p>
-        Filter: @Html.DropDownList("filter")
-        Value: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
+        <p>
+            Filter: @Html.DropDownList("filter")
+            Value: @Html.TextBox("SearchString")
+            <input type="submit" value="Search"/>
+        </p>
     }
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("ID Number")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Surname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telephone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cellphone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BloodType)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Surname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telephone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cellphone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BloodType)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdNumber }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdNumber }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdNumber })
-        </td>
-    </tr>
-}
 
-</table>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.Label("ID Number")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telephone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cellphone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BloodType)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cellphone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BloodType)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = item.IdNumber}) |
+                    @Html.ActionLink("Details", "Details", new {id = item.IdNumber}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.IdNumber})
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+

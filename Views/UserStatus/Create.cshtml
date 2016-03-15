@@ -1,6 +1,10 @@
 ﻿@model VaccinationManager.Models.UserStatus
-
-
+@{
+    ViewBag.CurrentPage = "User Status";
+    
+}
+<h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">Create</h2>
+<div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
     @using (Html.BeginForm()) 
     {
         @Html.AntiForgeryToken()

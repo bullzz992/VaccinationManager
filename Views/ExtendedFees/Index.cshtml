@@ -1,18 +1,24 @@
 ﻿@model IEnumerable<VaccinationManager.Models.ExtendedFee>
 
-    <p>
+@{
+    ViewBag.CurrentPage = "Extended Fees";
+}
+<h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">Extended Fees</h2>
+<div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
+<br />
+<p>
         @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btnCreateNew" })
     </p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FeeName)
+                @Html.DisplayName("Fee Name")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FeeDescription)
+                @Html.DisplayName("Description")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
+                @Html.DisplayName("Amount")
             </th>
             <th></th>
         </tr>

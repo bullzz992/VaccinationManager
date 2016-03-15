@@ -1,11 +1,17 @@
 ﻿@model VaccinationManager.ViewModels.MeasurementViewModel
+@{
+    ViewBag.Title = "Children";
+    ViewBag.CurrentPage = "Children";
+}
 
+<h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">Measurement</h2>
+<div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>ChildMeasurement</h4>
+        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

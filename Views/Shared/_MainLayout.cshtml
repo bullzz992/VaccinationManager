@@ -49,15 +49,17 @@
 
     <div class="Menu">
         <div class="MenuItem" id="home">@Html.ActionLink("Home", "Index", "Home")</div>
-        <div class="MenuItem" id="about">@Html.ActionLink("About", "About", "Home")</div>
+        <div class="MenuItem" id="manage">@Html.ActionLink("Change Password", "ChangePassword", "Manage")</div>
+        @*<div class="MenuItem" id="about">@Html.ActionLink("About", "About", "Home")</div>*@
         <div class="MenuItem" id="children">@Html.ActionLink("Children", "Index", "Children")</div>
         <div class="MenuItem" id="parents">@Html.ActionLink("Parents", "Index", "Parents")</div>
-        <div class="MenuItem" id="vaccinations">@Html.ActionLink("Vaccinations", "Index", "Vaccination")</div>
+        @if(Session["AccessLevel"] == null)
+            { Response.Redirect("~/Account/Login"); }
         @if (Session["AccessLevel"].ToString() == "ADMIN2010")
         {
+            <div class="MenuItem" id="vaccinations">@Html.ActionLink("Vaccinations", "Index", "Vaccination")</div>
             <div class="MenuItem" id="price">@Html.ActionLink("Vaccination Prices", "Index", "VaccinationPrices")</div>
             <div class="MenuItem" id="consultation">@Html.ActionLink("Extended Fees", "Index", "ExtendedFees")</div>
-            <div class="MenuItem" id="manage">@Html.ActionLink("Manage Account", "Index", "Manage")</div>
             <div class="MenuItem" id="branchMaintenance">@Html.ActionLink("Branch Maintenance", "Index", "Branches")</div>
             <div class="MenuItem" id="userApproval">@Html.ActionLink("User Activation", "Index", "UserStatus")</div>
         }

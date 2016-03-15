@@ -1,75 +1,84 @@
 ﻿@model VaccinationManager.Models.Branch
-
+@{
+    ViewBag.CurrentPage = "Branch Maintenance";
+}
     <div>
-        <h4>Branch</h4>
+        <h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">Branch</h2>
+        <div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayName("Branch Name")
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Name)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.Overseer_Name)
+                @Html.DisplayName("Manager Name")
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Overseer_Name)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.Overseer_Surname)
+                @Html.DisplayName("Manager Surname")
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Overseer_Surname)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.Practice_No)
+                @Html.DisplayName("Practice Number")
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Practice_No)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.Tel_Number)
+                @Html.DisplayName("Telephone Number")
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Tel_Number)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.Fax_Number)
+                @Html.DisplayName("Fax Number")
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Fax_Number)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.Email_Address)
+                @Html.DisplayName("E-mail Address")
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Email_Address)
             </dd>
+            <dt>
+                @Html.DisplayName("Physical Address")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Bank_Name)
+                @Html.DisplayName("Bank Name")
             </dt>
-    
             <dd>
                 @Html.DisplayFor(model => model.Bank_Name)
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Branch_Number)
+                @Html.DisplayName("Branch Number")
             </dt>
     
             <dd>
@@ -77,20 +86,13 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Account_Number)
+                @Html.DisplayName("Account Number")
             </dt>
     
             <dd>
                 @Html.DisplayFor(model => model.Account_Number)
             </dd>
     
-            <dt>
-                @Html.DisplayNameFor(model => model.Address)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Address)
-            </dd>
     
         </dl>
     </div>

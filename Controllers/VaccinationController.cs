@@ -97,7 +97,7 @@ namespace VaccinationManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vaccination Vaccination = db.Vaccinations.Find(id);
+            VaccinationDefinition Vaccination = db.VaccinationDefinitions.Find(id);
             if (Vaccination == null)
             {
                 return HttpNotFound();
@@ -115,7 +115,7 @@ namespace VaccinationManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var VaccinationToUpdate = db.Vaccinations.Find(id);
+            var VaccinationToUpdate = db.VaccinationDefinitions.Find(id);
             if (TryUpdateModel(VaccinationToUpdate, "",
                new string[] { "Title", "Credits", "DepartmentID" }))
             {
@@ -153,7 +153,7 @@ namespace VaccinationManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vaccination Vaccination = db.Vaccinations.Find(id);
+            VaccinationDefinition Vaccination = db.VaccinationDefinitions.Find(id);
             if (Vaccination == null)
             {
                 return HttpNotFound();
@@ -166,8 +166,8 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Vaccination Vaccination = db.Vaccinations.Find(id);
-            db.Vaccinations.Remove(Vaccination);
+            VaccinationDefinition Vaccination = db.VaccinationDefinitions.Find(id);
+            db.VaccinationDefinitions.Remove(Vaccination);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

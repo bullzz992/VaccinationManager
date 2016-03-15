@@ -1,43 +1,41 @@
 ﻿@model IEnumerable<VaccinationManager.Models.Branch>
 
+@{
+    ViewBag.CurrentPage = "Branch Maintenance";
+}
 
+    <h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">Branches</h2>
+    <div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
+    <br />
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btnCreateNew" })
     </p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayName("Branch Name")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Overseer_Name)
+                @Html.DisplayName("Manager Name")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Overseer_Surname)
+                @Html.DisplayName("Manager Surname")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Practice_No)
+                @Html.DisplayName("Practice Number")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tel_Number)
+               @Html.DisplayName("Tel Number")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Fax_Number)
+                @Html.DisplayName("Fax")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email_Address)
+                @Html.DisplayName("E-mail Address")
             </th>
+           
             <th>
-                @Html.DisplayNameFor(model => model.Bank_Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Branch_Number)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account_Number)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
+               @Html.DisplayName("Physical Address")
             </th>
             <th></th>
         </tr>
@@ -65,15 +63,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Email_Address)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bank_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Branch_Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Account_Number)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>

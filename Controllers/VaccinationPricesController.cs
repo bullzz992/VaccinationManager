@@ -23,7 +23,24 @@ namespace VaccinationManager.Controllers
             provider.AddVaccinationPrice("", (Decimal) 0.0);
             provider.FindPriceByFaccinationId("");
             
-            return View(db.VaccinationPrices.ToList());
+            Dictionary<string, string> VaccDefString = new Dictionary<string, string>();
+
+            List<VaccinationPrice> list = db.VaccinationPrices.ToList();
+            list.RemoveAll(x => string.IsNullOrEmpty(x.VaccinationDefId));
+            foreach (VaccinationPrice item in list)
+            {
+                string value = "";
+                VaccinationDefinition def = db.VaccinationDefinitions.FirstOrDefault(x => x.Id.ToString() == item.VaccinationDefId);
+                int i = def.Age.Code;
+                Age age = db.Ages.Find(i);
+                value += def.Code + " - " + def.Name + " - " + age.Description;
+                VaccDefString.Add(item.VaccinationDefId, value);
+            }
+            @ViewBag.DefDescription = VaccDefString;
+
+            List<VaccinationPrice> finalList = db.VaccinationPrices.ToList();
+            finalList.RemoveAll(x => string.IsNullOrEmpty(x.VaccinationDefId));
+            return View(finalList);
         }
 
         // GET: VaccinationPrices/Details/5
@@ -76,6 +93,13 @@ namespace VaccinationManager.Controllers
             {
                 return HttpNotFound();
             }
+
+            string value = "";
+            VaccinationDefinition def = db.VaccinationDefinitions.FirstOrDefault(x => x.Id.ToString() == vaccinationPrice.VaccinationDefId);
+            int i = def.Age.Code;
+            Age age = db.Ages.Find(i);
+            value += def.Code + " - " + def.Name + " - " + age.Description;
+            @ViewBag.EditDescription = value;
             return View(vaccinationPrice);
         }
 
@@ -84,12 +108,12 @@ namespace VaccinationManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "VaccinationPriceId,VaccinationDefId,PriceAmount")] VaccinationPrice vaccinationPrice)
+        public ActionResult Edit([Bind(Include = "VaccinationDefId,PriceAmount")] VaccinationPrice vaccinationPrice)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vaccinationPrice).State = EntityState.Modified;
-                db.SaveChanges();
+                provider.AddVaccinationPrice(vaccinationPrice.VaccinationDefId,  vaccinationPrice.PriceAmount);
+                
                 return RedirectToAction("Index");
             }
             return View(vaccinationPrice);

@@ -3,16 +3,19 @@
 
 @{
     ViewBag.Title = "Details";
+
+    ViewBag.CurrentPage = "Children";
 }
 
-<h2>Details</h2>
+<h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">Details</h2>
+<div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
 
 @using (Html.BeginForm("Details", "Children", FormMethod.Post))
 {
     <div>
         <div class="form-horizontal" style="float: left; width: 50%">
             <br />
-            <h4>Child</h4>
+            
             <hr />
             <dl class="dl-horizontal">
                 <dt>

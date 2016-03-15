@@ -1,20 +1,24 @@
 ﻿@model VaccinationManager.Models.UserStatus
+@{
+    ViewBag.CurrentPage = "User Status";
 
-
+}
+<h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">Edit</h2>
+<div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         
         <div class="form-horizontal">
-            <h4>UserStatus</h4>
+            
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
     
             <div class="form-group">
-                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                @*@Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control", @readOnly = "readonly" } })
+                    @Html.HiddenFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control", @readOnly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -36,7 +40,7 @@
             </div>
     
             <div class="form-group">
-                @Html.LabelFor(model => model.Branch_Practice_No, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("Practice Number", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Branch_Practice_No, new { htmlAttributes = new { @class = "form-control", @readOnly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.Branch_Practice_No, "", new { @class = "text-danger" })

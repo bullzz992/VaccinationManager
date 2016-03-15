@@ -2,9 +2,11 @@
 
 @{
     ViewBag.Title = "Edit";
+    ViewBag.CurrentPage = "Vaccination Definitions";
 }
 
-<h2>Edit</h2>
+<h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">@ViewBag.Title</h2>
+<div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
 
 
 @using (Html.BeginForm())
@@ -12,15 +14,15 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Vaccination</h4>
+       
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Id, new { @class = "control-label col-md-2" })
+            
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.Id)
+                @Html.HiddenFor(model => model.Id)
             </div>
         </div>
         
