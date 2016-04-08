@@ -32,6 +32,7 @@ namespace EntityModelContainer
         public int BloodType { get; set; }
         public string Discriminator { get; set; }
         public Nullable<int> Address_Id { get; set; }
+        public string Branch { get; set; }
     
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

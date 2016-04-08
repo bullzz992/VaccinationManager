@@ -42,27 +42,33 @@
     <div class="navbar">
         <div class="navbarToggle left  "></div>
         <div class="navbaritems left  "> <a>@ViewBag.CurrentPage</a></div>
-        <div class="navbarspace right"></div>
-        
-        <div class="navbaritems right">@Html.ActionLink("Logout", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </div>
+
+
+        <div class="navbaritems right"> @Html.ActionLink("Logout", "Login", "Account", routeValues: null, htmlAttributes: new {id = "loginLink"}) </div>
+        <div class="navbaritems right"><a>Hello @User.Identity.Name! </a></div>
     </div>
 
     <div class="Menu">
         <div class="MenuItem" id="home">@Html.ActionLink("Home", "Index", "Home")</div>
-        <div class="MenuItem" id="manage">@Html.ActionLink("Change Password", "ChangePassword", "Manage")</div>
         @*<div class="MenuItem" id="about">@Html.ActionLink("About", "About", "Home")</div>*@
         <div class="MenuItem" id="children">@Html.ActionLink("Children", "Index", "Children")</div>
         <div class="MenuItem" id="parents">@Html.ActionLink("Parents", "Index", "Parents")</div>
-        @if(Session["AccessLevel"] == null)
-            { Response.Redirect("~/Account/Login"); }
-        @if (Session["AccessLevel"].ToString() == "ADMIN2010")
+        
+        @if (Session["AccessLevel"] != null)
         {
-            <div class="MenuItem" id="vaccinations">@Html.ActionLink("Vaccinations", "Index", "Vaccination")</div>
-            <div class="MenuItem" id="price">@Html.ActionLink("Vaccination Prices", "Index", "VaccinationPrices")</div>
-            <div class="MenuItem" id="consultation">@Html.ActionLink("Extended Fees", "Index", "ExtendedFees")</div>
-            <div class="MenuItem" id="branchMaintenance">@Html.ActionLink("Branch Maintenance", "Index", "Branches")</div>
-            <div class="MenuItem" id="userApproval">@Html.ActionLink("User Activation", "Index", "UserStatus")</div>
+            if (Session["AccessLevel"].ToString() == "ADMIN2010")
+            {
+                <div class="MenuItem" id="consultation">@Html.ActionLink("Additional Fees", "Index", "ExtendedFees")</div>
+                 <div class="MenuItem" id="vaccinations">@Html.ActionLink("Vaccinations", "Index", "Vaccination")</div>
+                 <div class="MenuItem" id="price">@Html.ActionLink("Vaccination Prices", "Index", "VaccinationPrices")</div>
+                 <div class="MenuItem" id="branchMaintenance">@Html.ActionLink("Branch Maintenance", "Index", "Branches")</div>
+                 <div class="MenuItem" id="userApproval">@Html.ActionLink("User Activation", "Index", "UserStatus")</div>
+                 
+
+             }
         }
+        <div class="MenuItem" id="invoiceGen">@Html.ActionLink("Invoice", "Index", "Invoice")</div>
+        <div class="MenuItem" id="manage">@Html.ActionLink("Change Password", "ChangePassword", "Manage")</div>
     </div>
     <div class="mainContent">
 

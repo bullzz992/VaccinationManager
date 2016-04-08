@@ -34,6 +34,7 @@ namespace EntityModelContainer
         public string ParentViewModel_IdNumber { get; set; }
         public string Father_IdNumber { get; set; }
         public string Mother_IdNumber { get; set; }
+        public string Branch { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Allergy> Allergies { get; set; }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using DataAccessLayer;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -56,6 +58,14 @@ namespace VaccinationManager.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            Session.Clear();
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.Now.ToUniversalTime());
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -75,7 +85,6 @@ namespace VaccinationManager.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
 
@@ -113,24 +122,30 @@ namespace VaccinationManager.Controllers
             }
             else
             {
-                if (resultStatusObj.Status == "Active")
+                if (result == SignInStatus.Success)
                 {
-                    result = SignInStatus.Success;
-                }
-                else
-                {
-                    result = SignInStatus.RequiresVerification;
+                    if (resultStatusObj.Status == "Active")
+                    {
+                        result = SignInStatus.Success;
+                    }
+                    else
+                    {
+                        result = SignInStatus.RequiresVerification;
+                    }
                 }
             }
 
             switch (result)
             {
                 case SignInStatus.Success:
+                    //FormsAuthentication.Initialize();
+                    //FormsAuthentication.SetAuthCookie(model.Username, true);
                     ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
                     identity.AddClaim(new Claim(ClaimTypes.Name, model.Username));
                     Session["AccessLevel"] = resultStatusObj.Branch_Practice_No;
                     InitiateVaccinationPrices();
-
+                    
+                    string s = User.Identity.Name;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -490,7 +505,12 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie); 
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+           
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            Session.Clear();
+            //System.Web.HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
             return RedirectToAction("Index", "Home");
         }
                 //
@@ -503,8 +523,7 @@ namespace VaccinationManager.Controllers
 
         private void InitiateVaccinationPrices()
         {
-            List<VaccinationDefinition> vaccinationDefs = (from cust in db.VaccinationDefinitions
-                                                           select cust).ToList();
+            List<VaccinationDefinition> vaccinationDefs = db.VaccinationDefinitions.ToList();
 
             VaccincationPriceDal provider = new VaccincationPriceDal();
             foreach (VaccinationDefinition def in vaccinationDefs)

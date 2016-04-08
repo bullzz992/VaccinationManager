@@ -1,1 +1,114 @@
-﻿
+﻿@using VaccinationManager.Models
+@model VaccinationManager.Models.Invoice
+@{
+    ViewBag.Title = "Invoice Criteria";
+
+    ViewBag.CurrentPage = "Invoice";
+}
+
+@*<script type="text/javascript" src="/scripts/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="/scripts/moment.min.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap-datetimepicker.js"></script>*@
+<script src="~/Scripts/jquery-2.1.3.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+<link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+
+<style type="text/css">
+    
+    .InvalidDateError {
+        color: Red;
+    }
+</style>
+
+<script type="text/javascript">
+    $("form").submit(function (event) {
+        alert("Handler for .submit() called.");
+        
+        event.preventDefault();
+    });
+
+</script>
+
+<h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">Select Invoice Criteria</h2>
+<div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
+<br />
+<div class="container-fluid">
+    @using (Html.BeginForm("Create", "Invoice",FormMethod.Post, htmlAttributes: new {@id = "CreateInvoice"}))
+    {
+
+
+        <div class="form-horizontal">
+            <h4>Select Vaccination Date (e.g.01/01/2001)</h4>
+            <hr/>
+            @if (Session["DateError"] != null)
+            {
+                if (Session["DateError"].ToString() != "")
+                {
+                    @Html.Label("Invalid Date Entered", htmlAttributes: new { @class = "InvalidDateError" })
+                    <hr />
+                }
+
+            }
+            @Html.Label("Vaccination Date", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.TextBox("VaccinationDate","", new {@class = "form-control", placeholder = "DD/MM/YYYY", id = "VaccinationDate"})
+
+            
+            <hr/>
+
+            <br/><br/><br/>
+            @*<h4>Extended Fee Selection</h4>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.Hidden("Fee Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Fee Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Description")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Amount")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Include?")
+                    </th>
+                    <th></th>
+                </tr>
+                
+                @for (int i = 0; i < Model.ExtendedFeeList.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(item => Model.ExtendedFeeList[i].FeeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(item => Model.ExtendedFeeList[i].FeeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(item => Model.ExtendedFeeList[i].FeeDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(item => Model.ExtendedFeeList[i].Amount)
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(item => Model.ExtendedFeeList[i].IsChecked, new List<SelectListItem>() {new SelectListItem() {Value = "Include", Text = "Include"}, new SelectListItem() {Value = "Exclude", Text = "Exclude", Selected = true}})
+                        </td>
+                    </tr>
+                }
+
+            </table>*@
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Generate Invoice" formtarget="_blank" class="btn btn-default"/>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+

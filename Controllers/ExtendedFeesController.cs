@@ -18,6 +18,8 @@ namespace VaccinationManager.Controllers
         // GET: ExtendedFees
         public ActionResult Index()
         {
+            
+
             return View(db.ExtendedFees.ToList());
         }
 
@@ -47,16 +49,31 @@ namespace VaccinationManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FeeId,FeeName,FeeDescription,Amount")] ExtendedFee extendedFee)
+        public ActionResult Create([Bind(Include = "FeeId,FeeName,FeeDescription,Amount,Branch,FeeCode")] ExtendedFee extendedFee)
         {
+            
             if (ModelState.IsValid)
             {
+                
+
                 db.ExtendedFees.Add(extendedFee);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(extendedFee);
+        }
+
+        private bool IsValidBranch(string practiceNo)
+        {
+            if (db.ExtendedFees.FirstOrDefault(x => x.Branch == practiceNo) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // GET: ExtendedFees/Edit/5
@@ -79,7 +96,7 @@ namespace VaccinationManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FeeId,FeeName,FeeDescription,Amount")] ExtendedFee extendedFee)
+        public ActionResult Edit([Bind(Include = "FeeId,FeeName,FeeDescription,Amount,Branch,FeeCode")] ExtendedFee extendedFee)
         {
             if (ModelState.IsValid)
             {

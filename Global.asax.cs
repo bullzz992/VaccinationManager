@@ -8,6 +8,7 @@ using System.Web.Routing;
 using VaccinationManager.DAL;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Data.Entity;
+using System.Web.Helpers;
 
 namespace VaccinationManager
 {
@@ -15,6 +16,7 @@ namespace VaccinationManager
     {
         protected void Application_Start()
         {
+            AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

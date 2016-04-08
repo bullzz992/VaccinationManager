@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VaccinationManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="VaccinationManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -86,6 +86,7 @@
           <Property Name="ParentViewModel_IdNumber" Type="nvarchar" MaxLength="128" />
           <Property Name="Father_IdNumber" Type="nvarchar" MaxLength="128" />
           <Property Name="Mother_IdNumber" Type="nvarchar" MaxLength="128" />
+          <Property Name="Branch" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ExtendedFees">
           <Key>
@@ -95,6 +96,8 @@
           <Property Name="FeeName" Type="nvarchar(max)" />
           <Property Name="FeeDescription" Type="nvarchar(max)" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Branch" Type="varchar" MaxLength="50" />
+          <Property Name="FeeCode" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Parents">
           <Key>
@@ -109,6 +112,7 @@
           <Property Name="BloodType" Type="int" Nullable="false" />
           <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Address_Id" Type="int" />
+          <Property Name="Branch" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserBranches">
           <Key>
@@ -319,8 +323,7 @@
             <End Role="Vaccinations" EntitySet="Vaccinations" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VaccinationManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -416,6 +419,7 @@
           <NavigationProperty Name="Parent1" Relationship="Self.FK_dbo_Children_dbo_Parents_Mother_IdNumber" FromRole="Children" ToRole="Parents" />
           <NavigationProperty Name="Parent2" Relationship="Self.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" FromRole="Children" ToRole="Parents" />
           <NavigationProperty Name="Vaccinations" Relationship="Self.FK_dbo_Vaccinations_dbo_Children_IdNumber" FromRole="Children" ToRole="Vaccinations" />
+          <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ExtendedFee">
           <Key>
@@ -425,6 +429,8 @@
           <Property Name="FeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FeeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Parent">
           <Key>
@@ -444,6 +450,7 @@
           <NavigationProperty Name="Children" Relationship="Self.FK_dbo_Children_dbo_Parents_Father_IdNumber" FromRole="Parents" ToRole="Children" />
           <NavigationProperty Name="Children1" Relationship="Self.FK_dbo_Children_dbo_Parents_Mother_IdNumber" FromRole="Parents" ToRole="Children" />
           <NavigationProperty Name="Children2" Relationship="Self.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" FromRole="Parents" ToRole="Children" />
+          <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UserBranch">
           <Key>
@@ -735,6 +742,7 @@
           <EntitySetMapping Name="Children">
             <EntityTypeMapping TypeName="VaccinationManagerModel.Child">
               <MappingFragment StoreEntitySet="Children">
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
                 <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -753,6 +761,8 @@
           <EntitySetMapping Name="ExtendedFees">
             <EntityTypeMapping TypeName="VaccinationManagerModel.ExtendedFee">
               <MappingFragment StoreEntitySet="ExtendedFees">
+                <ScalarProperty Name="FeeCode" ColumnName="FeeCode" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
                 <ScalarProperty Name="FeeId" ColumnName="FeeId" />
                 <ScalarProperty Name="FeeName" ColumnName="FeeName" />
                 <ScalarProperty Name="FeeDescription" ColumnName="FeeDescription" />
@@ -763,6 +773,7 @@
           <EntitySetMapping Name="Parents">
             <EntityTypeMapping TypeName="VaccinationManagerModel.Parent">
               <MappingFragment StoreEntitySet="Parents">
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
                 <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

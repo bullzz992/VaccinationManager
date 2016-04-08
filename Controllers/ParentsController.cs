@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
 using VaccinationManager.DAL;
@@ -22,23 +23,39 @@ namespace VaccinationManager.Controllers
         {
             ViewBag.CurrentPage = "Parent";
             var filters = new List<string>() { "ID Number", "Surname", "Name" };
+            string loggedBranch = db.UserStatus.FirstOrDefault(x => x.Username == User.Identity.Name).Branch_Practice_No;
 
+            List<Parent> parents = db.Parents.ToList();
+            List<Parent> finalParents = new List<Parent>();
+            if (loggedBranch != "ADMIN2010")
+            {
+                //string loggedOnBranch = db.UserStatus.FirstOrDefault(x => x.Username == User.Identity.Name).Branch_Practice_No;
+
+                foreach (Parent item in parents)
+                {
+                    
+                    if (item.Branch == loggedBranch)
+                    {
+                        finalParents.Add(item);
+                    }
+                }
+            }
+            parents = finalParents;
             ViewBag.filter = new SelectList(filters);
-            var parents = from m in db.Parents
-                           select m;
+            
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 switch (filter)
                 {
                     case "ID Number":
-                        parents = parents.Where(s => s.IdNumber.Contains(searchString));
+                        parents = parents.Where(s => s.IdNumber.Contains(searchString)).ToList();
                         break;
                     case "Surname":
-                        parents = parents.Where(s => s.Surname.Contains(searchString));
+                        parents = parents.Where(s => s.Surname.Contains(searchString)).ToList();
                         break;
                     case "Name":
-                        parents = parents.Where(s => s.Name.Contains(searchString));
+                        parents = parents.Where(s => s.Name.Contains(searchString)).ToList();
                         break;
                 }
             }
@@ -95,6 +112,8 @@ namespace VaccinationManager.Controllers
             ViewBag.CurrentPage = "Parent";
             if (ModelState.IsValid)
             {
+                string loggedOnBranch = db.UserStatus.FirstOrDefault(x => x.Username == User.Identity.Name).Branch_Practice_No;
+                parent.Branch = loggedOnBranch;
                 db.Parents.Add(parent);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -79,7 +79,7 @@ namespace VaccinationManager.Models
 
         [Required]
         [StringLength(30, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
-        [Display(Name = "Pactice No.")]
+        [Display(Name = "Practice No.")]
         public string Branch { get; set; }
 
         [Required]

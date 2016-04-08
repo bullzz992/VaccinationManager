@@ -18,5 +18,7 @@ namespace EntityModelContainer
         public string FeeName { get; set; }
         public string FeeDescription { get; set; }
         public decimal Amount { get; set; }
+        public string Branch { get; set; }
+        public string FeeCode { get; set; }
     }
 }

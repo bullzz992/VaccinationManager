@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<VaccinationManager.Models.ExtendedFee>
 
 @{
-    ViewBag.CurrentPage = "Extended Fees";
+    ViewBag.CurrentPage = "Additional Fees";
 }
-<h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">Extended Fees</h2>
+<h2 style="background-color: #e57c58; color: white; display: table; width: calc(100%); height: 50px; border-bottom: 3px solid #eee; padding-left: 20px;">Additional Fees</h2>
 <div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
 <br />
 <p>
@@ -20,6 +20,12 @@
             <th>
                 @Html.DisplayName("Amount")
             </th>
+            <th>
+                @Html.DisplayName("Branch Practice No")
+            </th>
+            <th>
+                @Html.DisplayName("Fee Code")
+            </th>
             <th></th>
         </tr>
     
@@ -33,6 +39,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FeeCode)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.FeeId }) |

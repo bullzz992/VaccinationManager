@@ -32,6 +32,8 @@ namespace VaccinationManager.Models
         public float HeadCircumference { get; set; }
 
         public BloodType BloodType { get; set; }
+
+        public string Branch { get; set; }
         
         public Parent Father { get; set; }
         

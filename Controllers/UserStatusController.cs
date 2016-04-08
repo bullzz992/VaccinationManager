@@ -4,8 +4,11 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using VaccinationManager.DAL;
 using VaccinationManager.Models;
 
@@ -35,6 +38,40 @@ namespace VaccinationManager.Controllers
             }
             return View(userStatus);
         }
+
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        
+
+        public async Task<ActionResult> ResetUserPassword(string id)
+        {
+            
+
+            var user = UserManager.FindById(id);
+            string token = UserManager.GeneratePasswordResetToken(id);
+            var result = await UserManager.ResetPasswordAsync(user.Id, token, "Password01");
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "UserStatus");
+            }
+
+            return RedirectToAction("Index", "UserStatus");
+        }
+
+
+
+       
 
         // GET: UserStatus/Create
         public ActionResult Create()

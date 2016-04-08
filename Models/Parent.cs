@@ -20,6 +20,7 @@ namespace VaccinationManager.Models
         public Address Address { get; set; }
         public BloodType BloodType { get; set; }
         public List<Allergy> Alergies { get; set; }
+        public string Branch { get; set; }
 
         [NotMapped]
         public bool Found { get; set; }

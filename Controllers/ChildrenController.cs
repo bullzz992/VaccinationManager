@@ -40,9 +40,20 @@ namespace VaccinationManager.Controllers
             var filters = new List<string>() { "ID Number", "Surname", "Name" };
 
             ViewBag.filter = new SelectList(filters);
-
-            var children = from m in db.Children
+            string loggedBranch = db.UserStatus.FirstOrDefault(x => x.Username == User.Identity.Name).Branch_Practice_No;
+            IQueryable<Child> children = null;
+            if (loggedBranch == "ADMIN2010")
+            {
+                children = from m in db.Children
                            select m;
+            }
+            else
+            {
+                children = from m in db.Children
+                               where m.Branch == loggedBranch
+                               select m;
+            }
+            
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -228,6 +239,8 @@ namespace VaccinationManager.Controllers
             ViewBag.CurrentPage = "Children";
             if (ModelState.IsValid)
             {
+                string loggedOnBranch = db.UserStatus.FirstOrDefault(x => x.Username == User.Identity.Name).Branch_Practice_No;
+                child.Branch = loggedOnBranch;
                 db.Children.Add(child);
                 db.SaveChanges();
 
