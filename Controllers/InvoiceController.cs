@@ -117,10 +117,11 @@ namespace VaccinationManager.Controllers
         }
         //[Bind(Include = "PatientChild,VaccinationList,ExtendedFeeList,BranchInformation,InvoiceFromDate,InvoiceToDate")] 
         // POST: Invoice/Create
+        FileContentResult resultPDF = null;
         [HttpPost]
         public ActionResult Create(Invoice model)
         {
-            
+            Session["DateError"] = "";
             string tempId = Url.RequestContext.RouteData.Values["id"].ToString();
             if (string.IsNullOrEmpty(tempId))
             {
@@ -139,12 +140,14 @@ namespace VaccinationManager.Controllers
                 if (!isValidDate(obj2))
                 {
                     Session["DateError"] = "Invalid";
-                    
-                    
-                    return RedirectToAction("Create", "Invoice", new { id = Session["GlobalID"] });
+
+                    return View(model);
+                    //return RedirectToAction("Create", "Invoice", new { id = Session["GlobalID"] });
                 }
                 Session["DateError"] = "";
-                return CreateDummyReport();
+                ViewBag.GlobalDate = outputDate;
+                resultPDF = CreateDummyReport();
+                return RedirectToAction("Edit", new {id = tempId});
             }
             catch(Exception ex)
             {
@@ -152,7 +155,7 @@ namespace VaccinationManager.Controllers
             }
         }
 
-        private DateTime outputDate;
+        private static DateTime outputDate;
         private bool isValidDate(string input)
         {
             string[] date = input.Split('/');
@@ -192,9 +195,12 @@ namespace VaccinationManager.Controllers
         private FileContentResult CreateDummyReport()
         {
             //-------------------------------------------
-
+            //outputDate = ViewBag.GlobalDate;
             string id = Url.RequestContext.RouteData.Values["id"].ToString();
-            
+            if (string.IsNullOrEmpty(id))
+            {
+                id = invoiceID;
+            }
             Invoice objInvoice = new Invoice();
 
             objInvoice.PatientChild = db.Children.FirstOrDefault(x => x.IdNumber == id);
@@ -244,24 +250,25 @@ namespace VaccinationManager.Controllers
         }
 
         // GET: Invoice/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             return View();
         }
 
+        private static string invoiceID;
         // POST: Invoice/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int? id, FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                invoiceID = Request["id"];
+                return CreateDummyReport();
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return null;
             }
         }
 

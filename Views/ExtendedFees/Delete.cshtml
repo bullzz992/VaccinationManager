@@ -48,6 +48,14 @@
                 @Html.DisplayFor(model => model.FeeCode)
             </dd>
 
+            <dt>
+                @Html.DisplayName("Include to Invoice")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IncludeInReport)
+            </dd>
+
         </dl>
     
         @using (Html.BeginForm()) {

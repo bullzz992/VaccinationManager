@@ -12,20 +12,35 @@ using VaccinationManager.Controllers;
 using PdfSharp.Drawing;
 using System.Drawing;
 using VaccinationManager.DAL;
+using Color = MigraDoc.DocumentObjectModel.Color;
+using Image = MigraDoc.DocumentObjectModel.Shapes.Image;
 
 namespace VaccinationManager.PDF_Generator
 {
     public class InvoiceReport
     {
         VaccinationContext db = new VaccinationContext();
+        private string globalCurrentUser;
         public Document CreateDocument(Invoice inputInvoice, string loggedInUser)
         {
+            globalCurrentUser = loggedInUser;
             this.document = new Document();
             document.DefaultPageSetup.Orientation = Orientation.Portrait;
             this.document.Info.Title = "Vaccination Invoice";
             this.document.Info.Subject = "Contains Child's Vaccinations Invoice";
             this.document.Info.Author = loggedInUser;
 
+            if (inputInvoice.VaccinationList.Count < 1)
+            {
+                Section s = this.document.AddSection();
+                Paragraph p = s.AddParagraph("No vaccinations for the selected date");
+                p.Format.Font.Size = 20;
+                p.Format.Font.Color = Colors.Red;
+                p.AddLineBreak(); p.AddLineBreak(); p.AddLineBreak(); p.AddLineBreak(); p.AddLineBreak(); p.AddLineBreak();
+                p.Format.Alignment = ParagraphAlignment.Center;
+                return this.document;
+
+            }
 
 
             DefineStyles();
@@ -42,12 +57,19 @@ namespace VaccinationManager.PDF_Generator
             // Because all styles are derived from Normal, the next line changes the 
             // font of the whole document. Or, more exactly, it changes the font of
             // all styles and paragraphs that do not redefine the font.
-            style.Font.Name = "Verdana";
+            style.Font.Name = "Calibri";
+
+            style = this.document.Styles[StyleNames.Heading1];
+            style.Font.Name = "Calibri";
+            style.Font.Name = "Calibri";
+            style.Font.Size = 9;
+            style.Font.Bold = true;
+            style.ParagraphFormat.AddTabStop("8cm", TabAlignment.Center);
 
             style = this.document.Styles[StyleNames.Header];
-            style.Font.Name = "Verdana";
-            style.Font.Name = "Times New Roman";
-            style.Font.Size = 15;
+            style.Font.Name = "Calibri"; 
+            style.Font.Name = "Calibri";
+            style.Font.Size = 9;
             style.Font.Bold = true;
             style.ParagraphFormat.AddTabStop("8cm", TabAlignment.Center);
 
@@ -56,9 +78,9 @@ namespace VaccinationManager.PDF_Generator
 
             // Create a new style called Table based on style Normal
             style = this.document.Styles.AddStyle("Table", "Normal");
-            style.Font.Name = "Verdana";
-            style.Font.Name = "Times New Roman";
-            style.Font.Size = 9;
+            style.Font.Name = "Calibri";
+            style.Font.Name = "Calibri";
+            style.Font.Size = 11;
 
             // Create a new style called Reference based on style Normal
             style = this.document.Styles.AddStyle("Reference", "Normal");
@@ -69,6 +91,7 @@ namespace VaccinationManager.PDF_Generator
 
         public void CreatePage()
         {
+            
             Section section = this.document.AddSection();
 
             //// Put a logo in the header
@@ -110,23 +133,18 @@ namespace VaccinationManager.PDF_Generator
             Details = section.AddParagraph();
             //paragraph.AddDateField("dd.MM.yyyy");
 
-            var par = section.AddParagraph();
-            par.AddFormattedText("Vaccinations");
-            par.AddLineBreak();
+            
             // Create the item table
             this.VaccincationsTable = section.AddTable();
             this.VaccincationsTable.Style = "Table";
-            this.VaccincationsTable.Borders.Color = Colors.Black;
+            this.VaccincationsTable.Borders.Color = Colors.Gray;
             this.VaccincationsTable.Borders.Width = 0.25;
             this.VaccincationsTable.Borders.Left.Width = 0.5;
             this.VaccincationsTable.Borders.Right.Width = 0.5;
             this.VaccincationsTable.Rows.LeftIndent = 0;
 
             // Before you can add a row, you must define the columns
-            Column column = this.VaccincationsTable.AddColumn("5cm");
-            column.Format.Alignment = ParagraphAlignment.Left;
-
-            column = this.VaccincationsTable.AddColumn("2cm");
+            Column column = this.VaccincationsTable.AddColumn("2cm");
             column.Format.Alignment = ParagraphAlignment.Left;
 
             column = this.VaccincationsTable.AddColumn("2.5cm");
@@ -135,7 +153,13 @@ namespace VaccinationManager.PDF_Generator
             column = this.VaccincationsTable.AddColumn("2.5cm");
             column.Format.Alignment = ParagraphAlignment.Left;
 
-            column = this.VaccincationsTable.AddColumn("2.5cm");
+            column = this.VaccincationsTable.AddColumn("3cm");
+            column.Format.Alignment = ParagraphAlignment.Left;
+
+            column = this.VaccincationsTable.AddColumn("1.5cm");
+            column.Format.Alignment = ParagraphAlignment.Right;
+
+            column = this.VaccincationsTable.AddColumn("1.5cm");
             column.Format.Alignment = ParagraphAlignment.Right;
 
             column = this.VaccincationsTable.AddColumn("2.5cm");
@@ -146,32 +170,36 @@ namespace VaccinationManager.PDF_Generator
             row.HeadingFormat = true;
             row.Format.Alignment = ParagraphAlignment.Center;
             row.Format.Font.Bold = true;
-            row.Shading.Color = Colors.LightBlue;
+            //row.Shading.Color = Colors.LightBlue;
             
 
-            row.Cells[0].AddParagraph("Name");
+            row.Cells[0].AddParagraph("Date");
             row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[0].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[1].AddParagraph("Abbreviation");
+            row.Cells[1].AddParagraph("Patient");
             row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[1].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[2].AddParagraph("Date Vaccinated");
+            row.Cells[2].AddParagraph("Reference");
             row.Cells[2].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[2].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[3].AddParagraph("Serial Number");
+            row.Cells[3].AddParagraph("Medical Aid Code");
             row.Cells[3].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[3].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[4].AddParagraph("Nurse Signature");
+            row.Cells[4].AddParagraph("Code");
             row.Cells[4].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[4].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[5].AddParagraph("Amount");
+            row.Cells[5].AddParagraph("QTY");
             row.Cells[5].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[5].VerticalAlignment = VerticalAlignment.Bottom;
+
+            row.Cells[6].AddParagraph("Amount");
+            row.Cells[6].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[6].VerticalAlignment = VerticalAlignment.Bottom;
 
             //row = table.AddRow();
             //row.HeadingFormat = true;
@@ -188,24 +216,29 @@ namespace VaccinationManager.PDF_Generator
             //row.Cells[4].Format.Alignment = ParagraphAlignment.Left;
 
             //this.table.SetEdge(0, 0, 6, 2, Edge.Box, BorderStyle.Single, 0.75, Color.Empty);
+            Totals = section.AddParagraph();
+            BankingDetails = section.AddParagraph();
+            BankingDetails.Format.Alignment = ParagraphAlignment.Right;
         }
 
         public void FillContents(Invoice contents)
         {
-
-
-            Details.AddFormattedText("Invoice for Patient:", TextFormat.Bold);
-            Details.AddTab();
-            Details.AddText(contents.PatientChild.Name + " " + contents.PatientChild.Surname + " (ID: " + contents.PatientChild.IdNumber + ")");
+            #region Top paragraph data
+            
+            Details.Format.Font.Size = 18;
+            Details.AddTab(); Details.AddTab(); Details.AddTab(); Details.AddTab(); Details.AddTab();
+            Details.AddFormattedText("Invoice", TextFormat.Bold);
             Details.AddLineBreak();
 
             Details.AddLineBreak(); Details.AddLineBreak();
             //---------------CENTRE DETAILS-----------------------------------------------------------------------------
-            Details.AddTab(); Details.AddTab(); Details.AddTab(); Details.AddTab();
+            Details.Format.Font.Size = 12;
+            Details.AddTab(); Details.AddTab(); Details.AddTab(); Details.AddTab(); 
             Details.AddFormattedText("Medical Centre Details", TextFormat.Bold);
             Details.AddLineBreak(); Details.AddLineBreak();
 
-            Details.AddFormattedText("Branch/Centre Name:", TextFormat.Bold);
+            Details.Format.Font.Size = 11;
+            Details.AddFormattedText("Branch Centre Name:", TextFormat.Bold);
             Details.AddTab();
             Details.AddTab();
             Details.AddText(contents.BranchInformation.Name);
@@ -215,12 +248,10 @@ namespace VaccinationManager.PDF_Generator
             Details.AddTab();
             Details.AddTab();
             Details.AddTab();
-            Details.AddTab();
             Details.AddText(contents.BranchInformation.Overseer_Name + " " + contents.BranchInformation.Overseer_Surname);
             Details.AddLineBreak();
 
             Details.AddFormattedText("Practice Number:", TextFormat.Bold);
-            Details.AddTab();
             Details.AddTab();
             Details.AddTab();
             Details.AddText(contents.BranchInformation.Practice_No);
@@ -229,13 +260,10 @@ namespace VaccinationManager.PDF_Generator
             Details.AddFormattedText("Physical Address:", TextFormat.Bold);
             Details.AddTab();
             Details.AddTab();
-            Details.AddTab();
             Details.AddText(contents.BranchInformation.Address);
-            Details.AddLineBreak();
+            Details.AddLineBreak(); Details.AddLineBreak();
 
-            Details.AddFormattedText("Tel:", TextFormat.Bold);
-            Details.AddTab();
-            Details.AddTab();
+            Details.AddFormattedText("Telephone:", TextFormat.Bold);
             Details.AddTab();
             Details.AddTab();
             Details.AddTab();
@@ -247,51 +275,120 @@ namespace VaccinationManager.PDF_Generator
             Details.AddTab();
             Details.AddTab();
             Details.AddTab();
-            Details.AddTab();
             Details.AddText(contents.BranchInformation.Fax_Number);
             Details.AddLineBreak(); Details.AddLineBreak();
 
+            //------------------------Parent Details---------------------------------------------------
+            var parent = db.Parents.FirstOrDefault(x => x.IdNumber == contents.PatientChild.MotherId);
+
+            if (parent == null)
+            {
+                parent = db.Parents.FirstOrDefault(x => x.IdNumber == contents.PatientChild.FatherId);
+            }
+
+            Details.Format.Font.Size = 11;
+            Details.AddTab(); Details.AddTab(); Details.AddTab(); Details.AddTab(); 
+            Details.AddFormattedText("Medical Aid Principal Member Details", TextFormat.Bold);
+            Details.AddLineBreak(); Details.AddLineBreak();
+
+            Details.AddFormattedText("Name:", TextFormat.Bold);
+            Details.AddTab(); Details.AddTab();
+            Details.AddTab();
+            if (parent != null && parent.Name != null) { Details.AddText(parent.Name); }
+            Details.AddLineBreak();
+            
+
+
+            Details.AddFormattedText("Surname:", TextFormat.Bold);
+           
+            Details.AddTab();
+            Details.AddTab();
+            if (parent != null) Details.AddText(parent.Surname);
+            Details.AddLineBreak();
+            
+
+
+            Details.AddFormattedText("ID Number:", TextFormat.Bold);
+            Details.AddTab();
+            Details.AddTab();
+            if (parent != null) Details.AddText(parent.IdNumber);
+            Details.AddLineBreak();
+            
+
+            Details.AddFormattedText("Address:", TextFormat.Bold);
+            Details.AddTab();
+            Details.AddTab();
+            Details.AddText(contents.BranchInformation.Address);
+            Details.AddLineBreak(); Details.AddLineBreak();
+            
+
+            Details.AddFormattedText("Telephone:", TextFormat.Bold);
+            Details.AddTab();
+            Details.AddTab();
+            if (parent != null) Details.AddText(parent.Telephone);
+            Details.AddLineBreak();
+            
+
+            Details.AddFormattedText("Cell:", TextFormat.Bold);
+            Details.AddTab();
+            Details.AddTab();
+            Details.AddTab();
+            if (parent != null) Details.AddText(parent.Cellphone);
+            Details.AddLineBreak(); Details.AddLineBreak();
+
+            //----------------------END Parent Details-------------------------------------------------
+
+            //----------------------Medical Aid Info---------------------------------------------------
+            
+            Details.AddFormattedText("Employer:", TextFormat.Bold);
+            Details.AddTab(); Details.AddTab();
+            Details.AddTab();
+            Details.AddText("");
+            Details.AddLineBreak();
+            
+            Details.AddFormattedText("Office Phone:", TextFormat.Bold);
+            Details.AddTab();
+            Details.AddTab();
+            if (parent != null) Details.AddText("");
+            Details.AddLineBreak();
+            
+            Details.AddFormattedText("Medical Aid:", TextFormat.Bold);
+            Details.AddTab();
+            Details.AddTab();
+            if (parent != null) Details.AddText("");
+            Details.AddLineBreak();
+            
+            Details.AddFormattedText("Medical Aid No:", TextFormat.Bold);
+            Details.AddTab();
+            Details.AddTab();
+            Details.AddText("");
+            Details.AddLineBreak(); Details.AddLineBreak();
+            
+            Details.AddFormattedText("Medical Aid Plan:", TextFormat.Bold);
+            Details.AddTab();
+            Details.AddTab();
+            if (parent != null) Details.AddText("");
+            Details.AddLineBreak();
+
+            //----------------------END Medical Aid Info-----------------------------------------------
+
             //------------------------END CENTRE DETAILS----------------------------------------------------------------
 
-            //------------------------BANKING DETAILS-------------------------------------------------------------------
 
-            Details.AddTab(); Details.AddTab(); Details.AddTab(); Details.AddTab();
-            Details.AddFormattedText("Banking Details", TextFormat.Underline);
-            Details.AddLineBreak(); Details.AddLineBreak();
-
-            Details.AddFormattedText("Bank Name:", TextFormat.Bold);
-            Details.AddTab();
-            Details.AddTab();
-            Details.AddTab();
-            Details.AddText(contents.BranchInformation.Bank_Name);
-            Details.AddLineBreak();
-
-            Details.AddFormattedText("Account No:", TextFormat.Bold);
-            Details.AddTab();
-            Details.AddTab();
-            Details.AddTab();
-            Details.AddText(contents.BranchInformation.Account_Number);
-            Details.AddLineBreak();
-
-            Details.AddFormattedText("Branch No:", TextFormat.Bold);
-            Details.AddTab();
-            Details.AddTab();
-            Details.AddTab();
-            Details.AddText(contents.BranchInformation.Branch_Number);
-            Details.AddLineBreak(); Details.AddLineBreak();
-
-            Details.AddTab(); Details.AddTab(); Details.AddTab(); Details.AddTab();
-            Details.AddFormattedText("Invoice Date: " + contents.InvoiceFromDate.Date.ToString() , TextFormat.Underline);
-            Details.AddLineBreak(); Details.AddLineBreak();
-
-            
-            //------------------------END BANKING DETAILS---------------------------------------------------------------
-
+            #endregion
 
             //-----------------------VACCINATIONS-----------------------------------------------------------------------
 
-            var vaccinations = contents.VaccinationList.Where(x => x.Date == DateTime.Today.Date).ToList();
+            var vaccinations = contents.VaccinationList;
+            var temp = db.UserStatus.FirstOrDefault(x => x.Username == globalCurrentUser);
+            string currentBranch = "";
+            if (temp != null)
+            {
+                currentBranch = temp.Branch_Practice_No;
+            }
 
+            decimal sum = Convert.ToDecimal(0.0);
+            var extendedFees = db.ExtendedFees.Where(x => x.IncludeInReport == "Include" && x.Branch == currentBranch).ToList();
             foreach (var vacc in vaccinations)
             {
                 //if (vacc.Existing)
@@ -310,24 +407,89 @@ namespace VaccinationManager.PDF_Generator
                 
                 VaccinationDefinition vaccDef = db.VaccinationDefinitions.FirstOrDefault(x=>x.Id == vacc.VaccinationDefinitionId);
                 VaccinationPrice vaccPrice = db.VaccinationPrices.FirstOrDefault(x=>x.VaccinationDefId == vacc.VaccinationDefinitionId.ToString());
-
-                row1.Cells[0].AddParagraph(vaccDef.Name);
-                row1.Cells[1].AddParagraph(vaccDef.Code);
-                row1.Cells[2].AddParagraph(vacc.Date.ToString());
-                row1.Cells[3].AddParagraph(vacc.SerialNumber ?? "");
-                row1.Cells[4].AddParagraph(vacc.Signature ?? "");
-                row1.Cells[5].AddParagraph(vaccPrice.PriceAmount.ToString());
+                int quantity = 1;
+                row1.Cells[0].AddParagraph(contents.InvoiceFromDate.ToString("dd-MMM-yyyy"));
+                row1.Cells[1].AddParagraph(contents.PatientChild.Name + " " + contents.PatientChild.Surname);
+                if (vaccDef != null && vaccDef.Name != null) row1.Cells[2].AddParagraph(vaccDef.Name);
+                row1.Cells[3].AddParagraph("01"); //Dummy Value for Med Aid Code
+                if (vaccDef != null && vaccDef.Code != null) row1.Cells[4].AddParagraph(vaccDef.Code);
+                row1.Cells[5].AddParagraph(quantity.ToString()); // Dummy value for QTY
+                row1.Cells[6].AddParagraph(vaccPrice.PriceAmount.ToString());
 
 
                 this.VaccincationsTable.SetEdge(0, this.VaccincationsTable.Rows.Count - 2, 6, 2, Edge.Box, BorderStyle.Single, 0.75);
+
+                sum += (vaccPrice.PriceAmount*quantity);
                 //}
             }
+            foreach (var item in extendedFees)
+            {
+                Row row1 = this.VaccincationsTable.AddRow();
+                int quantity = 1;
 
+                row1.Cells[0].AddParagraph(contents.InvoiceFromDate.ToString("dd-MMM-yyyy"));
+                row1.Cells[1].AddParagraph(contents.PatientChild.Name + " " + contents.PatientChild.Surname);
+                row1.Cells[2].AddParagraph(item.FeeName);
+                row1.Cells[3].AddParagraph("01"); //Dummy Value for Med Aid Code
+                row1.Cells[4].AddParagraph(item.FeeCode);
+                row1.Cells[5].AddParagraph(quantity.ToString()); // Dummy value for QTY
+                row1.Cells[6].AddParagraph(item.Amount.ToString());
+                this.VaccincationsTable.SetEdge(0, this.VaccincationsTable.Rows.Count - 2, 6, 2, Edge.Box, BorderStyle.Single, 0.75);
+
+                sum += (item.Amount*quantity);
+            }
             //-----------------------END VACCINATIONS-------------------------------------------------------------------
+
+            //------------------------BANKING DETAILS-------------------------------------------------------------------
+            Totals.Format.Alignment = ParagraphAlignment.Right;
+            Totals.AddLineBreak();
+            Totals.Format.Font.Size = 13;
+            Totals.AddFormattedText("Total:", TextFormat.Bold);
+            Totals.AddTab();
+            Totals.AddTab();
+            Totals.AddText("R " + sum);
+            Totals.AddTab(); Details.AddTab();
+            Totals.AddLineBreak(); Totals.AddLineBreak();
+
+            BankingDetails.Format.Alignment = ParagraphAlignment.Left;
+            BankingDetails.AddFormattedText("Banking Details", TextFormat.Underline);
+            BankingDetails.AddLineBreak(); Details.AddLineBreak();
+
+            BankingDetails.AddFormattedText("Bank Name:", TextFormat.Bold);
+            if (!string.IsNullOrEmpty(contents.BranchInformation.Bank_Name))
+            {
+                BankingDetails.AddText(contents.BranchInformation.Bank_Name);
+            }
+            BankingDetails.AddTab();
+            BankingDetails.AddLineBreak();
+
+            BankingDetails.AddFormattedText("Account No:", TextFormat.Bold);
+            if (!string.IsNullOrEmpty(contents.BranchInformation.Account_Number))
+            {
+                BankingDetails.AddText(contents.BranchInformation.Account_Number);
+            }
+            BankingDetails.AddTab();
+            BankingDetails.AddLineBreak();
+            
+            BankingDetails.AddFormattedText("Branch No:", TextFormat.Bold);
+            if (!string.IsNullOrEmpty(contents.BranchInformation.Branch_Number))
+            {
+                BankingDetails.AddText(contents.BranchInformation.Branch_Number);
+            }
+            BankingDetails.AddTab();
+            BankingDetails.AddLineBreak(); Details.AddLineBreak();
+
+            //Details.AddTab(); Details.AddTab(); Details.AddTab(); Details.AddTab();
+            //Details.AddFormattedText("Invoice Date: " + contents.InvoiceFromDate.Date.ToString(), TextFormat.Underline);
+            //Details.AddLineBreak(); Details.AddLineBreak();
+
+
+            //------------------------END BANKING DETAILS---------------------------------------------------------------
         }
 
-
+        public Paragraph Totals { get; set; }
         public Paragraph Details { get; set; }
+        public Paragraph BankingDetails { get; set; }
 
         public Document document { get; set; }
 

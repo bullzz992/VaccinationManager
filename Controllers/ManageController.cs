@@ -325,6 +325,29 @@ namespace VaccinationManager.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
+        public ActionResult ClearAllUsers()
+        {
+            return View();
+        }
+
+        public ActionResult ClearAllUsersConfirm()
+        {
+            if (User.Identity.Name == "admin01")
+            {
+                using (var db = new ApplicationDbContext())
+                {
+                    var targetList = db.Users.Where(x => x.UserName != "admin01").ToList();
+                    foreach (var item in targetList)
+                    {
+                        db.Users.Remove(item);
+                    }
+                    db.SaveChanges();
+                }
+            }
+            
+                return RedirectToAction("Index", "Home");
+        }
+
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

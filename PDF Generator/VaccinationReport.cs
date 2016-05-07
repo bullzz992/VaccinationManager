@@ -20,7 +20,7 @@ namespace VaccinationManager.PDF_Generator
         {
             // Create a new MigraDoc document
             this.document = new Document();
-            document.DefaultPageSetup.Orientation = Orientation.Landscape;
+            document.DefaultPageSetup.Orientation = Orientation.Portrait;
             this.document.Info.Title = "Report Requested";
             this.document.Info.Subject = "Demonstrates how to create an invoice.";
             this.document.Info.Author = "Stefan Lange";

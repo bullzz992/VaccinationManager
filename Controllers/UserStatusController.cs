@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using VaccinationManager.CommunicationAPI;
 using VaccinationManager.DAL;
 using VaccinationManager.Models;
 
@@ -133,10 +134,30 @@ namespace VaccinationManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,UserId,Username,Email,Branch_Practice_No,Status")] UserStatus userStatus)
         {
+            db = new VaccinationContext();
             if (ModelState.IsValid)
             {
-                db.Entry(userStatus).State = EntityState.Modified;
+                
+                string prev = "";
+                using (var tmpDb = new VaccinationContext())
+                {
+                    var firstOrDefault = tmpDb.UserStatus.FirstOrDefault(x => x.Username == userStatus.Username);
+                    if (firstOrDefault != null)
+                    {
+                        prev = firstOrDefault.Status;
+                    }
+                }
+
+                    db.Entry(userStatus).State = EntityState.Modified;
                 db.SaveChanges();
+
+                    if (userStatus.Status == "Active" && prev == "New")
+                    {
+                        MailService mail = new MailService("vaccination@hileya.co.za", "V@@5hY9a");
+                        mail.SendMail(userStatus.Email, "Access Granted: Confirmation of Access to Vaccination Manager", "<html><body><h3>Hi " + userStatus.Username +"</h3>" + "<br/><p>This message is to confirm an Approval by Admin for your access request on Vaccination Manager.<br/>You will now be able to log onto the system. For more information you can contact your branch manager or Admin.</p><br/><p>Regards</p><b><p>Vaccination Manager Team</p></b></body></html>");
+
+                    }
+                
                 return RedirectToAction("Index");
             }
             return View(userStatus);

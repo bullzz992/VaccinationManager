@@ -98,6 +98,7 @@
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Branch" Type="varchar" MaxLength="50" />
           <Property Name="FeeCode" Type="varchar" MaxLength="50" />
+          <Property Name="IncludeInReport" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Parents">
           <Key>
@@ -431,6 +432,7 @@
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IncludeInReport" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Parent">
           <Key>
@@ -761,6 +763,7 @@
           <EntitySetMapping Name="ExtendedFees">
             <EntityTypeMapping TypeName="VaccinationManagerModel.ExtendedFee">
               <MappingFragment StoreEntitySet="ExtendedFees">
+                <ScalarProperty Name="IncludeInReport" ColumnName="IncludeInReport" />
                 <ScalarProperty Name="FeeCode" ColumnName="FeeCode" />
                 <ScalarProperty Name="Branch" ColumnName="Branch" />
                 <ScalarProperty Name="FeeId" ColumnName="FeeId" />

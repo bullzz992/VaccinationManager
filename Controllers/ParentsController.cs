@@ -39,8 +39,9 @@ namespace VaccinationManager.Controllers
                         finalParents.Add(item);
                     }
                 }
+                parents = finalParents;
             }
-            parents = finalParents;
+            
             ViewBag.filter = new SelectList(filters);
             
 

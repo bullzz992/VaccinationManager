@@ -1,0 +1,17 @@
+﻿@using System.Web.UI.WebControls
+
+@if (User.Identity.Name != "admin01")
+{
+    @Html.ActionLink("Go to Login.", "Login", "Account")
+}
+else
+{
+    <h2>Delete the whole DB of Users</h2>
+
+    <h1 style="color: red;">Are you sure you want to clear the whole database of system users?</h1>
+    @Html.ActionLink("Yes", "ClearAllUsersConfirm")
+    <br />
+    @Html.ActionLink("No! Get me out of here!", "Index", "Home")
+
+}
+

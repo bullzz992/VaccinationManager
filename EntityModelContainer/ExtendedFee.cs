@@ -20,5 +20,6 @@ namespace EntityModelContainer
         public decimal Amount { get; set; }
         public string Branch { get; set; }
         public string FeeCode { get; set; }
+        public string IncludeInReport { get; set; }
     }
 }

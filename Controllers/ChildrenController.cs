@@ -526,10 +526,12 @@ namespace VaccinationManager.Controllers
         [HttpPost]
         public ActionResult AddParent(Child child)
         {
+            string branch = db.UserStatus.FirstOrDefault(x => x.Username == User.Identity.Name).Branch_Practice_No;
             ViewBag.CurrentPage = "Children";
             if (child.Mother != null && !child.Mother.Found)
             {
                 child.Mother.IdNumber = child.MotherId;
+                child.Mother.Branch = branch;
                 db.Parents.Add(child.Mother);
                 db.SaveChanges();
             }
@@ -537,6 +539,7 @@ namespace VaccinationManager.Controllers
             if (child.Father != null && !child.Father.Found)
             {
                 child.Father.IdNumber = child.FatherId;
+                child.Father.Branch = branch;
                 db.Parents.Add(child.Father);
                 db.SaveChanges();
             }

@@ -18,6 +18,7 @@ namespace VaccinationManager.Models
         [BranchValidation(ErrorMessage = "This practice number doesn't exist")]
         public string Branch { get; set; }
         public string FeeCode { get; set; }
+        public string IncludeInReport { get; set; }
     }
 
     public class BranchValidation : ValidationAttribute

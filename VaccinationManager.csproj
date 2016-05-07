@@ -194,6 +194,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="CommunicationAPI\MailService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\ChildrenController.cs" />
@@ -413,6 +414,7 @@
     <Content Include="SQL\AddColumnChildren_Branch.sql" />
     <Content Include="SQL\AddColumnExtendedFees_Branch.sql" />
     <Content Include="SQL\AddColumnExtendedFees_FeeCode.sql" />
+    <Content Include="SQL\AddColumnExtendedFees_IncludeInReport.sql" />
     <Content Include="SQL\AddColumnParents_Branch.sql" />
     <Content Include="SQL\script.sql" />
     <Content Include="SQL\TableCreationBranches.sql" />
@@ -506,10 +508,11 @@
     <Content Include="Views\UserStatus\Details.cshtml" />
     <Content Include="Views\UserStatus\Edit.cshtml" />
     <Content Include="Views\UserStatus\Index.cshtml" />
+    <Content Include="Views\Manage\ClearAllUsers.cshtml" />
+    <Content Include="Views\Invoice\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ExtendedFee\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

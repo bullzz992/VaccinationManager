@@ -15,6 +15,7 @@ using Microsoft.Owin.Security;
 using VaccinationManager.Models;
 using VaccinationManager.DAL;
 using Microsoft.Owin.Security.OAuth;
+using VaccinationManager.CommunicationAPI;
 
 namespace VaccinationManager.Controllers
 {
@@ -96,6 +97,10 @@ namespace VaccinationManager.Controllers
             // Require the user to have a confirmed email before they can log on.
             // var user = await UserManager.FindByNameAsync(model.Email);
             var user = UserManager.Find(model.Username, model.Password);
+            //ApplicationDbContext userDB = new ApplicationDbContext();
+            //var list = userDB.Users.FirstOrDefault(x=>x.UserName =="avish");
+            //var temp = userDB.Users.Remove(list);
+            //userDB.SaveChanges();
             if (user != null)
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
@@ -116,7 +121,7 @@ namespace VaccinationManager.Controllers
 
             UserStatus resultStatusObj = db.UserStatus.FirstOrDefault(x => x.Username == model.Username);
 
-            if (resultStatusObj == null)
+            if (resultStatusObj == null && user != null)
             {
                 result = SignInStatus.RequiresVerification;
             }
@@ -269,6 +274,17 @@ namespace VaccinationManager.Controllers
                            
                         });
                     db.SaveChanges();
+
+                    MailService mail = new MailService("vaccination@hileya.co.za", "V@@5hY9a");
+                    mail.SendMail(user.Email, "Notification: Received Access Request", "<html><body><h3>Hi " + user.UserName + "</h3><br/>" + "<p>This message is to let you know that we acknowledge receipt of your access request on Vaccination Manager.<br/>You will receive a second email confirming access to the system</p><br/><p>Regards</p><b><p>Vaccination Manager Team</p></b></body></html>");
+                    var firstOrDefault = db.UserStatus.FirstOrDefault(x => x.Username == "admin01");
+                    string email = "";
+                    if (firstOrDefault != null)
+                    {
+                         email = firstOrDefault.Email;
+                    }
+                    mail.SendMail(email, "ACTION NEEDED: User Access Request. Vaccination Manager", "<html><body><h3>System Access Request</h3><br/><p>A new user request has been sent by the following user:</p><br/> <b><label>Username: </label></b><label>" + user.UserName + "</label><br/><b><label>Email: <label></b><label>" + user.Email + "</label><br/><b><label>Branch Practice Number: </label></b><label>" + model.Branch + "</label><br/><p>Log onto the system to Activate this user.</p></body></html>");
+
                     return View("ConfirmEmail");
                     //return RedirectToAction("Index", "Home");
                 }
