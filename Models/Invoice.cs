@@ -15,7 +15,9 @@ namespace VaccinationManager.Models
         public Branch BranchInformation;
 
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime InvoiceFromDate;
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime InvoiceFromDate { get; set; }
         public DateTime InvoiceToDate;
 
     }

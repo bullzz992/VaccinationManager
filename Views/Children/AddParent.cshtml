@@ -53,7 +53,15 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Mother.Telephone, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.Label("Home Telephone", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Mother.HomeTel, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mother.HomeTel, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Business Telephone", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Mother.Telephone, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Mother.Telephone, "", new { @class = "text-danger" })
@@ -83,6 +91,42 @@
                         @Html.ValidationMessageFor(model => model.Mother.BloodType, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mother.Employer, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Mother.Employer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mother.Employer, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <hr />
+                <h3>Medical Aid</h3>
+                <hr />
+
+                <div class="form-group">
+                    @Html.Label("Medical Aid Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Mother.MedicalAidName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mother.MedicalAidName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Medical Aid Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Mother.MedicalAidNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mother.MedicalAidNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Medical Aid Plan", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Mother.MedicalAidPlan, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mother.MedicalAidPlan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             }
             else
             {
@@ -91,44 +135,97 @@
                     <dt>
                         @Html.Label("ID Number")
                     </dt>
+
                     <dd>
                         @Html.DisplayFor(model => model.Mother.IdNumber)
                     </dd>
+
                     <dt>
                         @Html.DisplayNameFor(model => model.Mother.Surname)
                     </dt>
+
                     <dd>
                         @Html.DisplayFor(model => model.Mother.Surname)
                     </dd>
+
                     <dt>
                         @Html.DisplayNameFor(model => model.Mother.Name)
                     </dt>
+
                     <dd>
                         @Html.DisplayFor(model => model.Mother.Name)
                     </dd>
+
                     <dt>
-                        @Html.DisplayNameFor(model => model.Mother.Telephone)
+                        @Html.DisplayName("Home Telephone")
                     </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.HomeTel)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Business Telephone")
+                    </dt>
+
                     <dd>
                         @Html.DisplayFor(model => model.Mother.Telephone)
                     </dd>
+
                     <dt>
                         @Html.DisplayNameFor(model => model.Mother.Cellphone)
                     </dt>
+
                     <dd>
                         @Html.DisplayFor(model => model.Mother.Cellphone)
                     </dd>
+
                     <dt>
                         @Html.DisplayNameFor(model => model.Mother.Email)
                     </dt>
+
                     <dd>
                         @Html.DisplayFor(model => model.Mother.Email)
                     </dd>
+
                     <dt>
                         @Html.DisplayNameFor(model => model.Mother.BloodType)
                     </dt>
+
                     <dd>
                         @Html.DisplayFor(model => model.Mother.BloodType)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.Employer)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.Employer)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Medical Aid Name")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.MedicalAidName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Medical Aid Number")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.MedicalAidNumber)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Medical Aid Plan")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.MedicalAidPlan)
                     </dd>
                 </dl>
 
@@ -157,99 +254,196 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Father.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Father.Surname, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Father.Surname, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+            @Html.LabelFor(model => model.Father.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father.Surname, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Father.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Father.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Father.Name, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Father.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Father.Telephone, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Father.Telephone, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Father.Telephone, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        <div class="form-group">
+            @Html.Label("Home Telephone", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father.HomeTel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father.HomeTel, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Father.Cellphone, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Father.Cellphone, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Father.Cellphone, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        <div class="form-group">
+            @Html.Label("Business Telephone", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father.Telephone, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Father.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Father.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Father.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Father.Cellphone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father.Cellphone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father.Cellphone, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Father.BloodType, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EnumDropDownListFor(model => model.Father.BloodType, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Father.BloodType, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Father.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BloodType, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.BloodType, htmlAttributes: new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.BloodType, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Father.Employer, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father.Employer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father.Employer, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+        <h3>Medical Aid</h3>
+        <hr />
+
+        <div class="form-group">
+            @Html.Label("Medical Aid Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father.MedicalAidName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father.MedicalAidName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Medical Aid Number", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father.MedicalAidNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father.MedicalAidNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Medical Aid Plan", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father.MedicalAidPlan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father.MedicalAidPlan, "", new { @class = "text-danger" })
+            </div>
+        </div>
             }
             else
             {
                 <dl class="dl-horizontal">
                     <dt>
-                        @Html.Label("ID Number")
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Father.IdNumber)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Father.Surname)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Father.Surname)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Father.Name)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Father.Name)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Father.Telephone)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Father.Telephone)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Father.Cellphone)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Father.Cellphone)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Father.Email)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Father.Email)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Father.BloodType)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Father.BloodType)
-                    </dd>
-                </dl>
+                    @Html.Label("ID Number")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.IdNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Father.Surname)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.Surname)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Father.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Home Telephone")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.HomeTel)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Business Telephone")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.Telephone)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Father.Cellphone)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.Cellphone)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Father.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.Email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Father.BloodType)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.BloodType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Father.Employer)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.Employer)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Medical Aid Name")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.MedicalAidName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Medical Aid Number")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.MedicalAidNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Medical Aid Plan")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Father.MedicalAidPlan)
+                </dd>
+        </dl>
             }
             <div class="form-group">
                 @Html.Label("Notify Father     ")

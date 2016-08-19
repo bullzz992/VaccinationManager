@@ -15,6 +15,8 @@ namespace VaccinationManager.Models
         public double Weight { get; set; }
         public double Height { get; set; }
         public double HeadCircumference { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Created { get; set; }
 
         [ForeignKey("Child")]

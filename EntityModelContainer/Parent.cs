@@ -33,6 +33,11 @@ namespace EntityModelContainer
         public string Discriminator { get; set; }
         public Nullable<int> Address_Id { get; set; }
         public string Branch { get; set; }
+        public string MedicalAidName { get; set; }
+        public string MedicalAidNumber { get; set; }
+        public string MedicalAidPlan { get; set; }
+        public string HomeTel { get; set; }
+        public string Employer { get; set; }
     
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -202,6 +202,7 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParentsController.cs" />
+    <Compile Include="Controllers\SMSConfigsController.cs" />
     <Compile Include="Controllers\UserStatusController.cs" />
     <Compile Include="Controllers\VaccinationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -218,6 +219,7 @@
     </Compile>
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Miscellaneous\HelpAPI.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -227,12 +229,14 @@
     <Compile Include="Models\Child.cs" />
     <Compile Include="Models\ChildMeasurement.cs" />
     <Compile Include="Models\ChildVaccination.cs" />
+    <Compile Include="Models\EmailConfig.cs" />
     <Compile Include="Models\ExtendedFee.cs" />
     <Compile Include="Models\ExtendedFeesCustom.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Parent.cs" />
+    <Compile Include="Models\SMSConfig.cs" />
     <Compile Include="Models\UserBranch.cs" />
     <Compile Include="Models\UserStatus.cs" />
     <Compile Include="Models\Vaccination.cs" />
@@ -275,6 +279,7 @@
     <Content Include="Images\Dashboard4.jpg" />
     <Content Include="Images\Dashboard5.jpg" />
     <Content Include="Images\Edit_add_orange.svg" />
+    <Content Include="Images\email.png" />
     <Content Include="Images\Final Logo.png" />
     <Content Include="Images\CreateNew.png" />
     <Content Include="Images\headerLines.gif" />
@@ -292,6 +297,7 @@
     <Content Include="Images\pic04.png" />
     <Content Include="Images\price.png" />
     <Content Include="Images\registerIcon.ico" />
+    <Content Include="Images\sms-icon.png" />
     <Content Include="Images\userApproval.png" />
     <Content Include="Images\vaccinations.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -415,7 +421,11 @@
     <Content Include="SQL\AddColumnExtendedFees_Branch.sql" />
     <Content Include="SQL\AddColumnExtendedFees_FeeCode.sql" />
     <Content Include="SQL\AddColumnExtendedFees_IncludeInReport.sql" />
+    <Content Include="SQL\AddColumnExtendedFees_NappiCode.sql" />
     <Content Include="SQL\AddColumnParents_Branch.sql" />
+    <Content Include="SQL\AddColumnsChildren_PhaseTwoChanges.sql" />
+    <Content Include="SQL\AddColumnsParents_PhaseTwoChanges.sql" />
+    <Content Include="SQL\AddColumnsVaccinationDefinition_PhaseTwoChanges.sql" />
     <Content Include="SQL\script.sql" />
     <Content Include="SQL\TableCreationBranches.sql" />
     <Content Include="SQL\TableCreationExtendedFees.sql" />
@@ -510,6 +520,13 @@
     <Content Include="Views\UserStatus\Index.cshtml" />
     <Content Include="Views\Manage\ClearAllUsers.cshtml" />
     <Content Include="Views\Invoice\Edit.cshtml" />
+    <Content Include="Views\Children\EditMeasurement.cshtml" />
+    <Content Include="Views\Children\DeleteMeasurement.cshtml" />
+    <Content Include="Views\SMSConfigs\Create.cshtml" />
+    <Content Include="Views\SMSConfigs\Delete.cshtml" />
+    <Content Include="Views\SMSConfigs\Details.cshtml" />
+    <Content Include="Views\SMSConfigs\Edit.cshtml" />
+    <Content Include="Views\SMSConfigs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

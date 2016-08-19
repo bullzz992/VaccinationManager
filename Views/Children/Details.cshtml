@@ -37,6 +37,20 @@
                     @Html.DisplayFor(model => model.IdNumber)
                 </dd>
                 <dt>
+                    @Html.Label("Date of Birth")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DateOfBirth)
+                </dd>
+
+                <dt>
+                    @Html.Label("Dependant Code")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MedicalAidDependantCode)
+                </dd>
+
+                <dt>
                     @Html.DisplayNameFor(model => model.BloodType)
                 </dt>
                 <dd>
@@ -114,7 +128,7 @@
             </dl>
         </div>
         <br />
-        @*<h4>Measurements</h4>
+    @*<h4>Measurements</h4>
 
         <table class="table">
             <tr>
@@ -154,63 +168,65 @@
             }
         </table>
         <br />*@
+        <h4>&nbsp;</h4>
         <h4>Vaccinations</h4>
 
-        <table class="table">
-            <tr>
-                <th>
-                    Child Age
-                </th>
-                <th>
-                    Code
-                </th>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Vaccinated
-                </th>
-                <th>
-                    Date
-                </th>
-                <th>
-                    Serial Number
-                </th>
-                <th>
-                    Signature
-                </th>
-            </tr>
-          
-            @foreach (var item in Model.VaccinationDetails)
+    <table class="table">
+        
+        <tr>
+            <th>
+                Child Age
+            </th>
+            <th>
+                Code
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Vaccinated
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Batch Number
+            </th>
+            <th>
+                Signature
+            </th>
+        </tr>
+
+        @foreach (var item in Model.VaccinationDetails)
+        {
+            if (item.Vaccinated)
             {
-                if (item.Vaccinated)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Age.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Code)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Vaccinated)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateVaccinated)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SerialNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Signature)
-                        </td>
-                    </tr>
-                }
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Age.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Vaccinated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateVaccinated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SerialNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Signature)
+                    </td>
+                </tr>
             }
-        </table>
+        }
+    </table>
 
     <br/>
 
@@ -228,10 +244,7 @@
                     Head Circumference
                 </th>
                 <th>
-                    Created
-                </th>
-                <th>
-                    Child ID
+                    Date
                 </th>
             </tr>
 
@@ -248,10 +261,7 @@
                             @item.HeadCircumference
                         </td>
                         <td>
-                            @item.Created
-                        </td>
-                        <td>
-                            @item.ChildID
+                            @item.Created.ToString("yyyy-MM-dd")
                         </td>
                     </tr>
                 

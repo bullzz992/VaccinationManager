@@ -26,10 +26,20 @@
             Child Age
         </th>
         <th>
-            Code
+            Vaccine Name
         </th>
         <th>
-            Name
+            Description
+        </th>
+        <th>
+            Nappi Code
+        </th>
+        <th>
+            ICD 10 Code
+        </th>
+
+        <th>
+            Price
         </th>
         <th></th>
     </tr>
@@ -41,15 +51,31 @@
                 @Html.DisplayFor(modelItem => item.Age.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ICDCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td style="width: 7%;">
+                
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</li>
+                        <li>@Html.ActionLink("Details", "Details", new { id = item.Id })</li>
+                        <li>@Html.ActionLink("Delete", "Delete", new { id = item.Id })</li>
+                    </ul>
+                </div>
             </td>
         </tr>
 
@@ -57,6 +83,21 @@
 
 </table>
 
+<script type="text/javascript">
+        $(function () {
+            $(".dropdown").hover(
+                    function () {
+                        $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+                        $(this).toggleClass('open');
+                        $('b', this).toggleClass("caret caret-up");
+                    },
+                    function () {
+                        $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+                        $(this).toggleClass('open');
+                        $('b', this).toggleClass("caret caret-up");
+                    });
+        });
+</script>
 @*<table class="table">
     <tr>
         <th>

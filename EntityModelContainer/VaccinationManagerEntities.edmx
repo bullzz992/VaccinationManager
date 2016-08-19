@@ -87,18 +87,21 @@
           <Property Name="Father_IdNumber" Type="nvarchar" MaxLength="128" />
           <Property Name="Mother_IdNumber" Type="nvarchar" MaxLength="128" />
           <Property Name="Branch" Type="varchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="MedicalAidDependantCode" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ExtendedFees">
           <Key>
             <PropertyRef Name="FeeId" />
           </Key>
           <Property Name="FeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FeeName" Type="nvarchar(max)" />
-          <Property Name="FeeDescription" Type="nvarchar(max)" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FeeName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FeeDescription" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Branch" Type="varchar" MaxLength="50" />
           <Property Name="FeeCode" Type="varchar" MaxLength="50" />
           <Property Name="IncludeInReport" Type="varchar" MaxLength="20" />
+          <Property Name="NappiCode" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Parents">
           <Key>
@@ -114,6 +117,11 @@
           <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Address_Id" Type="int" />
           <Property Name="Branch" Type="varchar" MaxLength="50" />
+          <Property Name="MedicalAidName" Type="varchar" MaxLength="100" />
+          <Property Name="MedicalAidNumber" Type="varchar" MaxLength="50" />
+          <Property Name="MedicalAidPlan" Type="varchar" MaxLength="50" />
+          <Property Name="HomeTel" Type="varchar" MaxLength="20" />
+          <Property Name="Employer" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="UserBranches">
           <Key>
@@ -143,6 +151,8 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Age_Code" Type="int" />
+          <Property Name="ICDCode" Type="varchar" MaxLength="100" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="VaccinationPrices">
           <Key>
@@ -421,18 +431,21 @@
           <NavigationProperty Name="Parent2" Relationship="Self.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" FromRole="Children" ToRole="Parents" />
           <NavigationProperty Name="Vaccinations" Relationship="Self.FK_dbo_Vaccinations_dbo_Children_IdNumber" FromRole="Children" ToRole="Vaccinations" />
           <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="MedicalAidDependantCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ExtendedFee">
           <Key>
             <PropertyRef Name="FeeId" />
           </Key>
           <Property Name="FeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FeeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FeeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FeeDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IncludeInReport" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NappiCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Parent">
           <Key>
@@ -453,6 +466,11 @@
           <NavigationProperty Name="Children1" Relationship="Self.FK_dbo_Children_dbo_Parents_Mother_IdNumber" FromRole="Parents" ToRole="Children" />
           <NavigationProperty Name="Children2" Relationship="Self.FK_dbo_Children_dbo_Parents_ParentViewModel_IdNumber" FromRole="Parents" ToRole="Children" />
           <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MedicalAidName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MedicalAidNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MedicalAidPlan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HomeTel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Employer" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UserBranch">
           <Key>
@@ -483,6 +501,8 @@
           <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Age_Code" Type="Int32" />
           <NavigationProperty Name="Age" Relationship="Self.FK_dbo_VaccinationDefinitions_dbo_Ages_Age_Code" FromRole="VaccinationDefinitions" ToRole="Ages" />
+          <Property Name="ICDCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="VaccinationPrice">
           <Key>
@@ -744,6 +764,8 @@
           <EntitySetMapping Name="Children">
             <EntityTypeMapping TypeName="VaccinationManagerModel.Child">
               <MappingFragment StoreEntitySet="Children">
+                <ScalarProperty Name="MedicalAidDependantCode" ColumnName="MedicalAidDependantCode" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="Branch" ColumnName="Branch" />
                 <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
@@ -763,6 +785,7 @@
           <EntitySetMapping Name="ExtendedFees">
             <EntityTypeMapping TypeName="VaccinationManagerModel.ExtendedFee">
               <MappingFragment StoreEntitySet="ExtendedFees">
+                <ScalarProperty Name="NappiCode" ColumnName="NappiCode" />
                 <ScalarProperty Name="IncludeInReport" ColumnName="IncludeInReport" />
                 <ScalarProperty Name="FeeCode" ColumnName="FeeCode" />
                 <ScalarProperty Name="Branch" ColumnName="Branch" />
@@ -776,6 +799,11 @@
           <EntitySetMapping Name="Parents">
             <EntityTypeMapping TypeName="VaccinationManagerModel.Parent">
               <MappingFragment StoreEntitySet="Parents">
+                <ScalarProperty Name="Employer" ColumnName="Employer" />
+                <ScalarProperty Name="HomeTel" ColumnName="HomeTel" />
+                <ScalarProperty Name="MedicalAidPlan" ColumnName="MedicalAidPlan" />
+                <ScalarProperty Name="MedicalAidNumber" ColumnName="MedicalAidNumber" />
+                <ScalarProperty Name="MedicalAidName" ColumnName="MedicalAidName" />
                 <ScalarProperty Name="Branch" ColumnName="Branch" />
                 <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
@@ -812,6 +840,8 @@
           <EntitySetMapping Name="VaccinationDefinitions">
             <EntityTypeMapping TypeName="VaccinationManagerModel.VaccinationDefinition">
               <MappingFragment StoreEntitySet="VaccinationDefinitions">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ICDCode" ColumnName="ICDCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

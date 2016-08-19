@@ -147,7 +147,9 @@ namespace VaccinationManager.Controllers
             var measurements = from cust in db.ChildMeasurements
                                where cust.ChildID == child.IdNumber
                                select cust;
-            ViewBag.measurementsList = measurements.ToList();
+
+            List<ChildMeasurement> tmpChildMeasurements = measurements.ToList();
+            ViewBag.measurementsList = tmpChildMeasurements;
             return View(child);
         }
 
@@ -349,12 +351,86 @@ namespace VaccinationManager.Controllers
                 db.ChildMeasurements.Add(measure.CaptureMeasurement);
                 db.SaveChanges();
 
-                return CreateMeasurement(child.IdNumber);
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 return RedirectToAction("Index");
             }
+        }
+
+        [HttpGet]
+        public ActionResult EditMeasurement(int id)
+        {
+            ViewBag.CurrentPage = "Child Measurement";
+            try
+            {
+                //string sessionId = (string)HttpContext.Items["AspSession"];
+                ChildMeasurement measurement = db.ChildMeasurements.FirstOrDefault(x => x.Id == id);
+                if (measurement == null)
+                {
+                    return HttpNotFound();
+                }
+
+                
+
+                return View(measurement);
+                //if (child == null) child = (Child)Session["User"];
+                //var sessionId = HttpContext.Items["AspSession"];
+                //return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditMeasurement(ChildMeasurement measure)
+        {
+            ViewBag.CurrentPage = "Children";
+            try
+            {
+                var fromDB = db.ChildMeasurements.FirstOrDefault(x => x.Id == measure.Id);
+                fromDB.HeadCircumference = measure.HeadCircumference;
+                fromDB.Height = measure.Height;
+                fromDB.Weight = measure.Weight;
+                db.SaveChanges();
+
+                return  RedirectToAction("CreateMeasurement", new {id = fromDB.ChildID});
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+
+        public ActionResult DeleteMeasurement(int id)
+        {
+            ViewBag.CurrentPage = "Children";
+            var measurement = db.ChildMeasurements.FirstOrDefault(x => x.Id == id);
+            if (measurement == null)
+            {
+                return HttpNotFound();
+            }
+            return View(measurement);
+        }
+
+        [HttpPost, ActionName("DeleteMeasurement")]
+        public ActionResult DeleteMeasurement(ChildMeasurement measure)
+        {
+           
+            ViewBag.CurrentPage = "Children";
+            var measurement = db.ChildMeasurements.FirstOrDefault(x => x.Id == measure.Id);
+            if (measurement == null)
+            {
+                return HttpNotFound();
+            }
+            string myID = measurement.ChildID;
+            db.ChildMeasurements.Remove(measurement);
+            db.SaveChanges();
+            return RedirectToAction("CreateMeasurement", new { id = myID });
         }
 
         private Parent FindParent(string idNumber)
@@ -565,12 +641,13 @@ namespace VaccinationManager.Controllers
                 {
                     Age = vaccine.Age,
                     Code = vaccine.Code,
+                    ICDCode = vaccine.ICDCode,
                     Description = vaccine.Description,
                     Name = vaccine.Name,
                     IdNumber = child.IdNumber,
                     Id = vaccine.Id,
                 };
-
+                
                 Vaccination Vaccination = childVaccinations != null ? childVaccinations.Where(v => v.VaccinationDefinitionId == vaccine.Id).FirstOrDefault() : null;
 
                 if (Vaccination != null)
@@ -586,7 +663,7 @@ namespace VaccinationManager.Controllers
                 
                 Vaccinations.Add(cv);
             }
-
+            Vaccinations = Vaccinations.OrderBy(x => x.Age.Code).ToList();
             //VaccinationContainer vaxC = new VaccinationContainer()
             //{
             //    IdNumber = child.IdNumber,
@@ -601,6 +678,7 @@ namespace VaccinationManager.Controllers
         [HttpPost]
         public ActionResult ChildVaccinations(List<ChildVaccination> Vaccinations)
         {
+            
             ViewBag.CurrentPage = "Children";
             var vaccinations = ViewBag.Model;
             List<Vaccination> childVaccinations = new List<Vaccination>();

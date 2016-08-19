@@ -17,9 +17,10 @@ namespace EntityModelContainer
         public int FeeId { get; set; }
         public string FeeName { get; set; }
         public string FeeDescription { get; set; }
-        public decimal Amount { get; set; }
+        public Nullable<decimal> Amount { get; set; }
         public string Branch { get; set; }
         public string FeeCode { get; set; }
         public string IncludeInReport { get; set; }
+        public string NappiCode { get; set; }
     }
 }

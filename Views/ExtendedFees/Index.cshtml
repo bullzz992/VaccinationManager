@@ -9,30 +9,34 @@
 <p>
         @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btnCreateNew" })
     </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayName("Fee Name")
-            </th>
-            <th>
-                @Html.DisplayName("Description")
-            </th>
-            <th>
-                @Html.DisplayName("Amount")
-            </th>
-            <th>
-                @Html.DisplayName("Branch Practice No")
-            </th>
-            <th>
-                @Html.DisplayName("Fee Code")
-            </th>
-            <th>
-                @Html.DisplayName("Include Invoice")
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Fee Name")
+        </th>
+        <th>
+            @Html.DisplayName("Description")
+        </th>
+        <th>
+            @Html.DisplayName("Amount")
+        </th>
+        <th>
+            @Html.DisplayName("Branch Practice No")
+        </th>
+        <th>
+            @Html.DisplayName("ICD Code")
+        </th>
+        <th>
+            @Html.DisplayName("Nappi Code")
+        </th>
+        <th>
+            @Html.DisplayName("Include Invoice")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FeeName)
@@ -50,15 +54,39 @@
                 @Html.DisplayFor(modelItem => item.FeeCode)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.NappiCode)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.IncludeInReport)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.FeeId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.FeeId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.FeeId })
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Edit", "Edit", new { id = item.FeeId })</li>
+                        <li>@Html.ActionLink("Details", "Details", new { id = item.FeeId })</li>
+                        <li>@Html.ActionLink("Delete", "Delete", new { id = item.FeeId })</li>
+                    </ul>
+                </div>
             </td>
         </tr>
     }
+
+</table>
     
-    </table>
+<script type="text/javascript">
+        $(function () {
+            $(".dropdown").hover(
+                    function () {
+                        $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+                        $(this).toggleClass('open');
+                        $('b', this).toggleClass("caret caret-up");
+                    },
+                    function () {
+                        $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+                        $(this).toggleClass('open');
+                        $('b', this).toggleClass("caret caret-up");
+                    });
+        });
+</script>
 

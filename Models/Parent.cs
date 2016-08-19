@@ -14,6 +14,7 @@ namespace VaccinationManager.Models
         public string IdNumber { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
+        public string HomeTel { get; set; }
         public string Telephone { get; set; }
         public string Cellphone { get; set; }
         public string Email { get; set; }
@@ -21,6 +22,10 @@ namespace VaccinationManager.Models
         public BloodType BloodType { get; set; }
         public List<Allergy> Alergies { get; set; }
         public string Branch { get; set; }
+        public string Employer { get; set; }
+        public string MedicalAidName { get; set; }
+        public string MedicalAidNumber { get; set; }
+        public string MedicalAidPlan { get; set; }
 
         [NotMapped]
         public bool Found { get; set; }

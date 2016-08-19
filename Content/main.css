@@ -283,6 +283,26 @@ body, html {
     color: black;
 }
 
+#emailConfig a {
+    background-image: url('../Images/email.png')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+
+#smsConfig a {
+    background-image: url('../Images/sms-icon.png')!important;
+    background-repeat: no-repeat;
+   background-size: 26px;
+    background-position: 12px 10px !important;
+    background-position-x: 5px;
+    background-position-y: 6px;
+    color: black;
+}
+
 #price a {
     background-image: url('../Images/price.png')!important;
     background-repeat: no-repeat;

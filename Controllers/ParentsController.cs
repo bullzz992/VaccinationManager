@@ -84,7 +84,12 @@ namespace VaccinationManager.Controllers
                 IdNumber = pr.IdNumber,
                 Name = pr.Name,
                 Surname = pr.Surname,
-                Telephone = pr.Telephone
+                Telephone = pr.Telephone,
+                HomeTel = pr.HomeTel,
+                Employer =  pr.Employer,
+                MedicalAidName = pr.MedicalAidName,
+                MedicalAidNumber = pr.MedicalAidNumber,
+                MedicalAidPlan = pr.MedicalAidPlan
             };
 
             List<Child> children = db.Children.Where(c => c.MotherId == parent.IdNumber || c.FatherId == parent.IdNumber).ToList();
@@ -108,7 +113,7 @@ namespace VaccinationManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdNumber,Surname,Name,Telephone,Cellphone,Email,BloodType")] Parent parent)
+        public ActionResult Create([Bind(Include = "IdNumber,Surname,Name,HomeTel,Telephone,Cellphone,Email,BloodType,Employer,MedicalAidName, MedicalAidNumber,MedicalAidPlan")] Parent parent)
         {
             ViewBag.CurrentPage = "Parent";
             if (ModelState.IsValid)
@@ -144,11 +149,13 @@ namespace VaccinationManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdNumber,Surname,Name,Telephone,Cellphone,Email,BloodType")] Parent parent)
+        public ActionResult Edit([Bind(Include = "IdNumber,Surname,Name,HomeTel,Telephone,Cellphone,Email,BloodType,Employer,MedicalAidName, MedicalAidNumber,MedicalAidPlan")] Parent parent)
         {
             ViewBag.CurrentPage = "Parent";
             if (ModelState.IsValid)
             {
+                string loggedOnBranch = db.UserStatus.FirstOrDefault(x => x.Username == User.Identity.Name).Branch_Practice_No;
+                parent.Branch = loggedOnBranch;
                 db.Entry(parent).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

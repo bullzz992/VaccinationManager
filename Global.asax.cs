@@ -9,6 +9,7 @@ using VaccinationManager.DAL;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Data.Entity;
 using System.Web.Helpers;
+using VaccinationManager.Models;
 
 namespace VaccinationManager
 {
@@ -24,6 +25,7 @@ namespace VaccinationManager
             DbInterception.Add(new VaccinationInterceptorTransientErrors());
             DbInterception.Add(new VaccinationInterceptorLogging());
             Database.SetInitializer<VaccinationContext>(null);
+            Database.SetInitializer<ApplicationDbContext>(null);
         }
     }
 }

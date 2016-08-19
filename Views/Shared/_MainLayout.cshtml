@@ -60,12 +60,13 @@
             {
                 <div class="MenuItem" id="consultation">@Html.ActionLink("Additional Fees", "Index", "ExtendedFees")</div>
                  <div class="MenuItem" id="vaccinations">@Html.ActionLink("Vaccinations", "Index", "Vaccination")</div>
-                 <div class="MenuItem" id="price">@Html.ActionLink("Vaccination Prices", "Index", "VaccinationPrices")</div>
                  <div class="MenuItem" id="branchMaintenance">@Html.ActionLink("Branch Maintenance", "Index", "Branches")</div>
                  <div class="MenuItem" id="userApproval">@Html.ActionLink("User Activation", "Index", "UserStatus")</div>
-                 
+                <div class="MenuItem" id="emailConfig">@Html.ActionLink("Email Configuration", "Index", "EmailConfig")</div>
+                <div class="MenuItem" id="smsConfig">@Html.ActionLink("SMS Configuration", "Edit", "SmsConfigs")</div>
 
-             }
+
+            }
         }
         <div class="MenuItem" id="invoiceGen">@Html.ActionLink("Invoice", "Index", "Invoice")</div>
         <div class="MenuItem" id="manage">@Html.ActionLink("Change Password", "ChangePassword", "Manage")</div>

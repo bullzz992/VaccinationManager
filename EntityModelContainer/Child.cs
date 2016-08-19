@@ -35,6 +35,8 @@ namespace EntityModelContainer
         public string Father_IdNumber { get; set; }
         public string Mother_IdNumber { get; set; }
         public string Branch { get; set; }
+        public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public string MedicalAidDependantCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Allergy> Allergies { get; set; }

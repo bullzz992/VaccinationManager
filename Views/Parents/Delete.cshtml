@@ -30,7 +30,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Telephone)
+            @Html.DisplayName("Home Telephone")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeTel)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Business Telephone")
         </dt>
 
         <dd>
@@ -61,13 +69,45 @@
             @Html.DisplayFor(model => model.BloodType)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Employer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employer)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Medical Aid Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalAidName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Medical Aid Number")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalAidNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Medical Aid Plan")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalAidPlan)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
     <div class="form-actions no-color" style="text-align:right">
-        <input type="submit" value="Delete" class="btn btn-default" style="width:200px" align="right" /> |
+        <input type="submit" value="Delete" class="btn btn-default" style="width:200px" align="right" /> 
     </div>
     }
 </div>

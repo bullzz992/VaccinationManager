@@ -49,7 +49,7 @@ namespace VaccinationManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FeeId,FeeName,FeeDescription,Amount,Branch,FeeCode, IncludeInReport")] ExtendedFee extendedFee)
+        public ActionResult Create([Bind(Include = "FeeId,FeeName,FeeDescription,Amount,Branch,FeeCode,NappiCode,IncludeInReport")] ExtendedFee extendedFee)
         {
             
             if (ModelState.IsValid)
@@ -96,7 +96,7 @@ namespace VaccinationManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FeeId,FeeName,FeeDescription,Amount,Branch,FeeCode,IncludeInReport")] ExtendedFee extendedFee)
+        public ActionResult Edit([Bind(Include = "FeeId,FeeName,FeeDescription,Amount,Branch,FeeCode,NappiCode,IncludeInReport")] ExtendedFee extendedFee)
         {
             if (ModelState.IsValid)
             {

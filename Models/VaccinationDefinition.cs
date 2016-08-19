@@ -16,6 +16,8 @@ namespace VaccinationManager.Models
         public string Name { get; set; }
         public virtual Age Age { get; set; }
         public string Description { get; set; }
+        public string ICDCode { get; set; }
+        public decimal? Price { get; set; } = (decimal)0.00;
         //public int? AgeId { get; set; }
         //[InverseProperty("Code")]
         //[ForeignKey("AgeId")]

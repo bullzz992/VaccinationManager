@@ -61,8 +61,9 @@
                     @Html.DisplayName("Head Circumference")
                 </th>
                 <th>
-                    @Html.DisplayName("Child ID")
+                    @Html.DisplayName("Date")
                 </th>
+               
                 <th></th>
             </tr>
 
@@ -79,7 +80,19 @@
                         @Html.DisplayFor(modelItem => item.HeadCircumference)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ChildID)
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    
+                    <td>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                               
+                                <li>@Html.ActionLink("Edit", "EditMeasurement", new { id = item.Id })</li>
+                                <li>@Html.ActionLink("Delete", "DeleteMeasurement", new { id = item.Id })</li>
+                                @*<li>@Html.ActionLink("Measurements", "Measurements", new { id = item.IdNumber })</li>*@
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             }
@@ -97,6 +110,22 @@
 
         <script type="text/javascript">
             //$(function() {
+
+            $(function () {
+                $(".dropdown").hover(
+                        function () {
+                            $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+                            $(this).toggleClass('open');
+                            $('b', this).toggleClass("caret caret-up");
+                        },
+                        function () {
+                            $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+                            $(this).toggleClass('open');
+                            $('b', this).toggleClass("caret caret-up");
+                        });
+            });
+
+
             var heightData = @Html.Raw(Json.Encode(Model.HeightData));
             var chartLabel = @Html.Raw(Json.Encode(Model.LabelData));
             var headData = @Html.Raw(Json.Encode(Model.HeadData));

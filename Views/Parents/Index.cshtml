@@ -35,7 +35,10 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telephone)
+                @Html.DisplayName("Home Telephone")
+            </th>
+            <th>
+                @Html.DisplayName("Business Telephone")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cellphone)
@@ -62,6 +65,9 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.HomeTel)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Telephone)
                 </td>
                 <td>
@@ -74,13 +80,34 @@
                     @Html.DisplayFor(modelItem => item.BloodType)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new {id = item.IdNumber}) |
-                    @Html.ActionLink("Details", "Details", new {id = item.IdNumber}) |
-                    @Html.ActionLink("Delete", "Delete", new {id = item.IdNumber})
+
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Edit", "Edit", new {id = item.IdNumber})</li>
+                            <li>@Html.ActionLink("Details", "Details", new {id = item.IdNumber})</li>
+                            <li>@Html.ActionLink("Delete", "Delete", new {id = item.IdNumber})</li>
+                        </ul>
+                    </div>
                 </td>
             </tr>
         }
 
     </table>
+    <script type="text/javascript">
+        $(function () {
+            $(".dropdown").hover(
+                    function () {
+                        $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+                        $(this).toggleClass('open');
+                        $('b', this).toggleClass("caret caret-up");
+                    },
+                    function () {
+                        $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+                        $(this).toggleClass('open');
+                        $('b', this).toggleClass("caret caret-up");
+                    });
+        });
+    </script>
 </div>
 

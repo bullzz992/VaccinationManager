@@ -148,10 +148,18 @@ namespace VaccinationManager.Controllers
                     }
                 }
 
-                    db.Entry(userStatus).State = EntityState.Modified;
+                db.Entry(userStatus).State = EntityState.Modified;
                 db.SaveChanges();
 
-                    if (userStatus.Status == "Active" && prev == "New")
+                using (var appdb = new ApplicationDbContext())
+                {
+                    var item = appdb.Users.FirstOrDefault(x => x.UserName == userStatus.Username);
+                    item.Email = userStatus.Email;
+
+                    appdb.SaveChanges();
+                }
+
+                if (userStatus.Status == "Active" && prev == "New")
                     {
                         MailService mail = new MailService("vaccination@hileya.co.za", "V@@5hY9a");
                         mail.SendMail(userStatus.Email, "Access Granted: Confirmation of Access to Vaccination Manager", "<html><body><h3>Hi " + userStatus.Username +"</h3>" + "<br/><p>This message is to confirm an Approval by Admin for your access request on Vaccination Manager.<br/>You will now be able to log onto the system. For more information you can contact your branch manager or Admin.</p><br/><p>Regards</p><b><p>Vaccination Manager Team</p></b></body></html>");
@@ -184,6 +192,18 @@ namespace VaccinationManager.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             UserStatus userStatus = db.UserStatus.Find(id);
+
+            if (User.Identity.Name == "admin01")
+            {
+                using (var appdb = new ApplicationDbContext())
+                {
+                    var item     = appdb.Users.FirstOrDefault(x => x.UserName != "admin01" && x.UserName == userStatus.Username);
+                    appdb.Users.Remove(item);
+
+                    appdb.SaveChanges();
+                }
+            }
+
             db.UserStatus.Remove(userStatus);
             db.SaveChanges();
             return RedirectToAction("Index");

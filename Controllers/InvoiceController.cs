@@ -135,8 +135,9 @@ namespace VaccinationManager.Controllers
             {
                 //var obj = (List<ExtendedFeesCustom>)Request["Model.ExtendedFeeList"];
                 //string test = obj[0].FeeName;
-                var obj2 = Request["VaccinationDate"];
-
+                var obj2 = model.InvoiceFromDate.ToString().Substring(0, model.InvoiceFromDate.ToString().LastIndexOf(" "));
+                string obj3 = obj2.Substring(0, obj2.LastIndexOf(" "));
+                obj2 = obj3;
                 if (!isValidDate(obj2))
                 {
                     Session["DateError"] = "Invalid";
@@ -167,8 +168,8 @@ namespace VaccinationManager.Controllers
             int day, month, year;
             bool IsDayValid, isMonthValid, isYearValid;
 
-            IsDayValid = Int32.TryParse(date[0], out day);
-            isMonthValid = Int32.TryParse(date[1], out month);
+            IsDayValid = Int32.TryParse(date[1], out day);
+            isMonthValid = Int32.TryParse(date[0], out month);
             isYearValid = Int32.TryParse(date[2], out year);
 
             if (!IsDayValid || !isMonthValid || !isYearValid)

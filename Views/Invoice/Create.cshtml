@@ -5,7 +5,7 @@
 
     ViewBag.CurrentPage = "Invoice";
 
-    Session["DefaultDate"] = DateTime.Now.ToString("dd/MM/yyyy");
+    Session["DefaultDate"] = DateTime.Now;
 }
 
 @*<script type="text/javascript" src="/scripts/jquery-2.1.3.min.js"></script>
@@ -87,7 +87,7 @@
             @*@Html.Label("Invalid Date Entered", htmlAttributes: new { @class = "InvalidDateError", id = "errorLabel" , visible = ""})*@
           
             @Html.Label("Vaccination Date", htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.TextBox("VaccinationDate", @Session["DefaultDate"], new {@class = "form-control", placeholder = "DD/MM/YYYY", id = "VaccinationDate"})
+            @Html.EditorFor(model => model.InvoiceFromDate, new {@class = "form-control", placeholder = "DD/MM/YYYY", id = "VaccinationDate"})
 
             
             <hr/>

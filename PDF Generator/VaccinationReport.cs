@@ -11,6 +11,8 @@ using VaccinationManager.Models;
 using VaccinationManager.Controllers;
 using PdfSharp.Drawing;
 using System.Drawing;
+using MigraDoc.DocumentObjectModel.Shapes.Charts;
+using Color = MigraDoc.DocumentObjectModel.Color;
 
 namespace VaccinationManager.PDF_Generator
 {
@@ -27,12 +29,26 @@ namespace VaccinationManager.PDF_Generator
 
             DefineStyles();
 
-            CreatePage();
-
-            FillContent(vaccinations, child, branch);
-
-            CreateMeasurementsPage();
-            FillMeasurementsContent(measurements);
+            CreatePage(child);
+            try
+            {
+                List<ChildVaccination> tmp = vaccinations.Where(x => x.Vaccinated == true).ToList();
+                ChildVaccination tmpChild = vaccinations.FirstOrDefault(x => x.DueDate > DateTime.Today && x.Vaccinated == false);
+                if (tmpChild != null)
+                {
+                    tmp.Add(tmpChild);
+                }
+                
+                FillContent(tmp, child, branch);
+                CreateMeasurementsPage(measurements);
+                FillMeasurementsContent(measurements);
+            }
+            catch (Exception ex)
+            {
+                
+                
+            }
+            
 
             return this.document;
         }
@@ -73,6 +89,16 @@ namespace VaccinationManager.PDF_Generator
             style.ParagraphFormat.SpaceBefore = "5mm";
             style.ParagraphFormat.SpaceAfter = "5mm";
             style.ParagraphFormat.TabStops.AddTabStop("16cm", TabAlignment.Right);
+
+            style = document.Styles["Heading1"];
+            style.Font.Name = "Tahoma";
+            style.Font.Size = 14;
+            style.ParagraphFormat.Alignment = ParagraphAlignment.Center;
+            style.Font.Bold = true;
+            style.Font.Color = Colors.Black;
+            style.ParagraphFormat.PageBreakBefore = true;
+            style.ParagraphFormat.SpaceAfter = 6;
+           
         }
 
         public PdfDocument AppendImageToPdf(byte[] img)
@@ -106,11 +132,11 @@ namespace VaccinationManager.PDF_Generator
             return scale;
         }
 
-        void CreatePage()
+        void CreatePage(Child child)
         {
             // Each MigraDoc document needs at least one section.
             Section section = this.document.AddSection();
-
+            section.AddParagraph("Summary Report on " + child.Name + " " + child.Surname, "heading1");
             //// Put a logo in the header
             //Image image = section.Headers.Primary.AddImage("../../PowerBooks.png");
             //image.Height = "2.5cm";
@@ -127,7 +153,6 @@ namespace VaccinationManager.PDF_Generator
 
             // Create footer
             Paragraph paragraph = section.Footers.Primary.AddParagraph();
-            paragraph.AddText("Vaccincation Manager");
             paragraph.Format.Font.Size = 9;
             paragraph.Format.Alignment = ParagraphAlignment.Center;
 
@@ -151,7 +176,9 @@ namespace VaccinationManager.PDF_Generator
             //paragraph.AddDateField("dd.MM.yyyy");
 
             var par = section.AddParagraph();
-            par.AddFormattedText("Vaccinations");
+            par.AddTab(); par.AddTab(); par.AddTab(); par.AddTab();
+            par.AddFormattedText("Vaccinations", TextFormat.Bold);
+            par.AddLineBreak(); par.AddLineBreak();
             // Create the item table
             this.table = section.AddTable();
             this.table.Style = "Table";
@@ -162,19 +189,19 @@ namespace VaccinationManager.PDF_Generator
             this.table.Rows.LeftIndent = 0;
 
             // Before you can add a row, you must define the columns
-            Column column = this.table.AddColumn("2cm");
-            column.Format.Alignment = ParagraphAlignment.Left;
-
-            column = this.table.AddColumn("3cm");
+            Column column = this.table.AddColumn("1.7cm");
             column.Format.Alignment = ParagraphAlignment.Left;
 
             column = this.table.AddColumn("2cm");
             column.Format.Alignment = ParagraphAlignment.Left;
+            
+            column = this.table.AddColumn("3cm");
+            column.Format.Alignment = ParagraphAlignment.Left;
 
             column = this.table.AddColumn("2.5cm");
             column.Format.Alignment = ParagraphAlignment.Left;
 
-            column = this.table.AddColumn("2.5cm");
+            column = this.table.AddColumn("2cm");
             column.Format.Alignment = ParagraphAlignment.Left;
 
             column = this.table.AddColumn("2.5cm");
@@ -188,16 +215,18 @@ namespace VaccinationManager.PDF_Generator
             row.HeadingFormat = true;
             row.Format.Alignment = ParagraphAlignment.Center;
             row.Format.Font.Bold = true;
-            row.Shading.Color = Colors.LightBlue;
-            row.Cells[0].AddParagraph("Date Due");
+           
+            row.Shading.Color = Color.FromCmyk(0, 46, 62, 10);
+            row.Cells[0].AddParagraph("Date");
             row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[0].VerticalAlignment = VerticalAlignment.Bottom;
+            row.Format.Font.Color = Colors.White;
 
-            row.Cells[1].AddParagraph("Name");
+            row.Cells[1].AddParagraph("Vaccine Name");
             row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[1].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[2].AddParagraph("Abbreviation");
+            row.Cells[2].AddParagraph("Description");
             row.Cells[2].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[2].VerticalAlignment = VerticalAlignment.Bottom;
 
@@ -205,7 +234,7 @@ namespace VaccinationManager.PDF_Generator
             row.Cells[3].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[3].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[4].AddParagraph("Serial Number");
+            row.Cells[4].AddParagraph("Batch Number");
             row.Cells[4].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[4].VerticalAlignment = VerticalAlignment.Bottom;
 
@@ -213,7 +242,7 @@ namespace VaccinationManager.PDF_Generator
             row.Cells[5].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[5].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[6].AddParagraph("Place of Administration");
+            row.Cells[6].AddParagraph("Branch");
             row.Cells[6].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[6].VerticalAlignment = VerticalAlignment.Bottom;
 
@@ -235,6 +264,9 @@ namespace VaccinationManager.PDF_Generator
         }
         void FillContent(List<ChildVaccination> vaccinations , Child child, string branch)
         {
+            
+            
+            
             Details.AddFormattedText("Name", TextFormat.Bold);
             Details.AddTab();
             Details.AddTab();
@@ -242,6 +274,7 @@ namespace VaccinationManager.PDF_Generator
             Details.AddTab();
             Details.AddText(child.Name);
             Details.AddLineBreak();
+            Details.Format.Font.Size = 10;
 
             Details.AddFormattedText("Surname", TextFormat.Bold);
             Details.AddTab();
@@ -262,25 +295,6 @@ namespace VaccinationManager.PDF_Generator
             Details.AddTab();
             Details.AddTab();
             Details.AddText(child.BloodType.ToString());
-            Details.AddLineBreak();
-
-            Details.AddFormattedText("Weight", TextFormat.Bold);
-            Details.AddTab();
-            Details.AddTab();
-            Details.AddTab();
-            Details.AddText(child.Weight.ToString());
-            Details.AddLineBreak();
-
-            Details.AddFormattedText("Height", TextFormat.Bold);
-            Details.AddTab();
-            Details.AddTab();
-            Details.AddTab();
-            Details.AddText(child.Height.ToString());
-            Details.AddLineBreak();
-
-            Details.AddFormattedText("Head Circumference", TextFormat.Bold);
-            Details.AddTab();
-            Details.AddText(child.HeadCircumference.ToString());
             Details.AddLineBreak();
 
             Details.AddLineBreak();
@@ -346,7 +360,8 @@ namespace VaccinationManager.PDF_Generator
                 string dueDate = vacc.DueDate.HasValue ? vacc.DueDate.Value.ToShortDateString() : "";
                 row1.Cells[0].AddParagraph(dueDate);
                 row1.Cells[1].AddParagraph(vacc.Name);
-                row1.Cells[2].AddParagraph(vacc.Code);
+                string descr = !string.IsNullOrEmpty(vacc.Description) ? vacc.Description : "";
+                row1.Cells[2].AddParagraph(descr);
                 row1.Cells[3].AddParagraph(vacc.DateVaccinated.HasValue ? vacc.DateVaccinated.Value.ToShortDateString() : "");
                 row1.Cells[4].AddParagraph(vacc.SerialNumber ?? "");
                 row1.Cells[5].AddParagraph(vacc.Signature ?? "");
@@ -364,7 +379,7 @@ namespace VaccinationManager.PDF_Generator
             
         }
 
-        void CreateMeasurementsPage()
+        void CreateMeasurementsPage(List<ChildMeasurement> measurements)
         {
             // Each MigraDoc document needs at least one section.
             Section section = this.document.AddSection();
@@ -385,7 +400,6 @@ namespace VaccinationManager.PDF_Generator
 
             // Create footer
             Paragraph paragraph = section.Footers.Primary.AddParagraph();
-            paragraph.AddText("Vaccincation Manager");
             paragraph.Format.Font.Size = 9;
             paragraph.Format.Alignment = ParagraphAlignment.Center;
 
@@ -409,7 +423,9 @@ namespace VaccinationManager.PDF_Generator
             //paragraph.AddDateField("dd.MM.yyyy");
 
             var par = section.AddParagraph();
-            par.AddFormattedText("Child Measurements");
+            par.AddTab(); par.AddTab(); par.AddTab(); par.AddTab();
+            par.AddFormattedText("Child Measurements", TextFormat.Bold);
+            par.AddLineBreak(); par.AddLineBreak();
             // Create the item table
             this.table = section.AddTable();
             this.table.Style = "Table";
@@ -431,43 +447,39 @@ namespace VaccinationManager.PDF_Generator
 
             column = this.table.AddColumn("2.5cm");
             column.Format.Alignment = ParagraphAlignment.Left;
+            
 
-            column = this.table.AddColumn("2.5cm");
-            column.Format.Alignment = ParagraphAlignment.Left;
-
-            column = this.table.AddColumn("2.5cm");
-            column.Format.Alignment = ParagraphAlignment.Right;
-
-            column = this.table.AddColumn("2.5cm");
-            column.Format.Alignment = ParagraphAlignment.Right;
+            
 
             // Create the header of the table
             Row row = table.AddRow();
             row.HeadingFormat = true;
             row.Format.Alignment = ParagraphAlignment.Center;
             row.Format.Font.Bold = true;
-            row.Shading.Color = Colors.LightBlue;
-            row.Cells[0].AddParagraph("Weight");
+            row.Shading.Color = Color.FromCmyk(0, 46, 62, 10);
+
+            row.Cells[0].AddParagraph("Created");
             row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[0].VerticalAlignment = VerticalAlignment.Bottom;
+            row.Format.Font.Color = Colors.White;
 
-            row.Cells[1].AddParagraph("Height");
+            row.Cells[1].AddParagraph("Weight");
             row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[1].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[2].AddParagraph("Head Circumference");
+            row.Cells[2].AddParagraph("Height");
             row.Cells[2].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[2].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[3].AddParagraph("Created");
+            row.Cells[3].AddParagraph("Head Circumference");
             row.Cells[3].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[3].VerticalAlignment = VerticalAlignment.Bottom;
 
-            row.Cells[4].AddParagraph("Child ID");
-            row.Cells[4].Format.Alignment = ParagraphAlignment.Left;
-            row.Cells[4].VerticalAlignment = VerticalAlignment.Bottom;
 
-            
+            section.Add(GetHeightChart(measurements));
+
+
+
 
             //row = table.AddRow();
             //row.HeadingFormat = true;
@@ -505,15 +517,14 @@ namespace VaccinationManager.PDF_Generator
                 //row1.Cells[1].MergeRight = 3;
                 //row1.Cells[5].Shading.Color = Colors.Gray;
                 //row1.Cells[5].MergeDown = 1;
+                row1.Cells[0].AddParagraph(measurement.Created.ToShortDateString());
+                row1.Cells[1].AddParagraph(measurement.Weight.ToString());
+                row1.Cells[2].AddParagraph(measurement.Height.ToString());
+                row1.Cells[3].AddParagraph(measurement.HeadCircumference.ToString());
                 
-                row1.Cells[0].AddParagraph(measurement.Weight.ToString());
-                row1.Cells[1].AddParagraph(measurement.Height.ToString());
-                row1.Cells[2].AddParagraph(measurement.HeadCircumference.ToString());
-                row1.Cells[3].AddParagraph(measurement.Created.ToShortDateString());
-                row1.Cells[4].AddParagraph(measurement.ChildID);
 
 
-                this.table.SetEdge(0, this.table.Rows.Count - 2, 6, 2, Edge.Box, BorderStyle.Single, 0.75);
+                //this.table.SetEdge(0, this.table.Rows.Count - 2, 6, 2, Edge.Box, BorderStyle.Single, 0.75);
                 //}
             }
 
@@ -524,11 +535,51 @@ namespace VaccinationManager.PDF_Generator
 
         }
 
+        public Chart GetHeightChart(List<ChildMeasurement> measurements)
+        {
+            HeightChart = new Chart(ChartType.Line);
+            Series series = HeightChart.SeriesCollection.AddSeries();
+            series.Name = "Height";
+            List<double> heightList = new List<double>();
+            List<string> dateList = new List<string>();
+
+            foreach (ChildMeasurement msr in measurements)
+            {
+                heightList.Add(msr.Height);
+                dateList.Add(msr.Created.ToString("yyyy-MM-dd"));
+            }
+
+            series.Add(heightList.ToArray());
+
+            HeightChart.XAxis.MajorTickMark = TickMarkType.Outside;
+            HeightChart.XAxis.Title.Caption = "X-Axis";
+
+            HeightChart.YAxis.MajorTickMark = TickMarkType.Outside;
+            HeightChart.YAxis.Title.Caption = "Y-Axis";
+            HeightChart.YAxis.HasMajorGridlines = true;
+
+            HeightChart.PlotArea.LineFormat.Color = Colors.Black;
+            HeightChart.PlotArea.LineFormat.Width = 1;
+            HeightChart.PlotArea.LineFormat.Visible = true;
+
+            HeightChart.Width = 5;
+            //HeightChart.Legend.Docking = DockingType.Bottom;
+           // HeightChart.Legend.LineFormat.Visible = true;
+
+            XSeries xseries = HeightChart.XValues.AddXSeries();
+            xseries.Add(dateList.ToArray());
+            return HeightChart;
+        }
+
+
+
         public Paragraph Details { get; set; }
 
         public Document document { get; set; }
 
         public TextFrame addressFrame { get; set; }
+
+        public Chart HeightChart { get; set; }
 
         public MigraDoc.DocumentObjectModel.Tables.Table table { get; set; }
     }

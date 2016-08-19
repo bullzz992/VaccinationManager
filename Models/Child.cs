@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -47,6 +48,13 @@ namespace VaccinationManager.Models
         
         public ICollection<Vaccination> Vaccinations { get; set; }
 
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? DateOfBirth { get; set; }
+
+        public string MedicalAidDependantCode { get; set; }
+
         [NotMapped]
         public List<ChildVaccination> VaccinationDetails { get; set; }
 
@@ -62,5 +70,6 @@ namespace VaccinationManager.Models
         {
             return (Father == null) ? false : Father.Found;
         }
+        
     }
 }

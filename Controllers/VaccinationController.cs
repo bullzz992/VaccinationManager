@@ -23,7 +23,7 @@ namespace VaccinationManager.Controllers
         {
             ViewBag.CurrentPage = "Vaccination";
             var Vaccinations = db.VaccinationDefinitions.//Include("Age").//Join(db.Ages, d => d.Id, a => a.VaccinationDefinition_Id, (d, a) => { }).
-                OrderBy(q => q.Name).ToList();
+                OrderBy(q => q.Age.Code).ToList();
             //ViewBag.SelectedVaccination = new SelectList(Vaccinations, "Id", "Code", SelectedVaccination);
             //int departmentID = SelectedVaccination.GetValueOrDefault();
 
@@ -93,6 +93,15 @@ namespace VaccinationManager.Controllers
         public ActionResult Edit(Guid id)
         {
             ViewBag.CurrentPage = "Vaccination";
+
+            List<SelectListItem> ls = new List<SelectListItem>();
+
+            foreach (Age item in db.Ages)
+            {
+                ls.Add(new SelectListItem { Text = item.Description, Value = item.Code.ToString() });
+            }
+            ViewBag.AgeGroups = ls;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -108,32 +117,53 @@ namespace VaccinationManager.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost(Guid id)
+        public ActionResult EditPost(VaccinationDefinition vaccDefinition)
         {
             ViewBag.CurrentPage = "Vaccination";
-            if (id == null)
+            if (vaccDefinition == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var VaccinationToUpdate = db.VaccinationDefinitions.Find(id);
-            if (TryUpdateModel(VaccinationToUpdate, "",
-               new string[] { "Title", "Credits", "DepartmentID" }))
-            {
-                try
-                {
-                    db.Entry(VaccinationToUpdate).State = EntityState.Modified;
-                    db.SaveChanges();
 
-                    return RedirectToAction("Index");
-                }
-                catch (RetryLimitExceededException /* dex */)
-                {
-                    //Log the error (uncomment dex variable name and add a line here to write a log.
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                }
+            if (ModelState.IsValid)
+            {
+                //public string Code { get; set; }
+                //public string Name { get; set; }
+                //public virtual Age Age { get; set; }
+                //public string Description { get; set; }
+                //public string ICDCode { get; set; }
+                //public decimal? Price { get; set; } = (decimal)0.00;
+                var obj = db.VaccinationDefinitions.FirstOrDefault(x => x.Id == vaccDefinition.Id);
+                obj.Code = vaccDefinition.Code;
+                obj.Name = vaccDefinition.Name;
+                obj.Age = db.Ages.FirstOrDefault(x=>x.Code == vaccDefinition.Age.Code);
+                obj.Description = vaccDefinition.Description;
+                obj.ICDCode = vaccDefinition.ICDCode;
+                obj.Price = vaccDefinition.Price;
+                //db.Entry(vaccDefinition).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            PopulateVaccinationDefinitionDropDownList(VaccinationToUpdate.Id);
-            return View(VaccinationToUpdate);
+            return View(vaccDefinition);
+            //var VaccinationToUpdate = db.VaccinationDefinitions.Find(id);
+            //if (TryUpdateModel(VaccinationToUpdate, "",
+            //   new string[] { "Title", "Credits", "DepartmentID" }))
+            //{
+            //    try
+            //    {
+            //        db.Entry(VaccinationToUpdate).State = EntityState.Modified;
+            //        db.SaveChanges();
+
+            //        return RedirectToAction("Index");
+            //    }
+            //    catch (RetryLimitExceededException /* dex */)
+            //    {
+            //        //Log the error (uncomment dex variable name and add a line here to write a log.
+            //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            //    }
+            //}
+            //PopulateVaccinationDefinitionDropDownList(VaccinationToUpdate.Id);
+            //return View(VaccinationToUpdate);
         }
 
         private void PopulateVaccinationDefinitionDropDownList(object selectedDepartment = null)
@@ -146,7 +176,7 @@ namespace VaccinationManager.Controllers
 
 
         // GET: Vaccination/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(Guid? id)
         {
             ViewBag.CurrentPage = "Vaccination";
             if (id == null)
@@ -164,7 +194,7 @@ namespace VaccinationManager.Controllers
         // POST: Vaccination/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
             VaccinationDefinition Vaccination = db.VaccinationDefinitions.Find(id);
             db.VaccinationDefinitions.Remove(Vaccination);

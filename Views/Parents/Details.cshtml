@@ -9,110 +9,167 @@
 <div style="background-color: #e57c58; width: calc(100%); height: 5px;"></div>
 
 <div>
-   
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.Label("ID Number")
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IdNumber)
-        </dd>
+    <hr/>
+    <table style="width: 100%;">
+        <tr >
+            <th>
+                <h4>Parent</h4>
+                <hr />
+            </th>
+            <th >
+                <h4>Children</h4>
+                <hr />
+            </th>
+        </tr>
+        <tr>
+            <td>
+                
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.Label("ID Number")
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IdNumber)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Surname)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Surname)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Telephone)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Telephone)
-        </dd>
+                    <dt>
+                        @Html.DisplayName("Home Telephone")
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cellphone)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.HomeTel)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cellphone)
-        </dd>
+                    <dt>
+                        @Html.DisplayName("Business Telephone")
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Telephone)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Cellphone)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BloodType)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Cellphone)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.BloodType)
-        </dd>
-    </dl>
-    <br />
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
 
-    <h4>Children</h4>
-    <hr />
-    @foreach (var item in Model.Children)
-    {
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.Label("ID Number")
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => item.IdNumber)
-            </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BloodType)
+                    </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => item.Surname)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.BloodType)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => item.Surname)
-            </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Employer)
+                    </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => item.Name)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Employer)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => item.Name)
-            </dd>
+                    <dt>
+                        @Html.DisplayName("Medical Aid Name")
+                    </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => item.BloodType)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.MedicalAidName)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => item.BloodType)
-            </dd>
-            <dd>
-                @Html.ActionLink("View", "Details", "Children", new { id = item.IdNumber }, null)
-            </dd>
-        </dl>
-        <br />
+                    <dt>
+                        @Html.DisplayName("Medical Aid Number")
+                    </dt>
 
-    }
+                    <dd>
+                        @Html.DisplayFor(model => model.MedicalAidNumber)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Medical Aid Plan")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MedicalAidPlan)
+                    </dd>
+                </dl>
+                <br/>
+            </td>
+            <td style="vertical-align: top;">
+                
+                @foreach (var item in Model.Children)
+            {
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.Label("ID Number")
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => item.IdNumber)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => item.Surname)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => item.Surname)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => item.Name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => item.Name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => item.BloodType)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => item.BloodType)
+                        </dd>
+                        <dd>
+                            @Html.ActionLink("View Full Details", "Details", "Children", new { id = item.IdNumber }, null)
+                        </dd>
+                    </dl>
+                    <br />
+
+                }
+            </td>
+        </tr>
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.IdNumber }) |

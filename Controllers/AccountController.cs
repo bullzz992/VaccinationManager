@@ -148,7 +148,7 @@ namespace VaccinationManager.Controllers
                     ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
                     identity.AddClaim(new Claim(ClaimTypes.Name, model.Username));
                     Session["AccessLevel"] = resultStatusObj.Branch_Practice_No;
-                    InitiateVaccinationPrices();
+                    //InitiateVaccinationPrices();
                     
                     string s = User.Identity.Name;
                     return RedirectToLocal(returnUrl);

@@ -25,15 +25,15 @@
            
 
             <dt>
-                @Html.DisplayNameFor(model => model.Code)
+                @Html.DisplayName("Child Age")
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Code)
+                @Html.DisplayFor(model => model.Age.Description)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayName("Vaccine Name")
             </dt>
 
             <dd>
@@ -41,11 +41,35 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model=>model.Description)
             </dt>
+
             <dd>
-                Detailed description of the Vaccination goes here
+                @Html.DisplayFor(model => model.Description)
             </dd>
+
+            <dt>
+                @Html.DisplayName("Nappi Code")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Code)
+            </dd>
+            <dt>
+                @Html.DisplayName("ICD 10 Code")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ICDCode)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+
         </dl>
     </div>
     <p>

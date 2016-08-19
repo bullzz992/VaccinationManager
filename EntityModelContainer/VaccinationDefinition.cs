@@ -20,6 +20,8 @@ namespace EntityModelContainer
         public string Description { get; set; }
         public string Discriminator { get; set; }
         public Nullable<int> Age_Code { get; set; }
+        public string ICDCode { get; set; }
+        public Nullable<decimal> Price { get; set; }
     
         public virtual Age Age { get; set; }
     }

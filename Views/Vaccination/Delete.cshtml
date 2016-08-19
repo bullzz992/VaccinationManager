@@ -1,4 +1,4 @@
-﻿@model VaccinationManager.Models.Vaccination
+﻿@model VaccinationManager.Models.VaccinationDefinition
 
 @{
     ViewBag.Title = "Delete";
@@ -14,35 +14,49 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Administrator
+            @Html.DisplayName("Child Age")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Administrator)
+            @Html.DisplayFor(model => model.Age.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayName("Vaccine Name")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Date)
+            @Html.DisplayFor(model => model.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IdNumber)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IdNumber)
+            @Html.DisplayFor(model => model.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SerialNumber)
+            @Html.DisplayName("Nappi Code")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SerialNumber)
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt>
+            @Html.DisplayName("ICD 10 Code")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ICDCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
         </dd>
 
     </dl>
@@ -52,7 +66,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color" style="text-align:right">
-            <input type="submit" value="Delete" class="btn btn-default" style="width:200px" align="right" /> |
+            <input type="submit" value="Delete" class="btn btn-default" style="width:200px" align="right" /> 
         </div>
     }
 </div>

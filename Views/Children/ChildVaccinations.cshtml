@@ -17,19 +17,25 @@
                 Child Age
             </th>
             <th>
-                Code
+                Vaccine Name
             </th>
             <th>
-                Name
+                Description
             </th>
             <th>
-                Vaxinated
+                Nappi Code
+            </th>
+            <th>
+                ICD 10 Code
+            </th>
+            <th>
+                Vaccinated
             </th>
             <th>
                 Date
             </th>
             <th>
-                Serial Number
+                Batch Number
             </th>
             <th>
                 Signature
@@ -43,10 +49,16 @@
                     @Html.DisplayFor(v => v[i].Age.Description)
                 </td>
                 <td>
+                    @Html.DisplayFor(v => v[i].Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(v => v[i].Description)
+                </td>
+                <td>
                     @Html.DisplayFor(v => v[i].Code)
                 </td>
                 <td>
-                    @Html.DisplayFor(v => v[i].Name)
+                    @Html.DisplayFor(v => v[i].ICDCode)
                 </td>
                 <td>
 
